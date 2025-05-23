@@ -1,6 +1,5 @@
 name: Epic
 description: Create a new Epic.
-title: "[Epic]: "
 type: "Epic"
 body:
   - type: markdown
@@ -24,3 +23,8 @@ body:
       placeholder: Short description of the result
     validations:
       required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Any additional information or context related to the user story.
