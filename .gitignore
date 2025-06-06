@@ -2,3 +2,4 @@ dist
 nodes_modules
 vendor
 /nodes_modules
+/node_modules/
