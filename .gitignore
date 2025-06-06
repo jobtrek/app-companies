@@ -1,4 +1,4 @@
 dist
 nodes_modules
 vendor
-
+/nodes_modules
