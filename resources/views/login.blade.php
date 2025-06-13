@@ -14,7 +14,7 @@
     <img
         src="{{ asset('images/Job.png') }}"
         class="bg-white rounded-full w-32 h-32 object-cover absolute -top-16 left-1/2
-           transform -translate-x-1/2 border-4 border-white shadow-lg custom-img mt-8"
+           transform -translate-x-1/2 border-4 shadow-lg  border-regal-blue mt-8"
     />
 
     <div class="bg-gray-400 p-10 pt-18 rounded-3xl flex flex-col gap-6 custom-bg">
