@@ -27,3 +27,4 @@ Pour finir exécuter les migrations :
 ```
 sail artisan migrate
 ```
+s
