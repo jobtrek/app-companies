@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('formateurs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps('created_at');
+            $table->timestamps();
             $table->string('name', 255);
             $table->string('lastname', 255);
             $table->string('photo');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('phone_number');
-            $table->boolean('admin');
+            $table->boolean('admin')->default(false);
         });
     }
 

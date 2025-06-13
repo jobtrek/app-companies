@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('description');
             $table->foreignId('apprentis_id')->constrained();
             $table->foreignId('coach_id')->constrained();
-            $table->string('file');
-
         });
     }
 
