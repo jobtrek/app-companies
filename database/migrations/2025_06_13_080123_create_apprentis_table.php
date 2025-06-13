@@ -16,17 +16,17 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name', 255);
             $table->string('lastname', 255);
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('role');
-            $table->integer('age');
-            $table->date('birthday');
+            $table->integer('age')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('email');
             $table->string('password');
-            $table->string('CV');
-            $table->string('phone_number');
-            $table->foreignId('coach_id')->constrained();
-            $table->foreignId('formateur_id')->constrained();
-            $table->string('entreprise');
+            $table->string('CV')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->foreignId('coach_id')->nullable()->constrained();
+            $table->foreignId('formateur_id')->nullable()->constrained();
+            $table->string('entreprise')->nullable();
             $table->boolean('admin')->default(false);
 
         });

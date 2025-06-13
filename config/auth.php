@@ -40,6 +40,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'Apprenti' => [
+            'driver' => 'session',
+            'provider' => 'apprentis',
+        ],
+
+        'Formateur' => [
+            'driver' => 'session',
+            'provider' => 'formateurs',
+        ],
+
+        'Coach' => [
+            'driver' => 'session',
+            'provider' => 'coaches',
+        ],
     ],
 
     /*
@@ -65,10 +80,20 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'apprentis' => [
+             'driver' => 'eloquent',
+             'model' => App\Models\Apprenti::class,
+        ],
+
+        'formateurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Formateur::class,
+        ],
+
+        'coaches' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Coach::class,
+        ],
     ],
 
     /*
