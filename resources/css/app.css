@@ -29,3 +29,15 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, #AACA36, #628C3F);
     border-color: #628C3F;
 }
+:root {
+    --color-black: #1E1D1C;
+    --color-green-50: #AACA36;
+    --color-green-100: #628C3F;
+    --hover-color: #1C2366
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Karla', sans-serif;
+}
