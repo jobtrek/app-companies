@@ -51,6 +51,8 @@ class User extends Authenticatable
         if (Auth::guard("{$credentials['role']}")->attempt($credentials)) {
             session()->regenerate();
             return redirect()->intended('/');
+        } else {
+            return back()->withErrors(['role' => 'Login role invalid']);
         }
     }
 }
