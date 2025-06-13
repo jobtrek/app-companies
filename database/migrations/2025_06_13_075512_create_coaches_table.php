@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('role');
-            $table->string('photo');
-            $table->integer('age');
-            $table->date('birthday');
+            $table->string('photo')->nullable();
+            $table->integer('age')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('email');
             $table->string('password');
-            $table->string('phone_number');
-         $table->boolean('admin')->default(false);
+            $table->string('phone_number')->nullable();
+            $table->boolean('admin')->default(false);
         });
     }
 
