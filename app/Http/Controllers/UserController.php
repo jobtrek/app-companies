@@ -41,4 +41,11 @@ class UserController extends Controller
             return back()->withErrors(['role' => 'Login role invalid']);
         }
     }
+
+    public function index()
+    {
+        $apprentis = Apprenti::all();
+
+        return view('homepage', ['apprentis' => $apprentis]);
+    }
 }
