@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Apprenti extends User
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'lastname',

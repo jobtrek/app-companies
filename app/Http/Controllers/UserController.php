@@ -8,7 +8,6 @@ use App\Models\Coach;
 use App\Models\Formateur;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -18,13 +17,14 @@ class UserController extends Controller
         $role = $request->input('role');
         if (Str::contains($role, 'Apprenti')) {
             Apprenti::create($request->all());
-        } else if(Str::contains($role, 'Formateur')) {
+        } elseif (Str::contains($role, 'Formateur')) {
             Formateur::create($request->all());
-        } else if(Str::contains($role, 'Coach')) {
+        } elseif (Str::contains($role, 'Coach')) {
             Coach::create($request->all());
         } else {
             return back()->withErrors(['role' => 'Role invalid']);
         }
+
         return back();
     }
 
@@ -34,7 +34,7 @@ class UserController extends Controller
         $credentials = $request->validate([
             'role' => 'required|in:Apprenti-Commerce,Apprenti-Informaticien,Formateur-Commerce,Formateur-Informaticien,Coach',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
         if ($credentials['role'] === 'Apprenti-Commerce' ||
             $credentials['role'] === 'Apprenti-Informaticien' ||

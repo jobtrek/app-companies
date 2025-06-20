@@ -18,7 +18,7 @@
   </style>
 </head>
 <body class="flex flex-col md:flex-row min-h-screen">
-<aside class="sidebar-bg text-white w-full md:w-64 fixed bottom-0 md:flex flex md:flex-col justify-around md:justify-between p-2 md:py-8 md:px-6 z-10 md:h-screen">
+<aside class="sidebar-bg text-white w-full md:w-64 fixed bottom-0 md:static md:h-screen p-2 md:py-8 md:px-6 z-10 flex md:flex-col justify-around md:justify-between">
     <div class="hidden md:flex items-center justify-between mb-6">
       <span class="text-2xl font-bold text-green-50">Menu</span>
     </div>
@@ -39,8 +39,13 @@
       </div>
     </div>
   </aside>
+  
+<main class="flex-1 
+            md:px-[100px] 
+            smd:pt-16 sm:mt-10 
+            max-md:justify-items-center 
+            max-sm:flex-col max-sm:justify-items-start max-sm:ml-5 max-sm:mt-10">
 
-<main class="flex-1 md:pl-60 smd:pt-16 md:ml-30 sm:mt-10 max-md:justify-items-center max-sm:flex-sm:flex-col max-sm:justify-items-normal max-sm:ml-5 max-sm:mt-10">
     @yield('content')
   </main>
 @yield('script')
