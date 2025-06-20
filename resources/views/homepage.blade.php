@@ -19,8 +19,10 @@
         @foreach ($apprentis as $apprenti)
             <div class="flex flex-col items-start space-y-6 mb-4">
                 <div class="flex items-center space-x-4 bg-white p-4 rounded-lg">
-                    <img src="" class="w-16 h-16 rounded-full border-2"
-                         style="border-color: var(--color-green-50)" {{ $apprenti->name }}>
+        <img 
+            src="{{ $apprenti->photo }}" 
+            class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-green-100 shadow-sm" 
+        />
                     <div>
                         <h3 class="text-2xl font-semibold text-gray-800">{{ $apprenti->name }} {{ $apprenti->lastname }}</h3>
                         <p class="text-sm text-gray-600">Formation :

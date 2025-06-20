@@ -6,7 +6,7 @@
         <hr class="border-t border-gray-300 w-full mt-5">
     </header>
     <main>
-        <div class="flex flex-col sm:flex-row items-center sm:items-start justify-between bg-white p-6 rounded-lg shadow-md gap-6">
+        <div class="flex flex-col sm:flex-row items-center sm:items-center justify-between bg-white p-6 rounded-lg shadow-md gap-6">
         <img src="{{ $entreprise->photo }}" 
             class="w-32 h-32 sm:w-75 sm:h-75 object-cover rounded-full border-4 border-green-100" />
 
@@ -29,7 +29,16 @@
             </p>
     </div>
 
-</div>           
-<p class="text-gray-600 mt-25">{{ $entreprise->description }}</p>
+</div> 
+
+<div class="bg-white p-6 rounded-lg shadow-md mt-10 px-4 sm:px-6 lg:px-8">
+    <h1>A propos de cette entreprise</h1>
+    <p class="text-gray-700 text-base leading-relaxed">
+        {{ $entreprise->description }}
+    </p>
+</div>
+
+
+
 </main>
 @endsection

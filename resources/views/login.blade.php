@@ -50,7 +50,7 @@
         </div>
     </div>
 </div>
-=======
+
     <title>Login</title>
 </head>
 <body class="bg-gray-100 gap-4">
