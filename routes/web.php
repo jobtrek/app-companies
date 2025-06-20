@@ -20,6 +20,10 @@ Route::get('/profil-entreprise', function () {
     return view('profileEntreprise');
 });
 
+Route::get('/userProfile', function () {
+    return view('userProfile');
+});
+
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/creation', [UserController::class, 'create'])->name('creation');
