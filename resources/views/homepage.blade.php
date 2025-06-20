@@ -23,7 +23,7 @@
             <div>
                 <h3 class="text-2xl font-semibold text-gray-800">Nom de l'apprenti</h3>
                 <p class="text-sm text-gray-600">Formation : {{ $i % 2 == 0 ? 'Employé·e de commerce' : 'Informaticien·ne en développement d\'applications' }}</p>
-                <p class="text-sm text-gray-600">Actuellement chez {{ $i % 2 == 0 ? 'Entreprise SA' : 'Jobtrek' }}</p>
+                <p class="text-sm text-gray-600">Actuellement {{ $i % 2 == 0 ? 'au centre de formation' : 'dans tel entreprise' }}</p>
             </div>
         </div>
     </div>

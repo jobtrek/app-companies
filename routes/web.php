@@ -15,6 +15,4 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/creation', [UserController::class, 'create'])->name('creation');
 
-
 Route::get('/', [UserController::class, 'index'])->name('home');
-
