@@ -18,10 +18,10 @@ class ApprentiFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'lastname' =>  fake()->lastName(),
+            'lastname' => fake()->lastName(),
             'role' => fake()->randomElement(['Apprenti-Commerce', 'Apprenti-Informaticien']),
-            'email' =>  fake()->email(),
-            'password'  =>  fake()->password(),
+            'email' => fake()->email(),
+            'password' => fake()->password(),
         ];
     }
 }

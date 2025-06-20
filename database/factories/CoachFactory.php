@@ -18,10 +18,10 @@ class CoachFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'lastname' =>   fake()->lastName(),
+            'lastname' => fake()->lastName(),
             'role' => 'Coach',
-            'email' =>  fake()->email(),
-            'password'  =>  fake()->password(),
+            'email' => fake()->email(),
+            'password' => fake()->password(),
         ];
     }
 }

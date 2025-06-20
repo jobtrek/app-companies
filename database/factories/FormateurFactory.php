@@ -18,10 +18,10 @@ class FormateurFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'lastname' =>   fake()->lastName(),
+            'lastname' => fake()->lastName(),
             'role' => fake()->randomElement(['Formateur-Commerce',  'Formateur-Informaticien']),
-            'email' =>  fake()->email(),
-            'password'  =>  fake()->password(),
+            'email' => fake()->email(),
+            'password' => fake()->password(),
         ];
     }
 }
