@@ -19,7 +19,7 @@
     @foreach (range(1, 8) as $i)
     <div class="flex flex-col items-start space-y-6 mb-4">
         <div class="flex items-center space-x-4 bg-white p-4 rounded-lg">
-            <img src="" alt="Photo" class="w-16 h-16 rounded-full border-2" style="border-color: var(--color-green-50)">
+            <img src="" class="w-16 h-16 rounded-full border-2" style="border-color: var(--color-green-50)">
             <div>
                 <h3 class="text-2xl font-semibold text-gray-800">Nom de l'apprenti</h3>
                 <p class="text-sm text-gray-600">Formation : {{ $i % 2 == 0 ? 'Employé·e de commerce' : 'Informaticien·ne en développement d\'applications' }}</p>

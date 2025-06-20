@@ -81,8 +81,8 @@ return [
         ],
 
         'apprentis' => [
-             'driver' => 'eloquent',
-             'model' => App\Models\Apprenti::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\Apprenti::class,
         ],
 
         'formateurs' => [

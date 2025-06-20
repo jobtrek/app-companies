@@ -7,10 +7,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('homepage');
 });
-
 
 Route::get('/login', function () {
     return view('login');
@@ -19,4 +18,3 @@ Route::get('/login', function () {
 Route::post('/creation', [UserController::class, 'create'])->name('creation');
 
 Route::post('/login', [UserController::class, 'login'])->name('login');
-
