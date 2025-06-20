@@ -19,8 +19,8 @@
         @foreach ($apprentis as $apprenti)
             <div class="flex flex-col items-start space-y-6 mb-4">
                 <div class="flex items-center space-x-4 bg-white p-4 rounded-lg">
-                    <img src="" alt="Photo" class="w-16 h-16 rounded-full border-2"
-                         style="border-color: var(--color-green-50)">
+                    <img src="" class="w-16 h-16 rounded-full border-2"
+                         style="border-color: var(--color-green-50)" {{ $apprenti->name }}>
                     <div>
                         <h3 class="text-2xl font-semibold text-gray-800">{{ $apprenti->name }} {{ $apprenti->lastname }}</h3>
                         <p class="text-sm text-gray-600">Formation :
@@ -29,7 +29,6 @@
                             @else
                                 Informaticien développement d'applications
                             @endif
-
                         </p>
                         <p class="text-sm text-gray-600">Actuellement chez {{ $apprenti->entreprise }}</p>
                     </div>
