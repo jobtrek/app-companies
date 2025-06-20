@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->foreignId('coach_id')->nullable()->constrained();
             $table->foreignId('formateur_id')->nullable()->constrained();
-            $table->string('entreprise')->nullable();
+            $table->string('entreprise')->default('Centre de formation Jobtrek');
             $table->boolean('admin')->default(false);
 
         });
