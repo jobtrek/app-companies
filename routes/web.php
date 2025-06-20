@@ -8,11 +8,9 @@ Route::get('/login', function () {
     return view('login');
 });
 
-
 Route::get('/createcomments', function () {
     return view('createcomments');
 });
-
 
 Route::get('/', function () {
     return view('homepage');
