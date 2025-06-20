@@ -43,5 +43,6 @@
 <main class="flex-1 md:pl-60 smd:pt-16 md:ml-30 sm:mt-10 max-md:justify-items-center max-sm:flex-sm:flex-col max-sm:justify-items-normal max-sm:ml-5 max-sm:mt-10">
     @yield('content')
   </main>
+@yield('script')
 </body>
 </html>
