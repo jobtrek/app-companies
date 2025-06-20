@@ -24,6 +24,10 @@ Route::get('/userProfile', function () {
     return view('userProfile');
 });
 
+Route::get('/commentDetails', function () {
+    return view('commentDetails');
+});
+
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/creation', [UserController::class, 'create'])->name('creation');
