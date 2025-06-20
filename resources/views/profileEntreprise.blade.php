@@ -1,44 +1,63 @@
 @extends('layout')
+
 @section('title', 'Profil entreprise')
+
 @section('content')
     <header class="w-2/3">
         <h1 class="text-3xl font-bold">Profil de l'entreprise</h1>
         <hr class="border-t border-gray-300 w-full mt-5">
     </header>
-    <main>
-        <div class="flex flex-col sm:flex-row items-center sm:items-center justify-between bg-white p-6 rounded-lg shadow-md gap-6">
-        <img src="{{ $entreprise->photo }}" 
-            class="w-32 h-32 sm:w-75 sm:h-75 object-cover rounded-full border-4 border-green-100" />
 
-        <div class="flex-1 space-y-3">
-            <h2 class="text-2xl font-bold text-gray-800">{{ $entreprise->name }}</h2>
-            <p class="text-gray-600">
-                <span class="font-medium">📧 Email :</span> {{ $entreprise->email }}
+    <main class="space-y-10 mt-6">
+
+        <section class="flex flex-col sm:flex-row items-center bg-white p-6 rounded-lg shadow-md gap-6">
+            <img 
+                src="{{ $entreprise->photo }}" 
+                class="w-32 h-32 sm:w-75 sm:h-75 object-cover rounded-full border-4 border-green-100"
+            />
+
+            <div class="flex-1 space-y-3">
+                <h2 class="text-2xl font-bold text-gray-800">{{ $entreprise->name }}</h2>
+                
+                <p class="text-gray-600">
+                    <span class="font-medium">📧 Email :</span> {{ $entreprise->email }}
+                </p>
+
+                <p class="text-gray-600">
+                    <span class="font-medium">👤 Rôle :</span> {{ $entreprise->role }}
+                </p>
+
+                <p class="text-gray-600">
+                    <span class="font-medium">📞 Téléphone :</span> {{ $entreprise->phone_number }}
+                </p>
+
+                <p class="text-gray-600">
+                    <span class="font-medium">🌐 Site Web :</span>
+                    <a href="{{ $entreprise->link }}" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+                        {{ $entreprise->link }}
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-md px-4 sm:px-6 lg:px-8">
+            <h1 class="text-xl font-semibold mb-4">À propos de cette entreprise</h1>
+            <p class="text-gray-700 text-base leading-relaxed">
+                {{ $entreprise->description }}
             </p>
-            <p class="text-gray-600">
-                <span class="font-medium">👤 Rôle :</span> {{ $entreprise->role }}
-            </p>
-            <p class="text-gray-600">
-                <span class="font-medium">📞 Téléphone :</span> {{ $entreprise->phone_number }}
-            </p>
-            <p class="text-gray-600">
-                <span class="font-medium">🌐 Site Web :</span>
-                <a href="{{ $entreprise->link }}" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
-                    {{ $entreprise->link }}
-                </a>
-            </p>
-    </div>
+        </section>
 
-</div> 
-
-<div class="bg-white p-6 rounded-lg shadow-md mt-10 px-4 sm:px-6 lg:px-8">
-    <h1>A propos de cette entreprise</h1>
-    <p class="text-gray-700 text-base leading-relaxed">
-        {{ $entreprise->description }}
-    </p>
-</div>
+        <div class="relative h-30 sm:h-54">
+            <button class="
+                absolute bottom-10 left-1/2 w-max transform -translate-x-1/2
+                sm:left-0 sm:w-full sm:translate-x-0 
+                bg-blue-600 hover:bg-blue-700 
+                text-white font-medium py-2 px-4 
+                rounded shadow-md">
+                Lier un apprenti
+            </button>
+        </div>
 
 
-
-</main>
+    </main>
 @endsection

@@ -31,9 +31,7 @@
         <div class="flex flex-col gap-4 h-full items-center md:items-start">
             <img
                 id="preview"
-                class="bg-blue-100 w-full md:w-5/6 h-48 md:h-full p-4 rounded object-contain"
-                alt="Aperçu de l'image"
-            />
+                class="bg-blue-100 w-full md:w-5/6 h-48 md:h-full p-4 rounded object-contain"            />
 
             <div class="flex flex-row gap-4 items-center w-full max-w-md">
                 <input type="file" id="fileInput" style="display: none;" onchange="showFileName()">
