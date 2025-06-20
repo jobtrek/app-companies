@@ -9,17 +9,18 @@ use App\Models\Formateur;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     public function create(UserCreationRequest $request)
     {
         $role = $request->input('role');
-        if (str_contains($role, 'Apprenti')) {
+        if (Str::contains($role, 'Apprenti')) {
             Apprenti::create($request->all());
-        } else if(str_contains($role, 'Formateur')) {
+        } else if(Str::contains($role, 'Formateur')) {
             Formateur::create($request->all());
-        } else if(str_contains($role, 'Coach')) {
+        } else if(Str::contains($role, 'Coach')) {
             Coach::create($request->all());
         } else {
             return back()->withErrors(['role' => 'Role invalid']);
@@ -31,11 +32,15 @@ class UserController extends Controller
     {
 
         $credentials = $request->validate([
-            'role' => 'required|in:Apprenti,Formateur,Coach',
+            'role' => 'required|in:Apprenti-Commerce,Apprenti-Informaticien,Formateur-Commerce,Formateur-Informaticien,Coach',
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        if ($credentials['role'] === 'Apprenti' || $credentials['role'] === 'Formateur' || $credentials['role'] === 'Coach') {
+        if ($credentials['role'] === 'Apprenti-Commerce' ||
+            $credentials['role'] === 'Apprenti-Informaticien' ||
+            $credentials['role'] === 'Formateur-Commerce' ||
+            $credentials['role'] === 'Formateur-Informaticien' ||
+            $credentials['role'] === 'Coach') {
             User::attemptLogin($credentials);
         } else {
             return back()->withErrors(['role' => 'Login role invalid']);

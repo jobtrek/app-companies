@@ -31,7 +31,7 @@
 
     <div class="hidden md:flex mt-auto pt-6">
       <div class="flex items-center space-x-4 p-4 rounded-lg">
-        <img src="" alt="Photo du formateur ou coach" class="w-14 h-14 rounded-full border-2" style="border-color: var(--color-green-50)">
+        <img src="" class="w-14 h-14 rounded-full border-2" style="border-color: var(--color-green-50)">
         <div>
           <h3 class="text-l font-semibold">User</h3>
           <p class="text-sm">Job</p>
