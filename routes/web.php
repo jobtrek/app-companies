@@ -10,6 +10,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/createcomments', function () {
+    return view('createcomments');
+});
+
 
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
