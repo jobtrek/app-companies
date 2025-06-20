@@ -16,9 +16,9 @@ class UserController extends Controller
     public function create(UserCreationRequest $request)
     {
         $role = $request->input('role');
-        if (Str::contains($role, ['Apprenti', 'Apprenti'])) {
+        if (Str::contains($role, 'Apprenti')) {
             Apprenti::create($request->all());
-        } else if(Str::contains($role, ['Formateur', 'Formateur'])) {
+        } else if(Str::contains($role, 'Formateur')) {
             Formateur::create($request->all());
         } else if(Str::contains($role, 'Coach')) {
             Coach::create($request->all());
