@@ -11,31 +11,36 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/createcomments', function () {
+Route::get('/create-comment', function () {
     return view('createcomments');
 });
-
-Route::get('/createaccount', function () {
-    return view('createaccount');
   
 Route::get('/', function () {
     return view('homepage');
 });
 
-Route::get('/profil-entreprise', function () {
+Route::get('/company-profile', function () {
     return view('profileEntreprise');
 });
 
-Route::get('/userProfile', function () {
+Route::get('/user-profile', function () {
     return view('userProfile');
 });
 
-Route::get('/commentDetails', function () {
+Route::get('/comments-detail', function () {
     return view('commentDetails');
 });
 
-Route::get('/coachApprenticeProfile', function () {
+Route::get('/main-coach', function () {
     return view('coachApprenticeProfile');
+});
+
+Route::get('/create-account', function () {
+    return view('createaccount');
+});
+
+Route::get('/create-company', function () {
+    return view('createCompany');
 });
 
 Route::post('/login', [UserController::class, 'login'])->name('login');
