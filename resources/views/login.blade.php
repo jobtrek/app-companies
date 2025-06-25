@@ -21,13 +21,6 @@
 
             <div class="flex flex-col gap-6 mt-4">
                 <h1 class="font-[Roboto_Mono] text-2xl sm:text-3xl text-center text-white">Connexion</h1>
-                <select class="text-white border border-white text-center rounded-lg bg-transparent p-2">
-                    <option>Se connecter en tant que ...</option>
-                    <option class="text-black" value="Apprenti">Apprenti</option>
-                    <option class="text-black" value="Formateur Informaticien">Formateur Informaticien</option>
-                    <option class="text-black" value="Formateur Employé de commerce">Formateur Employé de commerce</option>
-                    <option class="text-black" value="Coach">Coach</option>
-                </select>
                 <input type="text"
                        placeholder="Email"
                        class="text-white border p-2 rounded-lg bg-transparent placeholder-gray-300 text-center"/>
@@ -39,7 +32,7 @@
             <button
                 class="bg-[#1E1D1C] hover:bg-[#1C2366]
                 active:scale-98 active:bg-[#101426] text-white px-4 py-2 rounded-lg w-full sm:w-2/3
-                mx-auto transition-all duration-200 ease-in-out"
+                mx-auto transition-all duration-200 ease-in-out cursor-pointer"
             >
                 Se connecter
             </button>
