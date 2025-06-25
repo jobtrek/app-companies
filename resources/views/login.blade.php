@@ -12,7 +12,7 @@
     <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative rounded-lg px-4">
 
         <img
-            src="{{ asset('images/Job.png') }}"
+            src="{{ asset('images/Jobtrek_logo.png') }}"
             class="bg-white rounded-full w-24 h-24 object-cover absolute -top-12 left-1/2
                    transform -translate-x-1/2 border-4 shadow-lg border-regal-blue"
         />
@@ -21,9 +21,10 @@
 
             <div class="flex flex-col gap-6 mt-4">
                 <h1 class="font-[Roboto_Mono] text-2xl sm:text-3xl text-center text-white">Connexion</h1>
+
                 <input type="text"
                        placeholder="Email"
-                       class="text-white border p-2 rounded-lg bg-transparent placeholder-gray-300 text-center"/>
+                       class="text-white border p-2 rounded-lg  placeholder-gray-300 text-center "/>
                 <input type="password"
                        placeholder="Mot de passe"
                        class="text-white border p-2 rounded-lg bg-transparent placeholder-gray-300 text-center"/>
