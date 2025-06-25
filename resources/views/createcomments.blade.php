@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Create a comments')
+@section('title', 'Ajouter un commentaire')
 @section('script')
     <script>
         function showFileName() {

@@ -42,9 +42,9 @@
   
 <main class="flex-1 
             md:px-[100px] 
-            smd:pt-16 sm:mt-10 
+            smd:pt-16 sm:mt-15 
             max-md:justify-items-center 
-            max-sm:flex-col max-sm:justify-items-start max-sm:ml-5 max-sm:mt-10">
+            max-sm:flex-col max-sm:justify-items-center">
 
     @yield('content')
   </main>

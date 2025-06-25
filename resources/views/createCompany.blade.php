@@ -1,8 +1,7 @@
 @extends('layout')
-@section('title', 'Créer un compte')
+@section('title', 'Ajouter une entreprise')
 
 @section('content')
-
     <div class="flex items-center justify-center min-h-screen">
         <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative rounded-lg px-4">
 
@@ -19,30 +18,13 @@
                             loading="lazy"
                             role="img"
                         />
-
-                        <div class="relative">
-                            <select class="text-center border p-2 rounded-lg w-full bg-gray-300 ">
-                                <option class="bg-transparent text-transparent">Rôle d'utilisateur</option>
-                                <option value="Apprenti">Apprenti-e</option>
-                                <option value="Formateur">Formateur-ice</option>
-                                <option value="Coach">Coach</option>
-                            </select>
-                            <img
-                                src="{{ asset('images/createaccount_page/account.svg') }}"
-                                alt="Icône email"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"
-                            />
-                        </div>
-                        
                         <div class="relative">
                             <input
-                                type="email"
-                                placeholder="Email"
+                                type="text"
+                                placeholder="Nom de l'entreprise"
                                 class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img
-                                src="{{ asset('images/createaccount_page/email.svg') }}"
+                                src="{{ asset('images/createaccount_page/name.svg') }}"
                                 alt="Icône email"
                                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
                                 loading="lazy"
@@ -50,12 +32,11 @@
                         </div>
 
                         <div class="relative">
-                            <input type="password"
-                                   placeholder="Mot de passe"
+                            <input type="text"
+                                   placeholder="Adresse de l'entreprise"
                                    class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img
-                                src="{{ asset('images/createaccount_page/password.svg') }}"
-                                alt="Icône email"
+                                src="{{ asset('images/createaccount_page/location.svg') }}"
                                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
                                 loading="lazy"
                                 role="img"
@@ -63,11 +44,11 @@
                         </div>
 
                         <div class="relative">
-                            <input type="password"
-                                   placeholder="Comfirmer le mot de passe"
+                            <input type="text"
+                                   placeholder="Numéro de téléphone"
                                    class="border p-2  pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img
-                                src="{{ asset('images/createaccount_page/password.svg') }}"
+                                src="{{ asset('images/createaccount_page/phone.svg') }}"
                                 alt="Icône email"
                                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
                                 loading="lazy"
@@ -77,10 +58,10 @@
 
                         <div class="relative">
                             <input type="text"
-                                   placeholder="Nom"
+                                   placeholder="Mail"
                                    class=" border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img
-                                src="{{ asset('images/createaccount_page/name.svg') }}"
+                                src="{{ asset('images/createaccount_page/email.svg') }}"
                                 alt="Icône email"
                                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
                                 loading="lazy"
@@ -90,10 +71,10 @@
 
                         <div class="relative">
                             <input type="text"
-                                   placeholder="Prémom"
+                                   placeholder="Lien du site web"
                                    class=" border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img
-                                src="{{ asset('images/createaccount_page/name.svg') }}"
+                                src="{{ asset('images/createaccount_page/link.svg') }}"
                                 alt="Icône email"
                                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
                                 loading="lazy"
@@ -104,7 +85,7 @@
                             class="bg-[#1E1D1C] hover:bg-[#1C2366]
                             active:scale-98 active:bg-[#101426] text-white px-4 py-2  w-full sm:w-2/3
                              mx-auto transition-all duration-200 ease-in-out rounded-4xl">
-                            Créer le compte
+                            Ajouter l'entreprise
                         </button>
 
                     </div>
@@ -112,5 +93,4 @@
             </div>
         </div>
     </div>
-
 @endsection

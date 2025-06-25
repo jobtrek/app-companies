@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'comment details')
+@section('title', 'Détails du commentaire')
 
 @section('content')
     <header class="max-w-4xl mx-auto mt-10">
