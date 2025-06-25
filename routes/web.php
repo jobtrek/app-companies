@@ -28,6 +28,10 @@ Route::get('/commentDetails', function () {
     return view('commentDetails');
 });
 
+Route::get('/coachApprenticeProfile', function () {
+    return view('coachApprenticeProfile');
+});
+
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/creation', [UserController::class, 'create'])->name('creation');
