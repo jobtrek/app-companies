@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historique_entreprises', function (Blueprint $table) {
+        Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('users_id')->constrained();
-            $table->foreignId('entreprise_id')->constrained();
-            $table->date('date_de_départ');
-            $table->date('date_de_retour');
-
+            $table->foreignId('user_id')->constrained();
+            $table->string('CV');
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('historique_entreprises');
+        Schema::dropIfExists('user_infos');
     }
 };

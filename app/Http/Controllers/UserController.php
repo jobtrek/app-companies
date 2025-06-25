@@ -3,53 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
-use App\Models\Apprenti;
-use App\Models\Coach;
-use App\Models\Formateur;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     public function create(UserCreationRequest $request)
     {
-        $role = $request->input('role');
-        if (Str::contains($role, 'Apprenti')) {
-            Apprenti::create($request->all());
-        } elseif (Str::contains($role, 'Formateur')) {
-            Formateur::create($request->all());
-        } elseif (Str::contains($role, 'Coach')) {
-            Coach::create($request->all());
-        } else {
-            return back()->withErrors(['role' => 'Role invalid']);
-        }
+        User::create($request->all());
 
-        return back();
+        return redirect()->intended('/');
     }
 
     public function login(Request $request)
     {
-
         $credentials = $request->validate([
-            'role' => 'required|in:Apprenti-Commerce,Apprenti-Informaticien,Formateur-Commerce,Formateur-Informaticien,Coach',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        if ($credentials['role'] === 'Apprenti-Commerce' ||
-            $credentials['role'] === 'Apprenti-Informaticien' ||
-            $credentials['role'] === 'Formateur-Commerce' ||
-            $credentials['role'] === 'Formateur-Informaticien' ||
-            $credentials['role'] === 'Coach') {
-            User::attemptLogin($credentials);
-        } else {
-            return back()->withErrors(['role' => 'Login role invalid']);
+                'email' => 'required|email',
+                'password' => 'required']
+        );
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
         }
+        return back()->withErrors([
+            'email' => 'The provided credential do not match our records:(',
+        ])->onlyInput('email');
     }
 
     public function index()
     {
-        $apprentis = Apprenti::all();
+        $apprentis = User::all()->whereJsonContains('roles', 'Apprenti');
 
         return view('homepage', ['apprentis' => $apprentis]);
     }
