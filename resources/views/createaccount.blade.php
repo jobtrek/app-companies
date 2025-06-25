@@ -35,23 +35,7 @@
                                 role="img"
                             />
                         </div>
-
-                        <div class="relative">
-                            <select class="text-center border p-2 rounded-lg  w-full bg-gray-300">
-                                <option class="bg-transparent text-transparent">Domaine</option>
-                                <option value="Employé de commerce"> Employé-e de commerce</option>
-                                <option value="Informaticien "> Informaticien-ne</option>
-                                <option value="Coach">Coach</option>
-                            </select>
-                            <img
-                                src="{{ asset('images/createaccount_page/domaine.svg') }}"
-                                alt="Icône email"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"
-                            />
-                        </div>
-
+                        
                         <div class="relative">
                             <input
                                 type="email"
