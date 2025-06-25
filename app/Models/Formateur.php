@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Formateur extends User
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'lastname',
