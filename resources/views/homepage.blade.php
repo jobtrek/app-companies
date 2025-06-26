@@ -17,32 +17,35 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                     @foreach ($apprentis as $apprenti)
-                        <div class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition">
+                        <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}">
 
-                            <div class="flex justify-center mb-4">
-                                @if ($apprenti->photo)
-                                    <img src="{{ $apprenti->photo }}"
-                                        class="w-20 h-20 object-cover rounded-full border-4 border-green-200 shadow-sm" />
-                                @else
-                                    <div
-                                        class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
-                                        ?</div>
-                                @endif
-                            </div>
+                            <div class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition">
 
-                            <div class="text-center">
-                                <h3 class="text-lg font-semibold text-gray-800">{{ $apprenti->name }}
-                                    {{ $apprenti->lastname }}</h3>
-                                <p class="text-sm text-gray-600">
-                                    @if ($apprenti->role == 'Apprenti-Commerce')
-                                        Employé de commerce
+                                <div class="flex justify-center mb-4">
+                                    @if ($apprenti->photo)
+                                        <img src="{{ $apprenti->photo }}"
+                                            class="w-20 h-20 object-cover rounded-full border-4 border-green-200 shadow-sm" />
                                     @else
-                                        Informaticien développement
+                                        <div
+                                            class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
+                                            ?</div>
                                     @endif
-                                </p>
-                                <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise }}</p>
+                                </div>
+
+                                <div class="text-center">
+                                    <h3 class="text-lg font-semibold text-gray-800">{{ $apprenti->name }}
+                                        {{ $apprenti->lastname }}</h3>
+                                    <p class="text-sm text-gray-600">
+                                        @if ($apprenti->role == 'Apprenti-Commerce')
+                                            Employé de commerce
+                                        @else
+                                            Informaticien développement
+                                        @endif
+                                    </p>
+                                    <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise }}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
