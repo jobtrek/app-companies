@@ -15,8 +15,10 @@
 
     <nav class="flex w-full justify-around md:flex-col md:space-y-4 md:justify-start text-sm md:text-base">
       <a href="/" class="px-3 py-2 sidebar-link text-center md:text-left rounded">Dashboard</a>
-      <a href="/" class="px-3 py-2 sidebar-link text-center md:text-left rounded">Apprenti·e Informaticien</a>
-      <a href="/" class="px-3 py-2 sidebar-link text-center md:text-left rounded">Apprenti·e Employé·e de commerce</a>
+      <a href="{{ route('coach') }}" class="px-3 py-2 sidebar-link text-center md:text-left rounded">Coach</a>
+
+
+
     </nav>
 
     <div class="hidden md:flex mt-auto pt-6">
