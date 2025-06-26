@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class File extends Model
 {
     protected $fillable = [
-        "path",
+        'path',
     ];
+
     public function fileable(): MorphTo
     {
         return $this->morphTo();
     }
-
-};
-
+}

@@ -3,17 +3,14 @@
 @section('title', 'Détails du commentaire')
 
 @section('content')
-    <header class="max-w-4xl mx-auto mt-10">
+<div class="w-screen lg:w-300 ml-0 p-6 bg-white rounded-lg shadow-md lg:ml-10">
         <h1 class="text-3xl font-bold text-gray-800">Nom de l'apprenti <span class="text-gray-500">(commentaire coach)</span></h1>
         <hr class="border-t border-gray-300 mt-4">
-    </header>
-
-    <main class="max-w-4xl mx-auto mt-10 space-y-10">
         <section class="bg-white p-6 rounded-lg shadow flex flex-col gap-6">
             <div class="flex-1 space-y-4">
                 <h2 class="text-2xl font-semibold text-gray-900">Titre du commentaire</h2>
         <p class="text-gray-700 leading-relaxed break-words">
-        Le commentaire en question, blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+            Le commentaire en question
         </p>
 
             </div>
@@ -31,6 +28,5 @@
                 alt="Aperçu du fichier sélectionné"
             />
         </section>
-
-    </main>
+</div
 @endsection

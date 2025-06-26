@@ -2,8 +2,7 @@
 @section('title', 'Créer un compte')
 
 @section('content')
-
-    <div class="flex items-center justify-center min-h-screen px-4">
+    <div class="flex lg:w-300 items-center justify-center min-h-screen ">
         <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative rounded-lg">
 
             <div class="bg-gray-200 p-10 sm:p-8 pt-20 rounded-3xl flex flex-col gap-6 ">

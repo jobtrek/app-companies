@@ -3,38 +3,34 @@
 @section('title', 'Profil entreprise')
 
 @section('content')
-    <header class="w-2/3">
+<div class="ml-0 p-6 bg-white rounded-lg shadow-md lg:ml-60">
         <h1 class="text-3xl font-bold">Profil de l'entreprise</h1>
         <hr class="border-t border-gray-300 w-full mt-5">
-    </header>
-
-    <main class="space-y-10 mt-6">
-
         <section class="flex flex-col sm:flex-row items-center bg-white p-6 rounded-lg shadow-md gap-6">
             <img 
-                src="{{ $entreprise->photo }}" 
+                
                 class="w-32 h-32 sm:w-75 sm:h-75 object-cover rounded-full border-4 border-green-100"
             />
 
             <div class="flex-1 space-y-3">
-                <h2 class="text-2xl font-bold text-gray-800">{{ $entreprise->name }}</h2>
+                <h2 class="text-2xl font-bold text-gray-800">Nom d'entreprise</h2>
                 
                 <p class="text-gray-600">
-                    <span class="font-medium">📧 Email :</span> {{ $entreprise->email }}
+                    <span class="font-medium">📧 Email :</span> entreprise@email.entreprise
                 </p>
 
                 <p class="text-gray-600">
-                    <span class="font-medium">👤 Rôle :</span> {{ $entreprise->role }}
+                    <span class="font-medium">👤 Rôle :</span> Forme des (métiers)
                 </p>
 
                 <p class="text-gray-600">
-                    <span class="font-medium">📞 Téléphone :</span> {{ $entreprise->phone_number }}
+                    <span class="font-medium">📞 Téléphone :</span> 
                 </p>
 
                 <p class="text-gray-600">
                     <span class="font-medium">🌐 Site Web :</span>
-                    <a href="{{ $entreprise->link }}" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
-                        {{ $entreprise->link }}
+                    <a href="" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+                        Lien de l'entreprise
                     </a>
                 </p>
             </div>
@@ -43,7 +39,7 @@
         <section class="bg-white p-6 rounded-lg shadow-md px-4 sm:px-6 lg:px-8">
             <h1 class="text-xl font-semibold mb-4">À propos de cette entreprise</h1>
             <p class="text-gray-700 text-base leading-relaxed">
-                {{ $entreprise->description }}
+                Ceci est la description de l'entreprise.
             </p>
         </section>
 
@@ -57,7 +53,5 @@
                 Lier un apprenti
             </button>
         </div>
-
-
-    </main>
+    </div>
 @endsection

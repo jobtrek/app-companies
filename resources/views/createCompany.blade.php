@@ -2,7 +2,7 @@
 @section('title', 'Ajouter une entreprise')
 
 @section('content')
-    <div class="flex items-center justify-center min-h-screen">
+    <div class="flex lg:w-300 items-center justify-center min-h-screen ">
         <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative rounded-lg px-4">
 
             <div class="bg-gray-200 p-6 sm:p-8 pt-20 rounded-3xl flex flex-col gap-6 ">
