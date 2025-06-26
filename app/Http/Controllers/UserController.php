@@ -36,11 +36,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        $apprenties = $users->filter(function ($user) {
-            return $user->roles->contains('admin');
-        });
-
+        $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->get();
         return view('homepage', ['apprentis' => $apprenties]);
     }
 }
