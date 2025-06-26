@@ -5,20 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@yield('title', 'Dashboard')</title>
   @vite('resources/css/app.css')
-  <style>
-    .sidebar-bg {
-      background-color: var(--color-black);
-    }
-    .sidebar-link {
-      transition: background 0.2s;
-    }
-    .sidebar-link:hover {
-      background-color: var(--hover-color);
-    }
-  </style>
 </head>
 <body class="flex flex-col md:flex-row min-h-screen">
-<aside class="sidebar-bg text-white w-full md:w-64 fixed bottom-0 md:static md:h-screen p-2 md:py-8 md:px-6 z-10 flex md:flex-col justify-around md:justify-between">
+
+  <aside class="sidebar-bg text-white w-full md:w-64 fixed bottom-0 p-2 md:py-8 md:px-6 z-10 flex md:flex-col justify-around md:justify-between">
     <div class="hidden md:flex items-center justify-between mb-6">
       <span class="text-2xl font-bold text-green-50">Menu</span>
     </div>
@@ -39,15 +29,11 @@
       </div>
     </div>
   </aside>
-  
-<main class="flex-1 
-            md:px-[100px] 
-            smd:pt-16 sm:mt-15 
-            max-md:justify-items-center 
-            max-sm:flex-col max-sm:justify-items-center">
 
+  <main>
     @yield('content')
   </main>
-@yield('script')
+
+  @yield('script')
 </body>
 </html>

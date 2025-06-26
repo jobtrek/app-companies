@@ -3,6 +3,7 @@
 use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('homepage');
 });
@@ -13,10 +14,6 @@ Route::get('/login', function () {
 
 Route::get('/create-comment', function () {
     return view('createcomments');
-});
-  
-Route::get('/', function () {
-    return view('homepage');
 });
 
 Route::get('/company-profile', function () {
@@ -31,8 +28,8 @@ Route::get('/comments-detail', function () {
     return view('commentDetails');
 });
 
-Route::get('/main-coach', function () {
-    return view('coachApprenticeProfile');
+Route::get('/coach', function () {
+    return view('coach');
 });
 
 Route::get('/create-account', function () {

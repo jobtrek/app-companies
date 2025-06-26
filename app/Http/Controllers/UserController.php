@@ -19,14 +19,16 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-                'email' => 'required|email',
-                'password' => 'required']
+            'email' => 'required|email',
+            'password' => 'required']
         );
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()->intended('/');
         }
+
         return back()->withErrors([
             'email' => 'The provided credential do not match our records:(',
         ])->onlyInput('email');
@@ -38,6 +40,7 @@ class UserController extends Controller
         $apprenties = $users->filter(function ($user) {
             return $user->roles->contains('admin');
         });
+
         return view('homepage', ['apprentis' => $apprenties]);
     }
 }
