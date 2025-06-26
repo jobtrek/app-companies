@@ -29,4 +29,11 @@ class UserCreationRequest extends FormRequest
             'password' => 'required|confirmed|min:8',
         ];
     }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'roles' => $this->role
+        ]);
+    }
 }

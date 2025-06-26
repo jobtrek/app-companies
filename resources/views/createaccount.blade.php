@@ -7,9 +7,8 @@
 
             <div class="bg-gray-200 p-10 sm:p-8 pt-20 rounded-3xl flex flex-col gap-6 ">
 
-                <form>
-                    <div class="flex flex-col gap-6 mt-4 pt-6">
-
+                <form method="post" action="{{ route('creation') }}" class="flex flex-col gap-6 mt-4 pt-6">
+                    @csrf
                         <img
                             src="{{ asset('images/createaccount_page/edit.svg') }}"
                             alt="Icône éditer"
@@ -17,82 +16,72 @@
                             loading="lazy"
                             role="img"
                         />
-
                         <div class="relative pl-12">
                             <img
                                 src="{{ asset('images/createaccount_page/account.svg') }}"
                                 alt="Icône utilisateur"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
+                                class="absolute left-0 top-1/2 transform -translate-y-1/2 w-15 h-15"
                                 loading="lazy"
                                 role="img"
                             />
-
-                            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-4 justify-center w-full">
+                            <div class="grid grid-cols-2 ml-10 gap-4 justify-center w-full">
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" value="admin" class="form-checkbox text-blue-600">
-                                    <span class="ml-2">Admin</span>
+                                    <input type="checkbox" name="role[]" value="formateur_informaticien" class="form-checkbox text-blue-600">
+                                    <span class="ml-2">Formateur Informaticien</span>
                                 </label>
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" value="formateur" class="form-checkbox text-blue-600">
-                                    <span class="ml-2">Formateur</span>
+                                    <input type="checkbox" name="role[]" value="formateur_commerce" class="form-checkbox text-blue-600">
+                                    <span class="ml-2">Formateur Commerce</span>
                                 </label>
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" value="apprenti" class="form-checkbox text-blue-600">
-                                    <span class="ml-2">Apprenti</span>
+                                    <input type="checkbox" name="role[]" value="apprenti_informaticien" class="form-checkbox text-blue-600">
+                                    <span class="ml-2">Apprenti Informaticien</span>
                                 </label>
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" value="coach" class="form-checkbox text-blue-600">
+                                    <input type="checkbox" name="role[]" value="apprenti_commerce" class="form-checkbox text-blue-600">
+                                    <span class="ml-2">Apprenti Commerce</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="role[]" value="coach" class="form-checkbox text-blue-600">
                                     <span class="ml-2">Coach</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="role[]" value="admin" class="form-checkbox text-blue-600">
+                                    <span class="ml-2">Admin</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="relative">
-                            <select class="text-center border p-2 rounded-lg w-full bg-gray-300">
-                                <option disabled selected>Domaine de l'utilisateur</option>
-                                <option value="Informatique">Informatique</option>
-                                <option value="Commerce">Commerce</option>
-                            </select>
-                            <img
-                                src="{{ asset('images/createaccount_page/account.svg') }}"
-                                alt="Icône domaine"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"
-                            />
-                        </div>
-
-
-                        <div class="relative">
-                            <input type="email" placeholder="Email"
+                            <input type="email" name="email" placeholder="Email"
                                    class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img src="{{ asset('images/createaccount_page/email.svg') }}" alt="Icône email"
                                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"/>
                         </div>
 
                         <div class="relative">
-                            <input type="password" placeholder="Mot de passe"
+                            <input type="password" name="password" placeholder="Mot de passe"
                                    class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img src="{{ asset('images/createaccount_page/password.svg') }}" alt="Icône mot de passe"
                                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"/>
                         </div>
 
                         <div class="relative">
-                            <input type="password" placeholder="Confirmer le mot de passe" 
+                            <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe"
                                    class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img src="{{ asset('images/createaccount_page/password.svg') }}" alt="Icône confirmation"
                                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"/>
                         </div>
 
                         <div class="relative">
-                            <input type="text" placeholder="Nom" value="lastname"
+                            <input type="text" placeholder="Nom" name="lastname"
                                    class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img src="{{ asset('images/createaccount_page/name.svg') }}" alt="Icône nom"
                                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"/>
                         </div>
 
                         <div class="relative">
-                            <input type="text" placeholder="Prénom" value="name"
+                            <input type="text" placeholder="Prénom" name="name"
                                    class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
                             <img src="{{ asset('images/createaccount_page/name.svg') }}" alt="Icône prénom"
                                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"/>
@@ -104,8 +93,6 @@
                                ease-in-out rounded-full">
                             Créer le compte
                         </button>
-
-                    </div>
                 </form>
             </div>
         </div>
