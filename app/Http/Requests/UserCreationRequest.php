@@ -33,7 +33,7 @@ class UserCreationRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'roles' => $this->role
+            'roles' => $this->role,
         ]);
     }
 }

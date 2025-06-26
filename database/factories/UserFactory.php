@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -36,7 +35,8 @@ class UserFactory extends Factory
                 'coach',
             ], $count = 2),
             'password' => static::$password ??= Hash::make('password'),
-            'enterprise' => fake()->company(),
+            'entreprise' => fake()->company(),
+            'entreprise' => fake()->company(),
         ];
     }
 
