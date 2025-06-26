@@ -24,7 +24,7 @@
                                 loading="lazy"
                                 role="img"
                             />
-                            <div class="grid grid-cols-2 ml-10 sm:flex-row sm:flex-wrap gap-4 justify-center w-full">
+                            <div class="grid grid-cols-2 ml-10 gap-4 justify-center w-full">
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" name="role[]" value="formateur_informaticien" class="form-checkbox text-blue-600">
                                     <span class="ml-2">Formateur Informaticien</span>
