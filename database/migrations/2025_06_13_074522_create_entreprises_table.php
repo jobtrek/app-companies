@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('role');
             $table->string('description');
-            $table->string('link');
+            $table->string('website');
             $table->integer('phone_number');
         });
     }

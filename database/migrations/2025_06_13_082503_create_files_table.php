@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('commentaires_id')->constrained();
+            $table->morphs('fileable');
             $table->string('path');
+            $table->string('filename');
         });
     }
 

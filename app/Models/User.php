@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -58,5 +59,13 @@ class User extends Authenticatable
         } else {
             return back()->withErrors(['role' => 'Login role invalid']);
         }
+    }
+
+    public function file(): MorphOne
+
+    {
+
+        return $this->morphOne(File::class, 'fileable');
+
     }
 }
