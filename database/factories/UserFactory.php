@@ -36,7 +36,6 @@ class UserFactory extends Factory
             ], $count = 2),
             'password' => static::$password ??= Hash::make('password'),
             'entreprise' => fake()->company(),
-            'entreprise' => fake()->company(),
         ];
     }
 
