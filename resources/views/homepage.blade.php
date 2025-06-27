@@ -6,16 +6,32 @@
     <hr class="border-t border-gray-300 w-full mb-6">
 
     <div class="w-full max-w-full">
-
         <div class="w-full">
             <input type="text" placeholder="Rechercher un apprenti..."
                 class="border rounded px-3 py-2 w-full max-w-full mb-5">
         </div>
+        <div class="flex flex-col lg:flex-row-reverse gap-8">
+            <div class="w-full lg:w-1/3 h-fit bg-gray-50 p-5 rounded-lg border border-gray-200 shadow">
+                <h2 class="text-xl font-semibold mb-4">Filtres</h2>
+                <a href="/" class="text-blue-500 hover:text-blue-700 font-semibold">Réinitialiser les filtres</a>
+                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1">
 
-        <div class="flex flex-col lg:flex-row gap-8">
-
+                    @foreach ($filtres as $value => $label)
+                        <a href="{{ route('home.sort', ['sort' => $value]) }}">
+                            <div
+                                class="border border-gray-300 rounded-lg p-3 text-center hover:bg-blue-50 transition cursor-pointer">
+                                <input type="button" id="{{ $value }}" name="formation[]"
+                                    value="{{ $value }}" class="hidden peer">
+                                <label for="{{ $value }}"
+                                    class="{{ request()->is('sort/' . $value) ? 'text-green-600 font-semibold bg-blue-100 border-blue-500 rounded-md px-2 py-1' : 'block font-medium text-gray-700 ' }}">
+                                    {{ $label }}
+                                </label>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
             <div class="w-full lg:w-2/3 space-y-6">
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                     @foreach ($apprentis as $apprenti)
                         <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}">
@@ -37,10 +53,10 @@
                                     <h3 class="text-lg font-semibold text-gray-800">{{ $apprenti->name }}
                                         {{ $apprenti->lastname }}</h3>
                                     <p class="text-sm text-gray-600">
-                                        @if ($apprenti->role == 'Apprenti-Commerce')
+                                        @if ($apprenti->roles->contains('apprenti_commerce'))
                                             Employé de commerce
-                                        @else
-                                            Informaticien développement
+                                        @elseif ($apprenti->roles->contains('apprenti_informaticien'))
+                                            Informaticien développement d'applications
                                         @endif
                                     </p>
                                     <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise }}</p>
@@ -50,29 +66,6 @@
                     @endforeach
                 </div>
             </div>
-
-            <div class="w-full lg:w-1/3 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow h-110">
-                <h2 class="text-xl font-semibold mb-4">Filtres</h2>
-
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1">
-
-                    @foreach ($filtres as $value => $label)
-                        <a href="{{ route('home.sort', ['sort' => $value])}}">
-                        <div
-                            class="border border-gray-300 rounded-lg p-3 text-center hover:bg-blue-50 transition cursor-pointer">
-                            <input type="button" id="{{ $value }}" name="formation[]" value="{{ $value }}"
-                                class="hidden peer">
-                            <label for="{{ $value }}"
-                                class="{{ request()->is('sort/' . $value) ? 'text-green-600 font-semibold bg-blue-100 border-blue-500 rounded-md px-2 py-1' : 'block font-medium text-gray-700 '}}">
-                                {{ $label }}
-                            </label>
-                        </div>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-
         </div>
-
     </div>
 @endsection

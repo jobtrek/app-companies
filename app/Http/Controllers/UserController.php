@@ -18,9 +18,11 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required']
+        $credentials = $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+            ]
         );
 
         if (Auth::attempt($credentials)) {
@@ -73,21 +75,21 @@ class UserController extends Controller
             'employe-com' => 'Employé de commerce',
         ];
 
-        $apprenties = [];
-        if($sort == 'entreprise') {
-            $apprenties = User::all()->whereNotIn('enterprise', ['Centre de formation Jobtrek']);
-        } else if($sort == 'formation') {
-            $apprenties = User::all()->where('enterprise', 'Centre de formation Jobtrek');
-        } else if($sort == 'alphabetique') {
-            $apprenties = User::all()->sortBy('name');
-        } else if($sort == 'informaticien-dev') {
+        $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->get();
+
+        if ($sort == 'entreprise') {
+            $apprenties->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
+        } elseif ($sort == 'formation') {
+            $apprenties->whereNotIn('entreprise', 'Centre de formation Jobtrek');
+        } elseif ($sort == 'alphabetique') {
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC')->get();
+        } elseif ($sort == 'informaticien-dev') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->get();
-        } else if($sort == 'employe-com') {
+        } elseif ($sort == 'employe-com') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_commerce')->get();
         } else {
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
-
 
         return view('homepage', ['apprentis' => $apprenties, 'filtres' => $filtres]);
     }
