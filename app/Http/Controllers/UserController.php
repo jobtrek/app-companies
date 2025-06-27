@@ -71,23 +71,32 @@ class UserController extends Controller
 
     public function sort($sort)
     {
-        $filtres = ['entreprise' => 'En entreprise', 'formation' => 'En centre de formation',
-            'alphabetique' => 'Par ordre alphabétique', 'informaticien-dev' => 'Informaticien développement', 'employe-com' => 'Employé de commerce',];
+
+      $filtres = [
+            'entreprise' => 'En entreprise',
+            'formation' => 'En centre de formation',
+            'alphabetique' => 'Par ordre alphabétique',
+            'informaticien-dev' => 'Informaticien développement',
+            'employe-com' => 'Employé de commerce',
+        ];
+
         $apprenties = [];
+
         if ($sort == 'entreprise') {
-            $apprenties = User::all()->whereNotIn('enterprise', ['Centre de formation Jobtrek']);
-        } else if ($sort == 'formation') {
-            $apprenties = User::all()->where('enterprise', 'Centre de formation Jobtrek');
-        } else if ($sort == 'alphabetique') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name')->get();
-        } else if ($sort == 'informaticien-dev') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->get();
-        } else if ($sort == 'employe-com') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_commerce')->get();
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise', ['Centre de formation Jobtrek'])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
+        } elseif ($sort == 'formation') {
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise', 'Centre de formation Jobtrek')->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise', 'Centre de formation Jobtrek');
+        } elseif ($sort == 'alphabetique') {
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC');
+        } elseif ($sort == 'informaticien-dev') {
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien');
+        } elseif ($sort == 'employe-com') {
+            $apprenties = User::whereJsonContains('roles', 'apprenti_commerce');
         } else {
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
-        return view('homepage', ['apprentis' => $apprenties, 'filtres' => $filtres]);
+
+        return view('homepage', ['apprentis' => $apprenties->get(), 'filtres' => $filtres]);
     }
 
     public function commentsdetails($id)
