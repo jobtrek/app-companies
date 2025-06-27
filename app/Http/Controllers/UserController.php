@@ -75,24 +75,23 @@ class UserController extends Controller
             'employe-com' => 'Employé de commerce',
         ];
 
-        $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->get();
+        $apprenties = [];
 
         if ($sort == 'entreprise') {
-            $apprenties->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise', ['Centre de formation Jobtrek'])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
         } elseif ($sort == 'formation') {
-            $apprenties->whereNotIn('entreprise', 'Centre de formation Jobtrek');
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise', 'Centre de formation Jobtrek')->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise', 'Centre de formation Jobtrek');
         } elseif ($sort == 'alphabetique') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC')->get();
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC');
         } elseif ($sort == 'informaticien-dev') {
-
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->get();
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien');
         } elseif ($sort == 'employe-com') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_commerce')->get();
+            $apprenties = User::whereJsonContains('roles', 'apprenti_commerce');
         } else {
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
 
-        return view('homepage', ['apprentis' => $apprenties, 'filtres' => $filtres]);
+        return view('homepage', ['apprentis' => $apprenties->get(), 'filtres' => $filtres]);
     }
 
     public function commentsdetails($id)
