@@ -67,7 +67,16 @@ class User extends Authenticatable
     {
 
         return $this->morphOne(File::class, 'fileable');
+    }
 
+    public function coach()
+    {
+        return $this->belongsTo(User::class, 'coach_id');
+    }
+
+    public function apprentis()
+    {
+        return $this->hasMany(User::class, 'coach_id');
     }
     public function commentaires()
     {

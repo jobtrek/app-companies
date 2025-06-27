@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,13 +41,36 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    public function coach(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'roles' => ['coach'],
         ]);
+    }
+
+    public function apprenti(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'roles' => [fake()->randomElement(['apprenti_informaticien', 'apprenti_commerce'])],
+        ]);
+    }
+
+    /**
+     * Configure the factory to assign a coach to an apprentice.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $roles = is_array($user->roles) ? $user->roles : $user->roles->toArray();
+
+            if (in_array('apprenti_informaticien', $roles) || in_array('apprenti_commerce', $roles)) {
+                $coach = User::whereJsonContains('roles', 'coach')->inRandomOrder()->first();
+
+                if ($coach) {
+                    $user->coach()->associate($coach);
+                    $user->save();
+                }
+            }
+        });
     }
 }
