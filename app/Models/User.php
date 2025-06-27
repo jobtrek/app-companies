@@ -78,4 +78,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'coach_id');
     }
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class, 'apprentis_id');
+    }
 }

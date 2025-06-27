@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
+use App\Models\Commentaire;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,9 +54,8 @@ class UserController extends Controller
 
     public function coach()
     {
-        $apprentis = User::all()->whereNotNull('coach_id');
-
-        return view('coach', ['apprentis' => $apprentis]);
+        $apprentis = User::whereNotNull('coach_id')->with('commentaires')->get();
+        return view('coach', ['apprentis' => $apprentis ]);
     }
 
     public function show($id)
@@ -84,6 +84,7 @@ class UserController extends Controller
         } elseif ($sort == 'alphabetique') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC')->get();
         } elseif ($sort == 'informaticien-dev') {
+
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->get();
         } elseif ($sort == 'employe-com') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_commerce')->get();
@@ -92,5 +93,13 @@ class UserController extends Controller
         }
 
         return view('homepage', ['apprentis' => $apprenties, 'filtres' => $filtres]);
+    }
+
+    public function commentsdetails($id)
+    {
+        $commentaire = Commentaire::all()->find($id);
+
+        $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
+         return view('commentDetails', ['comments' => $commentaire,'user'=>$user ] );
     }
 }
