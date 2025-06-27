@@ -44,18 +44,28 @@
                             <div
                                 class="w-full max-w-full md:max-w-[600px] mx-auto overflow-x-auto whitespace-nowrap p-2">
                                 <div class="w-full max-w-md mx-auto flex flex-col space-y-2 p-2">
-                                    @foreach ($apprenti->commentaires as $comment)
-                                        <a href="/comments-detail/{{$comment->id}}"
+                                        @if ($apprenti->commentaires->isEmpty())
+                                        <a
                                            class="w-full px-3 py-2 bg-white rounded-md shadow-sm hover:bg-gray-100 transition duration-200 text-sm">
                                             <div class="flex flex-col space-y-1">
-                                                <h2 class="text-sm font-semibold text-gray-800 truncate">Titre
-                                                    : {{ $comment->title }}</h2>
                                                 <p class="text-xs text-gray-600">
-                                                    {{ \Carbon\Carbon::parse($comment->created_at)->locale('fr')->translatedFormat('d F Y') }}
+                                                 No comment
                                                 </p>
                                             </div>
                                         </a>
-                                    @endforeach
+                                        @else
+                                            @foreach ($apprenti->commentaires as $comment)
+                                                <a href="/comments-detail/{{$comment->id}}"
+                                                   class="w-full px-3 py-2 bg-white rounded-md shadow-sm hover:bg-gray-100 transition duration-200 text-sm">
+                                                    <div class="flex flex-col space-y-1">
+                                                        <h2 class="text-sm font-semibold text-gray-800 truncate">Titre : {{ $comment->title }}</h2>
+                                                        <p class="text-xs text-gray-600">
+                                                            {{ \Carbon\Carbon::parse($comment->created_at)->locale('fr')->translatedFormat('d F Y') }}
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            @endforeach
+                                        @endif
                                 </div>
                             </div>
                         </div>
