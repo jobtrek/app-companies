@@ -3,18 +3,15 @@
 @section('title', 'Profil entreprise')
 
 @section('content')
-<div class="ml-0 p-6 bg-white rounded-lg shadow-md lg:ml-60">
+    <div class="p-6 bg-white rounded-lg shadow-md">
         <h1 class="text-3xl font-bold">Profil de l'entreprise</h1>
         <hr class="border-t border-gray-300 w-full mt-5">
         <section class="flex flex-col sm:flex-row items-center bg-white p-6 rounded-lg shadow-md gap-6">
-            <img 
-                
-                class="w-32 h-32 sm:w-75 sm:h-75 object-cover rounded-full border-4 border-green-100"
-            />
+            <img class="w-32 h-32 sm:w-75 sm:h-75 object-cover rounded-full border-4 border-green-100" />
 
             <div class="flex-1 space-y-3">
                 <h2 class="text-2xl font-bold text-gray-800">Nom d'entreprise</h2>
-                
+
                 <p class="text-gray-600">
                     <span class="font-medium">📧 Email :</span> entreprise@email.entreprise
                 </p>
@@ -24,7 +21,7 @@
                 </p>
 
                 <p class="text-gray-600">
-                    <span class="font-medium">📞 Téléphone :</span> 
+                    <span class="font-medium">📞 Téléphone :</span>
                 </p>
 
                 <p class="text-gray-600">
@@ -44,7 +41,8 @@
         </section>
 
         <div class="relative h-30 sm:h-54">
-            <button class="
+            <button
+                class="
                 absolute bottom-10 left-1/2 w-max transform -translate-x-1/2
                 sm:left-0 sm:w-full sm:translate-x-0 
                 bg-blue-600 hover:bg-blue-700 

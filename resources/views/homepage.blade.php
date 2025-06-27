@@ -7,8 +7,9 @@
 
     <div class="w-full max-w-full">
 
-        <div class="mb-10 w-full">
-            <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full">
+        <div class="w-full">
+            <input type="text" placeholder="Rechercher un apprenti..."
+                class="border rounded px-3 py-2 w-full max-w-full mb-5">
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8">
@@ -50,23 +51,8 @@
                 </div>
             </div>
 
-            <div class="w-full lg:w-1/3 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow-sm">
+            <div class="w-full lg:w-1/3 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow h-110">
                 <h2 class="text-xl font-semibold mb-4">Filtres</h2>
-
-                <div class="mb-6 space-y-2">
-                    <p class="text-sm text-gray-600 font-medium mb-1">Trier par :</p>
-                    <div class="flex flex-wrap gap-2">
-                        <button
-                            class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-blue-100 text-sm text-gray-700">Durée
-                            du CFC</button>
-                        <button
-                            class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-blue-100 text-sm text-gray-700">Par
-                            année</button>
-                        <button
-                            class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-blue-100 text-sm text-gray-700">Plus
-                            récents</button>
-                    </div>
-                </div>
 
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1">
                     @php
@@ -74,7 +60,6 @@
                             'entreprise' => 'En entreprise',
                             'formation' => 'En centre de formation',
                             'alphabetique' => 'Par ordre alphabétique',
-                            'annee' => 'Durée du CFC',
                             'informaticien-dev' => 'Informaticien développement',
                             'employé-com' => 'Employé de commerce',
                         ];

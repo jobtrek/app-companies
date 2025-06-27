@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="ml-0 p-6 bg-white rounded-lg shadow-md lg:ml-60">
+    <div class="bg-white rounded-lg shadow-md">
         <h1 class="text-3xl font-bold">Profil de l'apprenti(x)</h1>
         <hr class="border-t border-gray-300 w-full mt-5">
         <section class="flex flex-col sm:flex-row items-center bg-white p-6 rounded-lg shadow-md gap-6">

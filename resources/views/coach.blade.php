@@ -1,10 +1,10 @@
 @extends('layout')
 @section('title', 'Page du coach')
 @section('content')
-    <h1 class="text-3xl font-bold">Bienvenue Coach, voici vos derniers commentaires...</h1>
+    <h1 class="text-3xl font-bold">Bienvenue</h1>
     <hr class="border-t border-gray-300 w-full mt-5">
     <div class="mt-10 mb-6">
-        <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-80">
+        <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full mb-5">
     </div>
     <div class="space-y-6">
         @foreach ($apprentis as $apprenti)
@@ -33,10 +33,9 @@
                         class="text-sm text-white bg-black px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">Supprimer</button>
                     <button
                         class="text-sm text-white bg-green-100 px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">Modifier</button>
-                        <button
-                            class="text-sm text-white bg-green-50 px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">
-                            Voir
-                        </button>
+                    <button class="text-sm text-white bg-green-50 px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">
+                        Voir
+                    </button>
                 </div>
             </div>
         @endforeach
