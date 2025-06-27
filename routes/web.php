@@ -43,3 +43,5 @@ Route::get('/user-profile/{id}', [UserController::class, 'show'])->name('userPro
 Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::get('/coach', [UserController::class, 'coach'])->name('coach');
+
+Route::get('sort/{sort}', [UserController::class, 'sort'])->name('home.sort');

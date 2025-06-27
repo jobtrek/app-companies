@@ -55,26 +55,19 @@
                 <h2 class="text-xl font-semibold mb-4">Filtres</h2>
 
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1">
-                    @php
-                        $filtres = [
-                            'entreprise' => 'En entreprise',
-                            'formation' => 'En centre de formation',
-                            'alphabetique' => 'Par ordre alphabétique',
-                            'informaticien-dev' => 'Informaticien développement',
-                            'employé-com' => 'Employé de commerce',
-                        ];
-                    @endphp
 
                     @foreach ($filtres as $value => $label)
+                        <a href="{{ route('home.sort', ['sort' => $value])}}">
                         <div
                             class="border border-gray-300 rounded-lg p-3 text-center hover:bg-blue-50 transition cursor-pointer">
-                            <input type="checkbox" id="{{ $value }}" name="formation[]" value="{{ $value }}"
+                            <input type="button" id="{{ $value }}" name="formation[]" value="{{ $value }}"
                                 class="hidden peer">
                             <label for="{{ $value }}"
-                                class="block font-medium text-gray-700 peer-checked:text-blue-600 peer-checked:font-semibold peer-checked:bg-blue-100 peer-checked:border-blue-500 rounded-md px-2 py-1">
+                                class="{{ request()->is('sort/' . $value) ? 'text-green-600 font-semibold bg-blue-100 border-blue-500 rounded-md px-2 py-1' : 'block font-medium text-gray-700 '}}">
                                 {{ $label }}
                             </label>
                         </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
