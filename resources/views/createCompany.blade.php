@@ -2,83 +2,56 @@
 @section('title', 'Ajouter une entreprise')
 
 @section('content')
-    <div class="flex lg:w-300 items-center justify-center min-h-screen ">
-        <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative rounded-lg px-4">
+    <div class="flex items-center justify-center mt-50 md:mt-60">
+        <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative rounded-lg">
 
             <div class="bg-gray-200 p-6 sm:p-8 pt-20 rounded-3xl flex flex-col gap-6 ">
 
                 <form>
                     <div class="flex flex-col gap-6 mt-4 pt-6">
 
-                        <img
-                            src="{{ asset('images/createaccount_page/edit.svg') }}"
-                            alt="Icône éditer"
+                        <img src="{{ asset('images/createaccount_page/edit.svg') }}" alt="Icône éditer"
                             class="bg-transparent w-24 h-24 object-cover absolute -top-12 left-1/2
                                 transform -translate-x-1/2"
-                            loading="lazy"
-                            role="img"
-                        />
+                            loading="lazy" role="img" />
                         <div class="relative">
-                            <input
-                                type="text"
-                                placeholder="Nom de l'entreprise"
-                                class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
-                            <img
-                                src="{{ asset('images/createaccount_page/name.svg') }}"
-                                alt="Icône email"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"/>
+                            <input type="text" placeholder="Nom de l'entreprise"
+                                class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full" />
+                            <img src="{{ asset('images/createaccount_page/name.svg') }}" alt="Icône email"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"
+                                role="img" />
                         </div>
 
                         <div class="relative">
-                            <input type="text"
-                                   placeholder="Adresse de l'entreprise"
-                                   class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
-                            <img
-                                src="{{ asset('images/createaccount_page/location.svg') }}"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"
-                            />
+                            <input type="text" placeholder="Adresse de l'entreprise"
+                                class="border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full" />
+                            <img src="{{ asset('images/createaccount_page/location.svg') }}"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"
+                                role="img" />
                         </div>
 
                         <div class="relative">
-                            <input type="text"
-                                   placeholder="Numéro de téléphone"
-                                   class="border p-2  pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
-                            <img
-                                src="{{ asset('images/createaccount_page/phone.svg') }}"
-                                alt="Icône email"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"
-                            />
+                            <input type="text" placeholder="Numéro de téléphone"
+                                class="border p-2  pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full" />
+                            <img src="{{ asset('images/createaccount_page/phone.svg') }}" alt="Icône email"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"
+                                role="img" />
                         </div>
 
                         <div class="relative">
-                            <input type="text"
-                                   placeholder="Mail"
-                                   class=" border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
-                            <img
-                                src="{{ asset('images/createaccount_page/email.svg') }}"
-                                alt="Icône email"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"
-                            />
+                            <input type="text" placeholder="Mail"
+                                class=" border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full" />
+                            <img src="{{ asset('images/createaccount_page/email.svg') }}" alt="Icône email"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"
+                                role="img" />
                         </div>
 
                         <div class="relative">
-                            <input type="text"
-                                   placeholder="Lien du site web"
-                                   class=" border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full"/>
-                            <img
-                                src="{{ asset('images/createaccount_page/link.svg') }}"
-                                alt="Icône email"
-                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
-                                loading="lazy"
-                                role="img"/>
+                            <input type="text" placeholder="Lien du site web"
+                                class=" border p-2 pl-12 rounded-lg bg-gray-300 placeholder-gray-600 text-center w-full" />
+                            <img src="{{ asset('images/createaccount_page/link.svg') }}" alt="Icône email"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8" loading="lazy"
+                                role="img" />
                         </div>
 
                         <button
