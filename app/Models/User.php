@@ -69,4 +69,8 @@ class User extends Authenticatable
         return $this->morphOne(File::class, 'fileable');
 
     }
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class, 'apprentis_id');
+    }
 }
