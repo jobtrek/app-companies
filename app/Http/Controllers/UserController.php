@@ -55,6 +55,7 @@ class UserController extends Controller
     public function coach()
     {
         $coachId = auth()->id() ;
+        
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->get();
