@@ -15,11 +15,6 @@ Route::get('/create-comment', function () {
 Route::get('/company-profile', function () {
     return view('profileEntreprise');
 });
-
-Route::get('/comments-detail', function () {
-    return view('commentDetails');
-});
-
 Route::get('/coach', function () {
     return view('coach');
 });

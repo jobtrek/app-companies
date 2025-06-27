@@ -54,8 +54,11 @@ class UserController extends Controller
 
     public function coach()
     {
-        $apprentis = User::whereNotNull('coach_id')->with('commentaires')->get();
-        return view('coach', ['apprentis' => $apprentis ]);
+        $coachId = auth()->id() ;
+        $apprentis = User::where('coach_id', $coachId)
+            ->with('commentaires')
+            ->get();
+        return view('coach', ['apprentis' => $apprentis,]);
     }
 
     public function show($id)
@@ -67,31 +70,22 @@ class UserController extends Controller
 
     public function sort($sort)
     {
-        $filtres = [
-            'entreprise' => 'En entreprise',
-            'formation' => 'En centre de formation',
-            'alphabetique' => 'Par ordre alphabétique',
-            'informaticien-dev' => 'Informaticien développement',
-            'employe-com' => 'Employé de commerce',
-        ];
-
-        $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->get();
-
+        $filtres = ['entreprise' => 'En entreprise', 'formation' => 'En centre de formation',
+            'alphabetique' => 'Par ordre alphabétique', 'informaticien-dev' => 'Informaticien développement', 'employe-com' => 'Employé de commerce',];
+        $apprenties = [];
         if ($sort == 'entreprise') {
-            $apprenties->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
-        } elseif ($sort == 'formation') {
-            $apprenties->whereNotIn('entreprise', 'Centre de formation Jobtrek');
-        } elseif ($sort == 'alphabetique') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC')->get();
-        } elseif ($sort == 'informaticien-dev') {
-
+            $apprenties = User::all()->whereNotIn('enterprise', ['Centre de formation Jobtrek']);
+        } else if ($sort == 'formation') {
+            $apprenties = User::all()->where('enterprise', 'Centre de formation Jobtrek');
+        } else if ($sort == 'alphabetique') {
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name')->get();
+        } else if ($sort == 'informaticien-dev') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->get();
-        } elseif ($sort == 'employe-com') {
+        } else if ($sort == 'employe-com') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_commerce')->get();
         } else {
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
-
         return view('homepage', ['apprentis' => $apprenties, 'filtres' => $filtres]);
     }
 
@@ -100,6 +94,6 @@ class UserController extends Controller
         $commentaire = Commentaire::all()->find($id);
 
         $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
-         return view('commentDetails', ['comments' => $commentaire,'user'=>$user ] );
+        return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
     }
 }
