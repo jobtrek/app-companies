@@ -54,8 +54,12 @@ class UserController extends Controller
 
     public function coach()
     {
-        $apprentis = User::whereNotNull('coach_id')->with('commentaires')->get();
-        return view('coach', ['apprentis' => $apprentis ]);
+        $coachId = auth()->id() ;
+        
+        $apprentis = User::where('coach_id', $coachId)
+            ->with('commentaires')
+            ->get();
+        return view('coach', ['apprentis' => $apprentis,]);
     }
 
     public function show($id)
@@ -67,7 +71,8 @@ class UserController extends Controller
 
     public function sort($sort)
     {
-        $filtres = [
+
+      $filtres = [
             'entreprise' => 'En entreprise',
             'formation' => 'En centre de formation',
             'alphabetique' => 'Par ordre alphabétique',
@@ -99,6 +104,6 @@ class UserController extends Controller
         $commentaire = Commentaire::all()->find($id);
 
         $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
-         return view('commentDetails', ['comments' => $commentaire,'user'=>$user ] );
+        return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
     }
 }
