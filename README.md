@@ -84,6 +84,12 @@ pnpm run dev
 ./vendor/bin/sail artisan migrate
 ```
 
+### 8. Lien vers le stockage
+
+```bash
+php artisan storage:link
+```
+
 ## Utilisation
 
 Une fois l'installation terminée, l'application sera accessible à l'adresse :
