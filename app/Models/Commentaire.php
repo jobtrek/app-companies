@@ -15,7 +15,7 @@ class Commentaire extends Model
     }
 
     protected $fillable = [
-       'title',
+        'title',
         'description',
         'coach_id',
         'apprentis_id',

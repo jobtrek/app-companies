@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentCreationRequest;
 use App\Models\Commentaire;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -17,6 +16,7 @@ class CommentController extends Controller
         $validated['coach_id'] = $coachId;
         $validated['apprentis_id'] = $id;
         Commentaire::create($validated);
+
         return redirect()->route('coach')->with('success', 'Commentaire créé avec succès !');
 
     }
@@ -24,7 +24,7 @@ class CommentController extends Controller
     public function commentview($id)
     {
         $user = User::findOrFail($id);
+
         return view('createcomments', ['user' => $user]);
     }
-
 }
