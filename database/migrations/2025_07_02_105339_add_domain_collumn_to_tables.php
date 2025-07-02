@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('domain_id')->constrained()->cascadeOnDelete();
+        });
         Schema::table('entreprises', function (Blueprint $table) {
-            $table->dropColumn('role');
-            $table->string('address')->after('name');
-            $table->string('phone_number')->change();
+            $table->foreignId('domain_id')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -23,9 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('domain_id');
+        });
         Schema::table('entreprises', function (Blueprint $table) {
-            $table->string('role');
-            $table->dropColumn('address');
+            $table->dropColumn('domain_id');
         });
     }
 };
