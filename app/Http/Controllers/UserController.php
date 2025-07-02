@@ -54,8 +54,8 @@ class UserController extends Controller
 
     public function coach()
     {
-        $coachId = auth()->id() ;
-
+        $coachId = auth()->id();
+        
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->get();
@@ -95,7 +95,6 @@ class UserController extends Controller
         } else {
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
-
         return view('homepage', ['apprentis' => $apprenties->get(), 'filtres' => $filtres]);
     }
 

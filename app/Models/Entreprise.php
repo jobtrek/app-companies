@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,6 +17,12 @@ class Entreprise extends Model
         'website',
         'photo'
     ];
+    use HasFactory;
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'entreprise_id');
+    }
 
     public function domain(): BelongsTo
     {
