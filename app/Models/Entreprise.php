@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Entreprise extends Model
 {
@@ -24,8 +24,8 @@ class Entreprise extends Model
         return $this->hasMany(User::class, 'entreprise_id');
     }
 
-    public function domains(): BelongsToMany
+    public function domain(): BelongsTo
     {
-        return $this->belongsToMany(Domain::class);
+        return $this->belongsTo(Domain::class);
     }
 }
