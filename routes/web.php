@@ -32,6 +32,8 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/creation', [UserController::class, 'create'])->name('creation');
 
 Route::get('/profileEntreprise/{entreprise}', [EntrepriseController::class, 'index'])->name('profileEntreprise');
+Route::post('create-new-company', [EntrepriseController::class, 'create'])->name('company.create');
+
 
 Route::get('/user-profile/{id}', [UserController::class, 'show'])->name('userProfile');
 
