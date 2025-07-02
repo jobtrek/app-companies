@@ -3,11 +3,7 @@
 @section('content')
     <h1 class="text-3xl font-bold">Bienvenue</h1>
     <hr class="border-t border-gray-300 w-full mt-5">
-    @if (session('success'))
-        <div class="mb-4 p-4 bg-green-100 text-white rounded text-center">
-            {{ session('success') }}
-        </div>
-    @endif
+
     <div class="mt-10 mb-6">
         <input type="text" placeholder="Rechercher un apprenti..."
                class="border rounded px-3 py-2 w-full max-w-full mb-5">

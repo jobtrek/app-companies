@@ -16,15 +16,7 @@
 @section('content')
 
     <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{$user->name}} </h1>
-    @if ($errors->any())
-        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <form method="POST" action="{{ route('create.comment', ['id' => $user->id]) }}"
           class="grid grid-cols-2 md:grid-cols-2 gap-5 min-h-[80vh]">
         @csrf
