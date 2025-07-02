@@ -26,6 +26,6 @@ class EntrepriseController extends Controller
         $newEntreprise->photo = $path;
         $newEntreprise->save();
 
-        return redirect()->intended('/');
+        return redirect('/');
     }
 }
