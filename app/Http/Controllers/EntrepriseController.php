@@ -19,9 +19,7 @@ class EntrepriseController extends Controller
 
     public function create(EntrepriseCreationRequest $request)
     {
-        $photoName = Str::uuid() . $request->file('photo')->getClientOriginalName();
         $newEntreprise = Entreprise::create($request->validated());
-        $newEntreprise->photo = $photoName;
         $path = Storage::disk('local')->putFile('entreprise-logo', $request->file('photo'));
         $newEntreprise->photo = $path;
         $newEntreprise->save();
