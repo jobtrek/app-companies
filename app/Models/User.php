@@ -85,6 +85,11 @@ class User extends Authenticatable
         return $this->hasMany(Commentaire::class, 'apprentis_id');
     }
 
+    public function entreprise(): BelongsTo
+    {
+        return $this->belongsTo(Entreprise::class, 'entreprise_id');
+    }
+
     public function domain(): BelongsTo
     {
         return $this->belongsTo(Domain::class);

@@ -36,7 +36,7 @@ class UserFactory extends Factory
                 'coach',
             ], $count = 2),
             'password' => static::$password ??= Hash::make('password'),
-            'entreprise' => fake()->company(),
+            'entreprise_id' => \App\Models\Entreprise::factory(),
             'coach_id' => 1,
         ];
     }

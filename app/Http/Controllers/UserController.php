@@ -54,8 +54,8 @@ class UserController extends Controller
 
     public function coach()
     {
-        $coachId = auth()->id() ;
-
+        $coachId = auth()->id();
+        
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->get();
@@ -83,9 +83,9 @@ class UserController extends Controller
         $apprenties = [];
 
         if ($sort == 'entreprise') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise', ['Centre de formation Jobtrek'])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise_id', [1])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise_id',[1]);
         } elseif ($sort == 'formation') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise', 'Centre de formation Jobtrek')->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise', 'Centre de formation Jobtrek');
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise_id', 1)->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise_id', 1);
         } elseif ($sort == 'alphabetique') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC');
         } elseif ($sort == 'informaticien-dev') {
@@ -95,7 +95,6 @@ class UserController extends Controller
         } else {
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
-
         return view('homepage', ['apprentis' => $apprenties->get(), 'filtres' => $filtres]);
     }
 
