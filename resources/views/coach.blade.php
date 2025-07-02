@@ -3,8 +3,10 @@
 @section('content')
     <h1 class="text-3xl font-bold">Bienvenue</h1>
     <hr class="border-t border-gray-300 w-full mt-5">
+
     <div class="mt-10 mb-6">
-        <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full mb-5">
+        <input type="text" placeholder="Rechercher un apprenti..."
+               class="border rounded px-3 py-2 w-full max-w-full mb-5">
     </div>
     <div class="space-y-6">
         @foreach ($apprentis as $apprenti)
@@ -12,7 +14,7 @@
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4">
                 <div class="flex items-center gap-4 flex-1">
                     <img class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm"
-                         src="#" alt="Photo de l'apprenti" />
+                         src="#" alt="Photo de l'apprenti"/>
                     <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-800">{{ $apprenti->name }}
                             {{ $apprenti->lastname }}</h3>
@@ -24,13 +26,12 @@
                                 Informaticien développement d'applications
                             @endif
                         </p>
-                        <p class="text-sm text-gray-600">
                         @if ($apprenti->commentaires->isNotEmpty())
                             <p class="text-sm text-gray-600">Dernier commentaire le
                                 {{ \Carbon\Carbon::parse($apprenti->commentaires->last()->created_at)->locale('fr')->translatedFormat('d F Y') }}
                             </p>
-                            @endif
-                            </p>
+                        @endif
+
                     </div>
                 </div>
 
@@ -45,7 +46,8 @@
                         </button>
                         <div
                             class="hidden group-hover:block absolute bg-gray-100 min-w-[160px] shadow-lg z-10 rounded mt-1">
-                            <div class="w-full max-w-full md:max-w-[600px] mx-auto overflow-x-auto whitespace-nowrap p-2">
+                            <div
+                                class="w-full max-w-full md:max-w-[600px] mx-auto overflow-x-auto whitespace-nowrap p-2">
                                 <div class="w-full max-w-md mx-auto flex flex-col space-y-2 p-2">
                                     @if ($apprenti->commentaires->isEmpty())
                                         <a
@@ -74,10 +76,14 @@
                             </div>
                         </div>
                     </div>
-                    <button class="text-sm text-white bg-green-100 px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">
+                    <button
+                        class="text-sm text-white bg-green-100 px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">
                         Modifier
                     </button>
-
+                    <button
+                        class="text-sm text-white bg-green-100 px-4 py-2 rounded hover:bg-hover-custom cursor-pointer">
+                        <a href="/create-comment/{{$apprenti->id}}">Ajouter</a>
+                    </button>
                 </div>
             </div>
         @endforeach

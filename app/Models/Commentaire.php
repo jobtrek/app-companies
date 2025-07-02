@@ -13,4 +13,11 @@ class Commentaire extends Model
         return $this->morphMany(File::class, 'fileable');
 
     }
+
+    protected $fillable = [
+       'title',
+        'description',
+        'coach_id',
+        'apprentis_id',
+    ];
 }
