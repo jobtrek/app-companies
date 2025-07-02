@@ -48,8 +48,8 @@
             <div class="relative">
                 <button
                     class="
-                    w-full bg-blue-600 hover:bg-blue-700 
-                    text-white font-medium py-2 px-4 
+                    w-full bg-blue-600 hover:bg-blue-700
+                    text-white font-medium py-2 px-4
                     rounded shadow-md sm:w-full">
                     Lier une entreprise
                 </button>
@@ -58,8 +58,8 @@
             <div class="relative">
                 <button
                     class="
-                    w-full bg-blue-600 hover:bg-blue-700 
-                    text-white font-medium py-2 px-4 
+                    w-full bg-blue-600 hover:bg-blue-700
+                    text-white font-medium py-2 px-4
                     rounded shadow-md sm:w-full">
                     Lier à un coach
                 </button>
