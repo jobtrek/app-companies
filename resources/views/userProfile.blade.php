@@ -29,7 +29,7 @@
                 </p>
 
                 <p class="text-gray-600">
-                    <span class="font-medium">📚 Actuellement chez : </span>{{ $user->entreprise->name }}
+                    <span class="font-medium">📚 Actuellement chez : </span>{{ $user->entreprise }}
                 </p>
                 <p class="text-gray-600">
                     <span class="font-medium">Coach actuel :</span> {{ $user->coach ? $user->coach->name : 'Aucun' }}
@@ -40,7 +40,7 @@
         <section class="bg-white p-6 rounded-lg px-4 sm:px-6 lg:px-8">
             <h1 class="text-xl font-semibold mb-4">Liste des entreprises</h1>
             <ul class="text-gray-700 text-base leading-relaxed">
-                <li>{{ $user->entreprise->name }}</li>
+                <li>{{ $user->entreprise }}</li>
             </ul>
         </section>
 
