@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Entreprise extends Model
@@ -15,4 +16,10 @@ class Entreprise extends Model
         'website',
         'photo'
     ];
+    use HasFactory;
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'entreprise_id');
+    }
 }

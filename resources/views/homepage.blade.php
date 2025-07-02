@@ -59,7 +59,7 @@
                                             Informaticien développement d'applications
                                         @endif
                                     </p>
-                                    <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise }}</p>
+                                    <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise->name }}</p>
                                 </div>
                             </div>
                         </a>
