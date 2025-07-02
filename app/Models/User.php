@@ -87,7 +87,7 @@ class User extends Authenticatable
 
     public function entreprise(): BelongsTo
     {
-        return $this->belongsTo(Entreprise::class, 'entreprise_id');
+        return $this->belongsTo(Entreprise::class);
     }
 
     public function domain(): BelongsTo

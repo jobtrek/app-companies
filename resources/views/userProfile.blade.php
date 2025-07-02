@@ -29,7 +29,7 @@
                 </p>
 
                 <p class="text-gray-600">
-                    <span class="font-medium">📚 Actuellement chez : </span>{{ $user->entreprise }}
+                    <span class="font-medium">📚 Actuellement chez : </span>{{ $user->entreprise->name }}
                 </p>
                 <p class="text-gray-600">
                     <span class="font-medium">Coach actuel :</span> {{ $user->coach ? $user->coach->name : 'Aucun' }}
@@ -40,7 +40,7 @@
         <section class="bg-white p-6 rounded-lg px-4 sm:px-6 lg:px-8">
             <h1 class="text-xl font-semibold mb-4">Liste des entreprises</h1>
             <ul class="text-gray-700 text-base leading-relaxed">
-                <li>{{ $user->entreprise }}</li>
+                <li>{{ $user->entreprise->name }}</li>
             </ul>
         </section>
 
@@ -48,8 +48,8 @@
             <div class="relative">
                 <button
                     class="
-                    w-full bg-blue-600 hover:bg-blue-700 
-                    text-white font-medium py-2 px-4 
+                    w-full bg-blue-600 hover:bg-blue-700
+                    text-white font-medium py-2 px-4
                     rounded shadow-md sm:w-full">
                     Lier une entreprise
                 </button>
@@ -58,8 +58,8 @@
             <div class="relative">
                 <button
                     class="
-                    w-full bg-blue-600 hover:bg-blue-700 
-                    text-white font-medium py-2 px-4 
+                    w-full bg-blue-600 hover:bg-blue-700
+                    text-white font-medium py-2 px-4
                     rounded shadow-md sm:w-full">
                     Lier à un coach
                 </button>
