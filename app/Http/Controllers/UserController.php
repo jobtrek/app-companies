@@ -83,9 +83,9 @@ class UserController extends Controller
         $apprenties = [];
 
         if ($sort == 'entreprise') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise', ['Centre de formation Jobtrek'])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise', ['Centre de formation Jobtrek']);
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise_id', [1])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise_id', [1]);
         } elseif ($sort == 'formation') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise', 'Centre de formation Jobtrek')->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise', 'Centre de formation Jobtrek');
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise_id', 1)->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise_id', 1);
         } elseif ($sort == 'alphabetique') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC');
         } elseif ($sort == 'informaticien-dev') {
