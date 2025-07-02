@@ -3,6 +3,8 @@
 use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppartementController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/login', function () {
     return view('login');
@@ -44,3 +46,6 @@ Route::get('/coach', [UserController::class, 'coach'])->name('coach');
 Route::get('sort/{sort}', [UserController::class, 'sort'])->name('home.sort');
 
 Route::get('/comments-detail/{id}', [UserController::class, 'commentsdetails'])->name('comment.detail');
+
+Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->name('create.comment.view');
+Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment');
