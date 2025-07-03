@@ -46,7 +46,7 @@ main {
 @media (max-width: 768px) {
     main {
         margin: 20px;
-        margin-bottom: 100px;
+        margin-bottom: 150px;
         width: auto;
     }
 }

@@ -3,7 +3,7 @@
 @section('title', 'Profil utilisateur')
 
 @section('content')
-    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden sm:flex sm:flex-row p-8 gap-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg mt-15 sm:flex sm:flex-row p-8 gap-8">
 
         <div class="sm:w-1/3 flex flex-col items-center justify-center min-h-[320px] text-center">
 
