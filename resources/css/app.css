@@ -24,14 +24,14 @@
     --hover-color: #1C2366;
 }
 
-html {
-    height: auto;
+html,
+body {
+    overflow-y: auto;
     width: 100%;
+    height: 100vh;
 }
 
 body {
-    width: auto;
-    height: 100%;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -41,24 +41,26 @@ main {
     justify-content: center;
     width: 100%;
     height: 100%;
-    margin: 50px;
 }
 
 @media (max-width: 768px) {
     main {
-        margin: 30px;
-        margin-bottom: 125px;
+        margin: 20px;
+        margin-bottom: 100px;
         width: auto;
     }
 }
 
 @media (min-width: 768px) {
     main {
-        margin-left: 300px;
+        margin-left: 250px;
+        padding: 50px;
     }
 }
 
-button, label {
+button,
+label,
+a {
     cursor: pointer;
 }
 
