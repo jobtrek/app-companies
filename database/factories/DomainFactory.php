@@ -17,7 +17,7 @@ class DomainFactory extends Factory
     public function definition(): array
     {
         return [
-            'Domain' => fake()->randomElement(['informaticien', 'employe_de_com']),
+            'name' => fake()->randomElement(['informaticien', 'employe_de_com']),
         ];
     }
 }
