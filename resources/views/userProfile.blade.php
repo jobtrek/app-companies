@@ -23,6 +23,7 @@
             }
         });
 
+        
     </script>
 @endsection
 @section('title', 'Profil utilisateur')
