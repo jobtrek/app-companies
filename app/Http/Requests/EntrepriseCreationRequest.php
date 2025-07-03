@@ -29,6 +29,7 @@ class EntrepriseCreationRequest extends FormRequest
             'description' => ['required', 'max:500', 'string'],
             'website' => ['required', 'string'],
             'photo' => ['file', 'mimes:jpeg,png,jpg', 'max:4096'],
+            'domain_id' => ['required', 'exists:domains,id'],
         ];
     }
 }
