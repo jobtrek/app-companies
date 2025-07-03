@@ -19,6 +19,7 @@ class EntrepriseFactory extends Factory
             'website' => $this->faker->url(),
             'phone_number' => $this->faker->phoneNumber(),
             'photo' => null,
+            'domain_id' => 1,
         ];
     }
 }
