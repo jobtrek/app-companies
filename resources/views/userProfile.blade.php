@@ -1,7 +1,5 @@
 @extends('layout')
-
 @section('title', 'Profil utilisateur')
-
 @section('content')
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg mt-15 sm:flex sm:flex-row p-8 gap-8">
 
@@ -10,7 +8,7 @@
             <div class="flex justify-center mb-4">
                 @if ($user->photo)
                     <img src="{{ $user->photo }}"
-                        class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
+                         class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm"/>
                 @else
                     <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                         ?
@@ -55,6 +53,7 @@
                         class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition">
                         Lier une entreprise
                     </button>
+
                 </div>
                 <ul class="list-disc pl-6 text-gray-700 space-y-1">
                     <li class="font-semibold text-white">Actuelle : {{ $user->entreprise ?? 'Aucune' }}
@@ -69,10 +68,57 @@
             <section class="bg-green-100 p-6 rounded-xl shadow-md col-span-full">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des coachs</h3>
-                    <button
-                        class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition">
-                        Lier à un coach
-                    </button>
+
+                    <div class="relative inline-block text-left">
+                        <button
+                            id="toggleButton"
+                            class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                            type="button"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            aria-controls="dropdownWrapper"
+                        >
+                            Lier à un coach
+                        </button>
+
+                        <div
+                            class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden"
+                            id="dropdownWrapper"
+                            role="menu"
+                            aria-labelledby="toggleButton"
+                        >
+                            <form action="{{ route('users.updateCoach', ['user' => $user->id]) }}" method="POST"
+                                  class="p-4">
+                                @csrf
+                                @method('PUT')
+
+                                <label for="coach_id" class="block text-sm font-semibold text-gray-700">Choisir un coach
+                                    :</label>
+                                <select
+                                    name="coach_id"
+                                    id="coach_id"
+                                    required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                >
+                                    <option value="" disabled selected>-- Sélectionner un coach --</option>
+                                    @foreach($coach as $c)
+                                        <option value="{{ $c->id }}" {{ $user->coach_id == $c->id ? 'selected' : '' }}>
+                                            {{ $c->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <button
+                                    type="submit"
+                                    id="submitBtn"
+                                    class="mt-4 w-full py-2 px-4 bg-[#1C2366] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    Confirmer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
                 <ul class="list-disc pl-6 text-gray-700 space-y-1">
                     <li class="font-semibold text-white">
@@ -85,5 +131,6 @@
             </section>
 
         </div>
+
     </div>
 @endsection

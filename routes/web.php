@@ -26,3 +26,5 @@ Route::get('/comments-detail/{id}', [UserController::class, 'commentsdetails'])-
 
 Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->name('create.comment.view');
 Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment');
+
+Route::put('/updatecoach/{user}', [UserController::class, 'updateCoach'])->name('users.updateCoach');
