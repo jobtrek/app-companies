@@ -66,8 +66,22 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('userProfile', ['user' => $user]);
+        $coach =   User::whereJsonContains('roles',"coach")->get();
+        return view('userProfile', ['user' => $user, 'coach' => $coach]);
     }
+    public function updateCoach(Request $request, User $user)
+    {
+        $request->validate([
+            'coach_id' => 'required|exists:users,id',
+        ]);
+
+        $user->coach_id = $request->input('coach_id');
+        $user->save();
+
+        return redirect()->route('home')->with('success', 'Coach lié avec succès !');
+    }
+
+
 
     public function sort($sort)
     {
@@ -106,4 +120,6 @@ class UserController extends Controller
         $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
         return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
     }
+
+
 }

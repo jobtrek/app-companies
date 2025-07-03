@@ -36,7 +36,6 @@ Route::post('/creation', [UserController::class, 'create'])->name('creation');
 Route::get('/profileEntreprise/{entreprise}', [EntrepriseController::class, 'index'])->name('profileEntreprise');
 Route::post('create-new-company', [EntrepriseController::class, 'create'])->name('company.create');
 
-
 Route::get('/user-profile/{id}', [UserController::class, 'show'])->name('userProfile');
 
 Route::get('/', [UserController::class, 'index'])->name('home');
@@ -49,3 +48,5 @@ Route::get('/comments-detail/{id}', [UserController::class, 'commentsdetails'])-
 
 Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->name('create.comment.view');
 Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment');
+
+Route::put('/updatecoach/{user}', [UserController::class, 'updateCoach'])->name('users.updateCoach');
