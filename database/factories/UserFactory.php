@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Domain;
+use App\Models\Entreprise;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -36,8 +38,8 @@ class UserFactory extends Factory
                 'coach',
             ], $count = 2),
             'password' => static::$password ??= Hash::make('password'),
-            'entreprise_id' => \App\Models\Entreprise::factory(),
-            'coach_id' => 1,
+            'domain_id' => Domain::inRandomOrder()->first()?->id ?? Domain::factory(),
+            'entreprise_id' => Entreprise::inRandomOrder()->first()?->id ?? Entreprise::factory(),
         ];
     }
 
@@ -52,6 +54,13 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'roles' => [fake()->randomElement(['apprenti_informaticien', 'apprenti_commerce'])],
+        ]);
+    }
+
+    public function formateur(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'roles' => [fake()->randomElement(['formateur_informaticien', 'formateur_commerce'])],
         ]);
     }
 

@@ -56,7 +56,7 @@
 
                 </div>
                 <ul class="list-disc pl-6 text-gray-700 space-y-1">
-                    <li class="font-semibold text-white">Actuelle : {{ $user->entreprise ?? 'Aucune' }}
+                    <li class="font-semibold text-white">Actuelle : {{ $user->entreprise->name ?? 'Aucune' }}
 
                     </li>
                     @foreach ($user->previous_companies ?? [] as $previousCompany)
