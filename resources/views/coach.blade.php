@@ -19,7 +19,7 @@
                             {{ $apprenti->lastname }}</h3>
 
                         <p class="text-sm text-gray-600">Formation :
-                            @if ($apprenti->role == 'Apprenti-Commerce')
+                            @if ($apprenti->roles->contains('apprenti_commerce'))
                                 Employé de commerce
                             @else
                                 Informaticien développement d'applications
