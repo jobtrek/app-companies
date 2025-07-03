@@ -16,6 +16,7 @@ class Entreprise extends Model
         'description',
         'website',
         'photo',
+        'domain_id',
     ];
 
     use HasFactory;

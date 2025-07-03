@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EntrepriseCreationRequest;
+use App\Models\Domain;
 use App\Models\Entreprise;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,5 +24,12 @@ class EntrepriseController extends Controller
         $newEntreprise->save();
 
         return redirect('/');
+    }
+
+    public function showCreateForm()
+    {
+        $domains = Domain::all();
+
+        return view('createCompany', ['domains' => $domains]);
     }
 }
