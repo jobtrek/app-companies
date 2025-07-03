@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -80,6 +79,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'coach_id');
     }
+
     public function commentaires(): HasMany
     {
         return $this->hasMany(Commentaire::class, 'apprentis_id');

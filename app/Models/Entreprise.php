@@ -15,8 +15,9 @@ class Entreprise extends Model
         'email',
         'description',
         'website',
-        'photo'
+        'photo',
     ];
+
     use HasFactory;
 
     public function users()

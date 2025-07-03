@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class EntrepriseCreationRequest extends FormRequest
 {
@@ -24,12 +23,12 @@ class EntrepriseCreationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'address' =>  ['required', 'string', 'max:255'],
-            'phone_number' =>  ['required', 'string', 'max:30'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:entreprises,email'],
-            'description' =>  ['required', 'max:500', 'string'],
-            'website'  =>  ['required', 'string'],
-            'photo' =>  ['file', 'mimes:jpeg,png,jpg', 'max:4096'],
+            'description' => ['required', 'max:500', 'string'],
+            'website' => ['required', 'string'],
+            'photo' => ['file', 'mimes:jpeg,png,jpg', 'max:4096'],
         ];
     }
 }
