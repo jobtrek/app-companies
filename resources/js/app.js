@@ -28,12 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const sectionEntreprises = document.getElementById("section-entreprises");
     const filters = document.getElementById("filters");
     const sectionContainer = document.getElementById("section-container");
+    const fullContainer = document.getElementById("full-container");
 
     btnApprentis.addEventListener("click", () => {
         sectionApprentis.classList.remove("hidden");
         sectionEntreprises.classList.add("hidden");
         filters.classList.remove("hidden");
         sectionContainer.classList.add("w-full", "lg:w-2/3");
+        fullContainer.classList.add("lg:flex-row-reverse");
 
         btnApprentis.classList.add(
             "border-blue-500",
@@ -55,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sectionApprentis.classList.add("hidden");
         filters.classList.add("hidden");
         sectionContainer.classList.remove("w-full", "lg:w-2/3");
+        fullContainer.classList.remove("lg:flex-row-reverse")
 
         btnEntreprises.classList.add(
             "border-blue-500",

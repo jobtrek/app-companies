@@ -23,7 +23,7 @@
             <input type="text" placeholder="Rechercher un apprenti..." id="search"
                 class="border rounded px-3 py-2 w-full max-w-full mb-5">
         </div>
-        <div class="flex flex-col lg:flex-row-reverse gap-8">
+        <div id="full-container" class="flex flex-col lg:flex-row-reverse gap-8">
             <div id="filters"
                 class="w-full lg:w-1/3 h-fit bg-gray-50 p-5 rounded-lg border border-gray-200 shadow md:sticky top-5">
                 <h2 class="text-xl font-semibold mb-4">Filtres</h2>
