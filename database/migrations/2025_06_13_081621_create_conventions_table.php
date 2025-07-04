@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('users_id')->constrained();
-            $table->foreignId('entreprise_id')->constrained();
+            $table->foreignId('entreprise_id')->constrained()->onDelete('cascade');
             $table->date('date_de_départ');
             $table->date('date_de_retour');
 
