@@ -18,7 +18,7 @@ class UserController extends Controller
     public function create(UserCreationRequest $request)
     {
         $user = User::create($request->all());
-        if ($user->roles->contains('apprenti_informaticien' || 'apprenti_commerce')) {
+        if ($user->roles->contains('apprenti_informaticien') || $user->roles->contains('apprenti_commerce')) {
             Convention::create([
                 'users_id' => $user->id,
                 'entreprise_id' => 1,

@@ -19,10 +19,5 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::table('convention', function (Blueprint $table) {
-            $table->string('date_de_retour')->change();;
-        });
-    }
+    public function down(): void{}
 };

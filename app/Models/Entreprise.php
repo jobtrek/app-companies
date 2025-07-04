@@ -22,7 +22,7 @@ class Entreprise extends Model
 
     use HasFactory;
 
-    public function users()
+    public function users():  HasMany
     {
         return $this->hasMany(User::class, 'entreprise_id');
     }
