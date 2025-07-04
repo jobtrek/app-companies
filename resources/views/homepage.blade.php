@@ -107,37 +107,4 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            const btnApprentis = document.getElementById('btn-apprentis');
-            const btnEntreprises = document.getElementById('btn-entreprises');
-            const sectionApprentis = document.getElementById('section-apprentis');
-            const sectionEntreprises = document.getElementById('section-entreprises');
-            const filters = document.getElementById('filters');
-
-            btnApprentis.addEventListener('click', () => {
-                sectionApprentis.classList.remove('hidden');
-                sectionEntreprises.classList.add('hidden');
-                filters.classList.remove('hidden');
-
-                btnApprentis.classList.add('border-blue-500', 'text-blue-500', 'bg-blue-100');
-                btnApprentis.classList.remove('border-gray-300', 'text-gray-600');
-
-                btnEntreprises.classList.add('border-gray-300', 'text-gray-600');
-                btnEntreprises.classList.remove('border-blue-500', 'text-blue-500', 'bg-blue-100');
-            });
-
-            btnEntreprises.addEventListener('click', () => {
-                sectionEntreprises.classList.remove('hidden');
-                sectionApprentis.classList.add('hidden');
-                filters.classList.add('hidden');
-
-                btnEntreprises.classList.add('border-blue-500', 'text-blue-500', 'bg-blue-100');
-                btnEntreprises.classList.remove('border-gray-300', 'text-gray-600');
-
-                btnApprentis.classList.add('border-gray-300', 'text-gray-600');
-                btnApprentis.classList.remove('border-blue-500', 'text-blue-500', 'bg-blue-100');
-            });
-        </script>
-
     @endsection
