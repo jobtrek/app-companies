@@ -22,7 +22,7 @@ Route::get('/user-profile/{id}', [UserController::class, 'show'])->name('userPro
 
 Route::get('/coach', [UserController::class, 'coach'])->name('coach');
 Route::get('/sort/{sort}', [UserController::class, 'sort'])->name('home.sort');
-Route::get('/comments-detail/{id}', [UserController::class, 'commentsdetails'])->name('comment.detail');
+Route::get('/comments-detail/{id}', [CommentController::class, 'commentsdetails'])->name('comment.detail');
 
 Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->name('create.comment.view');
 Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment');

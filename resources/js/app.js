@@ -1,21 +1,21 @@
 import "./bootstrap";
 
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.getElementById('toggleButton');
-    const dropdown = document.getElementById('dropdownWrapper');
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggleButton");
+    const dropdown = document.getElementById("dropdownWrapper");
     if (toggleBtn && dropdown) {
-        toggleBtn.addEventListener('click', function () {
-            dropdown.classList.toggle('hidden');
+        toggleBtn.addEventListener("click", function () {
+            dropdown.classList.toggle("hidden");
         });
     }
-    const submitBtn = document.getElementById('submitBtn');
-    const selectCoach = document.getElementById('coach_id');
+    const submitBtn = document.getElementById("submitBtn");
+    const selectCoach = document.getElementById("coach_id");
     if (selectCoach && submitBtn) {
-        selectCoach.addEventListener('change', () => {
+        selectCoach.addEventListener("change", () => {
             if (selectCoach.value) {
-                submitBtn.classList.remove('hidden');
+                submitBtn.classList.remove("hidden");
             } else {
-                submitBtn.classList.add('hidden');
+                submitBtn.classList.add("hidden");
             }
         });
     }
@@ -27,11 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const sectionApprentis = document.getElementById("section-apprentis");
     const sectionEntreprises = document.getElementById("section-entreprises");
     const filters = document.getElementById("filters");
+    const sectionContainer = document.getElementById("section-container");
 
     btnApprentis.addEventListener("click", () => {
         sectionApprentis.classList.remove("hidden");
         sectionEntreprises.classList.add("hidden");
         filters.classList.remove("hidden");
+        sectionContainer.classList.add("w-full", "lg:w-2/3");
 
         btnApprentis.classList.add(
             "border-blue-500",
@@ -52,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sectionEntreprises.classList.remove("hidden");
         sectionApprentis.classList.add("hidden");
         filters.classList.add("hidden");
+        sectionContainer.classList.remove("w-full", "lg:w-2/3");
 
         btnEntreprises.classList.add(
             "border-blue-500",
@@ -69,20 +72,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.querySelector('#search');
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.querySelector("#search");
 
     if (searchInput) {
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener("input", function () {
             const searchText = this.value.toLowerCase();
-            const cards = document.querySelectorAll('.search-card');
+            const cards = document.querySelectorAll(".search-card");
 
-            cards.forEach(card => {
+            cards.forEach((card) => {
                 const text = card.textContent.toLowerCase();
                 if (text.includes(searchText)) {
-                    card.parentElement.style.display = '';
+                    card.parentElement.style.display = "";
                 } else {
-                    card.parentElement.style.display = 'none';
+                    card.parentElement.style.display = "none";
                 }
             });
         });

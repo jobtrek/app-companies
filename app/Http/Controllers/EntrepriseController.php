@@ -23,7 +23,9 @@ class EntrepriseController extends Controller
         $newEntreprise->photo = $path;
         $newEntreprise->save();
 
-        return redirect('/');
+        Entreprise::create($request->all());
+
+        return redirect()->route('home')->with('success', 'Entreprise créée !');
     }
 
     public function showCreateForm()

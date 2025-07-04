@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
-use App\Models\Commentaire;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
@@ -15,9 +14,9 @@ class UserController extends Controller
     public function create(UserCreationRequest $request)
     {
         User::create($request->all());
+
         return redirect()->route('home')->with('success', 'Utilisateur créé !');
     }
-
 
     public function login(Request $request)
     {
@@ -75,7 +74,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $coach = User::whereJsonContains('roles', "coach")->get();
+        $coach = User::whereJsonContains('roles', 'coach')->get();
 
         return view('userProfile', ['user' => $user, 'coach' => $coach]);
     }
@@ -133,11 +132,10 @@ class UserController extends Controller
         ]);
     }
 
-
     public function showDomain()
     {
         $domains = Domain::all();
+
         return view('createaccount', ['domains' => $domains]);
     }
-
 }
