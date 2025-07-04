@@ -10,7 +10,7 @@
                     <img src="{{ $user->photo }}"
                         class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
                 @else
-                    <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
+                    <div class="w-40 h-40 text-4xl bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                         ?
                     </div>
                 @endif
@@ -92,8 +92,11 @@
                     <li class="font-semibold text-white">Actuelle : {{ $user->entreprise->name ?? 'Aucune' }}
 
                     </li>
-                    @foreach ($user->previous_companies ?? [] as $previousCompany)
-                        <li>{{ $previousCompany->name }} (anciennement)</li>
+                    @foreach ($previousCompanies ?? [] as $previousCompany)
+                        @if($previousCompany->date_de_retour === null)
+                        @else
+                            <li>{{ $previousCompany->entreprise->name }} ({{ $previousCompany->date_de_départ }} - {{ $previousCompany->date_de_retour }})</li>
+                            @endif
                     @endforeach
                 </ul>
             </section>

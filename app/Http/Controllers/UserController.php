@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
+use App\Models\Commentaire;
+use App\Models\Convention;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +17,15 @@ class UserController extends Controller
 {
     public function create(UserCreationRequest $request)
     {
-        User::create($request->all());
-
+        $user = User::create($request->all());
+        if ($user->roles->contains('apprenti_informaticien' || 'apprenti_commerce')) {
+            Convention::create([
+                'users_id' => $user->id,
+                'entreprise_id' => 1,
+                'date_de_départ' => Carbon::now('Europe/Zurich')->format('Y-m-d'),
+                'date_de_retour' => null
+            ]);
+        }
         return redirect()->route('home')->with('success', 'Utilisateur créé !');
     }
 
@@ -77,8 +87,9 @@ class UserController extends Controller
 
         $coach = User::whereJsonContains('roles', 'coach')->get();
         $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
+        $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
 
-        return view('userProfile', ['user' => $user, 'coach' => $coach,  'entreprises' => $entreprises]);
+        return view('userProfile', ['user' => $user, 'coach' => $coach,  'entreprises' => $entreprises,  'previousCompanies' => $previousCompanies]);
     }
 
     public function updateCoach(Request $request, User $user)
@@ -97,6 +108,17 @@ class UserController extends Controller
     {
         $request->validate([
             'entreprise_id' => 'required|exists:entreprises,id',
+        ]);
+
+        $lastConvention = Convention::where('users_id', $user->id)->orderBy('created_at', 'desc')->first();
+        $lastConvention->date_de_retour = Carbon::now('Europe/Zurich')->format('Y-m-d');
+        $lastConvention->save();
+
+        Convention::create([
+            'users_id' => $user->id,
+            'entreprise_id' => $request->input('entreprise_id'),
+            'date_de_départ' => Carbon::now('Europe/Zurich')->format('Y-m-d'),
+            'date_de_retour' => null
         ]);
 
         $user->entreprise_id = $request->input('entreprise_id');
