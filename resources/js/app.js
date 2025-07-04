@@ -3,6 +3,7 @@ import "./bootstrap";
 document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.getElementById("toggleButton");
     const dropdown = document.getElementById("dropdownWrapper");
+
     if (toggleBtn && dropdown) {
         toggleBtn.addEventListener("click", function () {
             dropdown.classList.toggle("hidden");
@@ -21,6 +22,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Change entreprise
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtnEntreprise = document.getElementById('toggleButtonEntreprise');
+    const dropdownEntreprise = document.getElementById('dropdownWrapperEntreprise');
+    if (toggleBtnEntreprise && dropdownEntreprise) {
+        toggleBtnEntreprise.addEventListener('click', function () {
+            dropdownEntreprise.classList.toggle('hidden');
+        });
+    }
+    const submitBtnEntreprise = document.getElementById('submitBtnEntreprise');
+    const selectEntreprise = document.getElementById('entreprise_id');
+    if (selectEntreprise && submitBtnEntreprise) {
+        selectEntreprise.addEventListener('change', () => {
+            if (selectEntreprise.value) {
+                submitBtnEntreprise.classList.remove('hidden');
+            } else {
+                submitBtnEntreprise.classList.add('hidden');
+            }
+        });
+    }
+});
+
+// Toggle between "Apprentis" and "Entreprises" sections on the homepage
 document.addEventListener("DOMContentLoaded", function () {
     const btnApprentis = document.getElementById("btn-apprentis");
     const btnEntreprises = document.getElementById("btn-entreprises");
