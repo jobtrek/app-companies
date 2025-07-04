@@ -21,7 +21,8 @@
     <div class="w-full max-w-full">
         <div class="w-full mb-5">
             <input type="text" placeholder="Rechercher un apprenti..."
-                class="border rounded px-3 py-2 w-full max-w-full">
+                   id="search"
+                   class="border rounded px-3 py-2 w-full max-w-full mb-5">
         </div>
         <div class="flex flex-col lg:flex-row-reverse gap-8">
             <div id="filters"
@@ -47,10 +48,10 @@
             <div class="flex flex-col w-full lg:w-2/3 space-y-6">
                 <div id="section-apprentis">
                     <h2 class="text-2xl font-semibold mb-6">Apprentis</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
                         @foreach ($apprentis as $apprenti)
                             <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}">
-                                <div class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition">
+                                <div class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition search-card">
                                     <div class="flex justify-center mb-4">
                                         @if ($apprenti->photo)
                                             <img src="{{ $apprenti->photo }}"
