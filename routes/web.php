@@ -31,3 +31,5 @@ Route::put('/updatecoach/{user}', [UserController::class, 'updateCoach'])->name(
 
 Route::get('/create-account', [UserController::class, 'showDomain'])->name('create-account');
 Route::post('/create-account', [UserController::class, 'create'])->name('user.create');
+
+Route::delete('/delete-account/{user}', [UserController::class, 'destroy'])->name('users.delete');

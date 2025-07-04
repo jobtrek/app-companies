@@ -6,6 +6,7 @@ use App\Http\Requests\UserCreationRequest;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -138,4 +139,16 @@ class UserController extends Controller
 
         return view('createaccount', ['domains' => $domains]);
     }
+
+    public function destroy(User $user)
+    {
+
+        Gate::authorize('admin', $user);
+        
+        $user->commentaires()->delete();
+        $user->delete();
+        return redirect()->route('home')->with('success', 'Utilisateur supprimé');
+    }
+
+
 }

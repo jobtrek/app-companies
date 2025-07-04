@@ -133,4 +133,15 @@
         </div>
 
     </div>
+    @can('admin')
+            <form method="POST" action="{{ route('users.delete', $user->id) }}"
+                  class="w-2/3 sm:w-1/3 mx-auto text-center">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="bg-red-600 text-white m-10 hover:bg-red-700 active:scale-98 active:bg-blue-800 text-black text-center px-4 py-2 rounded-lg w-1/2 transition-all duration-200 ease-in-out">
+                    Delete
+                </button>
+            </form>
+@endcan
 @endsection
