@@ -1,23 +1,67 @@
-import './bootstrap';
+import "./bootstrap";
 
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.getElementById('toggleButton');
-    const dropdown = document.getElementById('dropdownWrapper');
-
-    toggleBtn.addEventListener('click', function () {
-        dropdown.classList.toggle('hidden');
-    });
-});
-const toggleButton = document.getElementById('toggleButton');
-const dropdownWrapper = document.getElementById('dropdownWrapper');
-const submitBtn = document.getElementById('submitBtn');
-const selectCoach = document.getElementById('coach_id');
-
-
-selectCoach.addEventListener('change', () => {
-    if (selectCoach.value) {
-        submitBtn.classList.remove('hidden');
-    } else {
-        submitBtn.classList.add('hidden');
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggleButton");
+    const dropdown = document.getElementById("dropdownWrapper");
+    if (toggleBtn && dropdown) {
+        toggleBtn.addEventListener("click", function () {
+            dropdown.classList.toggle("hidden");
+        });
     }
+    const submitBtn = document.getElementById("submitBtn");
+    const selectCoach = document.getElementById("coach_id");
+    if (selectCoach && submitBtn) {
+        selectCoach.addEventListener("change", () => {
+            if (selectCoach.value) submitBtn.classList.remove("hidden");
+            else submitBtn.classList.add("hidden");
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btnApprentis = document.getElementById("btn-apprentis");
+    const btnEntreprises = document.getElementById("btn-entreprises");
+    const sectionApprentis = document.getElementById("section-apprentis");
+    const sectionEntreprises = document.getElementById("section-entreprises");
+    const filters = document.getElementById("filters");
+
+    btnApprentis.addEventListener("click", () => {
+        sectionApprentis.classList.remove("hidden");
+        sectionEntreprises.classList.add("hidden");
+        filters.classList.remove("hidden");
+
+        btnApprentis.classList.add(
+            "border-blue-500",
+            "text-blue-500",
+            "bg-blue-100",
+        );
+        btnApprentis.classList.remove("border-gray-300", "text-gray-600");
+
+        btnEntreprises.classList.add("border-gray-300", "text-gray-600");
+        btnEntreprises.classList.remove(
+            "border-blue-500",
+            "text-blue-500",
+            "bg-blue-100",
+        );
+    });
+
+    btnEntreprises.addEventListener("click", () => {
+        sectionEntreprises.classList.remove("hidden");
+        sectionApprentis.classList.add("hidden");
+        filters.classList.add("hidden");
+
+        btnEntreprises.classList.add(
+            "border-blue-500",
+            "text-blue-500",
+            "bg-blue-100",
+        );
+        btnEntreprises.classList.remove("border-gray-300", "text-gray-600");
+
+        btnApprentis.classList.add("border-gray-300", "text-gray-600");
+        btnApprentis.classList.remove(
+            "border-blue-500",
+            "text-blue-500",
+            "bg-blue-100",
+        );
+    });
 });

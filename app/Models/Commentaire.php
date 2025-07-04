@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Commentaire extends Model
 {
     use HasFactory;
+
     public function file(): MorphMany
     {
 
