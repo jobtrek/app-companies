@@ -21,7 +21,7 @@ class CommentaireFactory extends Factory
             'title' => fake()->title(),
             'description' => fake()->sentences(5, true),
             'apprentis_id' => User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->inRandomOrder()->first()->id,
-            'coach_id' => User::whereJsonContains('roles', 'coach')->inRandomOrder()->first()->id
+            'coach_id' => User::whereJsonContains('roles', 'coach')->inRandomOrder()->first()->id,
         ];
     }
 }

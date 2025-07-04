@@ -63,6 +63,20 @@
 
         </div>
 
+        @if ($errors->any())
+            <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="fixed bottom-4 right-4 z-50 mb-4 p-4 bg-green-100 text-white rounded text-center">
+                {{ session('success') }}
+            </div>
+        @endif
     </div>
 </aside>
 

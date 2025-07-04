@@ -20,13 +20,12 @@
 
     <div class="w-full max-w-full">
         <div class="w-full mb-5">
-            <input type="text" placeholder="Rechercher un apprenti..."
-                   id="search"
-                   class="border rounded px-3 py-2 w-full max-w-full mb-5">
+            <input type="text" placeholder="Rechercher un apprenti..." id="search"
+                class="border rounded px-3 py-2 w-full max-w-full mb-5">
         </div>
-        <div class="flex flex-col lg:flex-row-reverse gap-8">
+        <div id="full-container" class="flex flex-col lg:flex-row-reverse gap-8">
             <div id="filters"
-                class="w-full lg:w-1/3 h-fit md:mt-14 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow md:sticky top-5">
+                class="w-full lg:w-1/3 h-fit bg-gray-50 p-5 rounded-lg border border-gray-200 shadow md:sticky top-5">
                 <h2 class="text-xl font-semibold mb-4">Filtres</h2>
                 <a href="/" class="text-blue-500 hover:text-blue-700 font-semibold">Réinitialiser les filtres</a>
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1 mt-4">
@@ -45,13 +44,13 @@
                     @endforeach
                 </div>
             </div>
-            <div class="flex flex-col w-full lg:w-2/3 space-y-6">
+            <div id="section-container" class="flex flex-col w-full lg:w-2/3">
                 <div id="section-apprentis">
-                    <h2 class="text-2xl font-semibold mb-6">Apprentis</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
                         @foreach ($apprentis as $apprenti)
                             <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}">
-                                <div class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition search-card">
+                                <div
+                                    class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition search-card">
                                     <div class="flex justify-center mb-4">
                                         @if ($apprenti->photo)
                                             <img src="{{ $apprenti->photo }}"
@@ -83,7 +82,6 @@
             </div>
 
             <div id="section-entreprises" class="hidden entreprises-section">
-                <h2 class="text-2xl font-semibold mb-6">Entreprises</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="entreprises-list">
                     @foreach ($entreprises as $entreprise)
                         <a href="{{ route('profileEntreprise', ['entreprise' => $entreprise->id]) }}"

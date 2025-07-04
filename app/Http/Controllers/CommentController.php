@@ -27,6 +27,7 @@ class CommentController extends Controller
 
         return view('createcomments', ['user' => $user]);
     }
+
     public function commentsdetails($id)
     {
         $commentaire = Commentaire::all()->find($id);

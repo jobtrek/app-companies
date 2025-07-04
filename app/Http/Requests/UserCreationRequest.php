@@ -36,13 +36,14 @@ class UserCreationRequest extends FormRequest
                     ) {
                         $fail('Si vous choisissez "apprenti informaticien" ou "apprenti commerce", aucune autre option ne peut être sélectionnée.');
                     }
-                }
+                },
             ],
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:8',
             'domain_id' => ['required', 'exists:domains,id'],
         ];
     }
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
@@ -57,7 +58,6 @@ class UserCreationRequest extends FormRequest
             }
         });
     }
-
 
     public function prepareForValidation()
     {

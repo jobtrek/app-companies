@@ -28,7 +28,7 @@ class User extends Authenticatable
         'email',
         'roles',
         'password',
-        'domain_id'
+        'domain_id',
     ];
 
     /**
@@ -94,5 +94,10 @@ class User extends Authenticatable
     public function domain(): BelongsTo
     {
         return $this->belongsTo(Domain::class);
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return collect($this->roles)->contains($role);
     }
 }

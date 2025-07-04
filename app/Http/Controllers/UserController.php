@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
-use App\Models\Commentaire;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
@@ -16,9 +15,9 @@ class UserController extends Controller
     public function create(UserCreationRequest $request)
     {
         User::create($request->all());
+
         return redirect()->route('home')->with('success', 'Utilisateur créé !');
     }
-
 
     public function login(Request $request)
     {
@@ -148,10 +147,10 @@ class UserController extends Controller
         ]);
     }
 
-
     public function showDomain()
     {
         $domains = Domain::all();
+
         return view('createaccount', ['domains' => $domains]);
     }
 
@@ -162,6 +161,7 @@ class UserController extends Controller
 
         $user->commentaires()->delete();
         $user->delete();
+
         return redirect()->route('home')->with('success', 'Utilisateur supprimé');
     }
 }
