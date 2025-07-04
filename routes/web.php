@@ -33,3 +33,4 @@ Route::get('/create-account', [UserController::class, 'showDomain'])->name('crea
 Route::post('/create-account', [UserController::class, 'create'])->name('user.create');
 
 Route::delete('/delete-account/{user}', [UserController::class, 'destroy'])->name('users.delete');
+Route::delete('/delete-company/{entreprise}', [EntrepriseController::class, 'destroy'])->name('company.delete');

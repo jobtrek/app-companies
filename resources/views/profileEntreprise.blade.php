@@ -26,7 +26,8 @@
 
                 <p class="text-gray-600">
                     <span class="font-medium">🌐 Site Web :</span>
-                    <a href="{{ $entreprise->website }}" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+                    <a href="{{ $entreprise->website }}" target="_blank" rel="noopener"
+                        class="text-blue-600 hover:underline">
                         Lien de l'entreprise
                     </a>
                 </p>
@@ -51,5 +52,27 @@
                 Lier un apprenti
             </button>
         </div>
+        @auth
+            @if (auth()->user()->hasRole('admin'))
+                <div class="relative h-20 sm:h-20">
+                    <form action="{{ route('company.delete', $entreprise) }}" method="POST"
+                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette entreprise ?');"
+                        class="relative h-20 sm:h-20">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="
+                        absolute bottom-10 left-1/2 w-max transform -translate-x-1/2
+                        sm:left-0 sm:w-full sm:translate-x-0
+                        bg-red-600 hover:bg-red-700
+                        text-white font-medium py-2 px-4
+                        rounded shadow-md">
+                            Supprimer l'entreprise
+                        </button>
+                    </form>
+                </div>
+            @endif
+        @endauth
+
     </div>
 @endsection

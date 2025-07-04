@@ -95,4 +95,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Domain::class);
     }
+
+    public function hasRole(string $role): bool
+    {
+        return collect($this->roles)->contains($role);
+    }
 }

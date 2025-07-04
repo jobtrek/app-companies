@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EntrepriseCreationRequest;
 use App\Models\Domain;
 use App\Models\Entreprise;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 
 class EntrepriseController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index($id)
     {
         $entreprise = Entreprise::all()->where('id', $id)->firstOrFail();
@@ -23,8 +26,6 @@ class EntrepriseController extends Controller
         $newEntreprise->photo = $path;
         $newEntreprise->save();
 
-        Entreprise::create($request->all());
-
         return redirect()->route('home')->with('success', 'Entreprise créée !');
     }
 
@@ -33,5 +34,16 @@ class EntrepriseController extends Controller
         $domains = Domain::all();
 
         return view('createCompany', ['domains' => $domains]);
+    }
+
+    public function destroy(Entreprise $entreprise)
+    {
+        $this->authorize('admin');
+
+        $entreprise->users()->update(['entreprise_id' => 1]);
+
+        $entreprise->delete();
+
+        return redirect()->route('home')->with('success', 'Entreprise supprimée');
     }
 }

@@ -144,11 +144,10 @@ class UserController extends Controller
     {
 
         Gate::authorize('admin', $user);
-        
+
         $user->commentaires()->delete();
         $user->delete();
+
         return redirect()->route('home')->with('success', 'Utilisateur supprimé');
     }
-
-
 }
