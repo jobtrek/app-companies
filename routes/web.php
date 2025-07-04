@@ -36,3 +36,7 @@ Route::post('/create-account', [UserController::class, 'create'])->name('user.cr
 
 Route::delete('/delete-account/{user}', [UserController::class, 'destroy'])->name('users.delete');
 Route::delete('/delete-company/{entreprise}', [EntrepriseController::class, 'destroy'])->name('company.delete');
+
+Route::get('/user-profile-update/{id}', [UserController::class, 'userUpdateShow'])->name('users.edit');
+Route::put('/users/{user}', [UserController::class, 'updateProfil'])->name('users.update');
+

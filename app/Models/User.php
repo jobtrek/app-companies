@@ -85,6 +85,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Commentaire::class, 'apprentis_id');
     }
+    public function convention(): HasMany
+    {
+        return $this->hasMany(Convention::class, 'users_id');
+    }
 
     public function entreprise(): BelongsTo
     {

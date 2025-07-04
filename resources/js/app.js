@@ -121,3 +121,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('profilForm');
+    const inputs = form.querySelectorAll('input');
+    const submitButton = document.getElementById('submitButton');
+    let changed = false;
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (!changed) {
+                submitButton.classList.remove('hidden');
+                changed = true;
+            }
+        });
+    });
+});

@@ -11,9 +11,12 @@ use Carbon\Carbon;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
+
     public function create(UserCreationRequest $request)
     {
         $user = User::create($request->all());
@@ -74,10 +77,10 @@ class UserController extends Controller
     {
         $coachId = auth()->id();
 
+
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->get();
-
         return view('coach', ['apprentis' => $apprentis]);
     }
 
@@ -126,6 +129,22 @@ class UserController extends Controller
 
         return back()->with('success', 'Entreprise modifié !');
     }
+
+    public function updateProfil(Request $request, User $user)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id . ',id',
+            'phone_number' => 'required|numeric|digits_between:7,15',
+        ]);
+
+        $user->email = $request->input('email');
+        $user->phone_number = $request->input('phone_number');
+
+        $user->save();
+
+        return back()->with('success', 'Profil mis à jour avec succès.');
+    }
+
 
     public function sort($sort)
     {
@@ -178,11 +197,28 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
-        Gate::authorize('admin', $user);
+        $this->authorize('admin');
 
         $user->commentaires()->delete();
+        $user->convention()->delete();
         $user->delete();
 
         return redirect()->route('home')->with('success', 'Utilisateur supprimé');
+    }
+
+    public function userUpdateShow($id)
+    {
+        $user = User::findOrFail($id);
+
+        if (!auth()->user()->roles->contains('admin')) {
+            return redirect()->route('userProfile', ['id' => $id])
+                ->with('error', "Accès réservé aux administrateurs.");
+        }
+
+        $coach = User::whereJsonContains('roles', "coach")->get();
+        $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
+        $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
+
+        return view('userUpdateProfile', ['user' => $user, 'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies]);
     }
 }
