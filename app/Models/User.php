@@ -95,10 +95,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Domain::class);
     }
-    public function isAdmin(): bool
-    {
-        return $this->roles->contains('admin');
-    }
-
-
 }

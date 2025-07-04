@@ -7,6 +7,7 @@ use App\Models\Commentaire;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -143,6 +144,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
+        if (!Gate::allows('admin')) {
+            abort(403, 'Accès refusé');
+        }
         $user->commentaires()->delete();
         $user->delete();
         return redirect()->route('home')->with('success', 'Utilisateur supprimé');
