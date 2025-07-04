@@ -65,7 +65,7 @@
                         <div
                                 class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden"
                                 id="dropdownWrapperEntreprise"
-                                role="menuEntreprise"
+                                role="menu"
                                 aria-labelledby="toggleButtonEntreprise"
                         >
                             <form action="{{ route('users.updateEntreprise', ['user' => $user->id]) }}" method="POST"
@@ -73,7 +73,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                <label for="entreprise_id" class="block text-sm font-semibold text-gray-700">Choisir un entreprise
+                                <label for="entreprise_id" class="block text-sm font-semibold text-gray-700">Choisir une entreprise
                                     :</label>
                                 <select
                                         name="entreprise_id"
@@ -81,7 +81,7 @@
                                         required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                                 >
-                                    <option value="" disabled selected>-- Sélectionner un entreprise --</option>
+                                    <option value="" disabled selected>-- Sélectionner une entreprise --</option>
                                     @foreach($entreprises as $e)
                                         <option value="{{ $e->id }}" {{ $user->entreprise_id == $e->id ? 'selected' : '' }}>
                                             {{ $e->name }}

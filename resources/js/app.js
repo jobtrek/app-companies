@@ -1,6 +1,6 @@
 import "./bootstrap";
 
-//Change coach
+// Change coach
 document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.getElementById('toggleButton');
     const dropdown = document.getElementById('dropdownWrapper');
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-//Change entreprise
+// Change entreprise
 document.addEventListener('DOMContentLoaded', function () {
     const toggleBtnEntreprise = document.getElementById('toggleButtonEntreprise');
     const dropdownEntreprise = document.getElementById('dropdownWrapperEntreprise');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-//Change app to entr at homepage
+// Toggle between "Apprentis" and "Entreprises" sections on the homepage
 document.addEventListener("DOMContentLoaded", function () {
     const btnApprentis = document.getElementById("btn-apprentis");
     const btnEntreprises = document.getElementById("btn-entreprises");
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//Search
+// Search
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('#search');
 

@@ -103,7 +103,7 @@ class UserController extends Controller
         $user->entreprise_id = $request->input('entreprise_id');
         $user->save();
 
-        return back()->with('success', 'Entreprise modifié!');
+        return back()->with('success', 'Entreprise modifié !');
     }
 
 
