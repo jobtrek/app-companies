@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('conventions', function (Blueprint $table) {
             $table->string('date_de_retour')->nullable()->change();
+            $table->dropColumn('entreprise_id');
+            $table->foreignId('entreprise_id')->constrained()->cascadeOnDelete();
         });
     }
 
