@@ -144,9 +144,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
-        if (!Gate::allows('admin')) {
-            abort(403, 'Accès refusé');
-        }
+        Gate::authorize('admin', $user);
+        
         $user->commentaires()->delete();
         $user->delete();
         return redirect()->route('home')->with('success', 'Utilisateur supprimé');
