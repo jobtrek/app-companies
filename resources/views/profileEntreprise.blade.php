@@ -78,14 +78,14 @@
                 </section>
 
                 <div class="flex gap-4 justify-between">
-                    <button type="submit"
-                        class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-green-500">
-                        Sauvegarder
-                    </button>
                     <a href="{{ route('profileEntreprise', $entreprise) }}"
                         class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500">
                         Annuler
                     </a>
+                    <button type="submit"
+                        class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        Sauvegarder
+                    </button>
                 </div>
             </form>
         @else
