@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
 use App\Models\Commentaire;
+use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class UserController extends Controller
     public function create(UserCreationRequest $request)
     {
         User::create($request->all());
-
-        return redirect()->intended('/');
+        return redirect()->route('home')->with('success', 'Utilisateur créé !');
     }
+
 
     public function login(Request $request)
     {
@@ -74,7 +75,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $coach = User::whereJsonContains('roles', 'coach')->get();
+        $coach = User::whereJsonContains('roles', "coach")->get();
 
         return view('userProfile', ['user' => $user, 'coach' => $coach]);
     }
@@ -132,12 +133,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function commentsdetails($id)
+
+    public function showDomain()
     {
-        $commentaire = Commentaire::all()->find($id);
-
-        $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
-
-        return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
+        $domains = Domain::all();
+        return view('createaccount', ['domains' => $domains]);
     }
+
 }
