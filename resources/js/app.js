@@ -21,6 +21,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Change entreprise
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtnEntreprise = document.getElementById(
+        "toggleButtonEntreprise",
+    );
+    const dropdownEntreprise = document.getElementById(
+        "dropdownWrapperEntreprise",
+    );
+    if (toggleBtnEntreprise && dropdownEntreprise) {
+        toggleBtnEntreprise.addEventListener("click", function () {
+            dropdownEntreprise.classList.toggle("hidden");
+        });
+    }
+    const submitBtnEntreprise = document.getElementById("submitBtnEntreprise");
+    const selectEntreprise = document.getElementById("entreprise_id");
+    if (selectEntreprise && submitBtnEntreprise) {
+        selectEntreprise.addEventListener("change", () => {
+            if (selectEntreprise.value) {
+                submitBtnEntreprise.classList.remove("hidden");
+            } else {
+                submitBtnEntreprise.classList.add("hidden");
+            }
+        });
+    }
+});
+
+// Toggle between "Apprentis" and "Entreprises" sections on the homepage
 document.addEventListener("DOMContentLoaded", function () {
     const btnApprentis = document.getElementById("btn-apprentis");
     const btnEntreprises = document.getElementById("btn-entreprises");
@@ -57,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sectionApprentis.classList.add("hidden");
         filters.classList.add("hidden");
         sectionContainer.classList.remove("w-full", "lg:w-2/3");
-        fullContainer.classList.remove("lg:flex-row-reverse")
+        fullContainer.classList.remove("lg:flex-row-reverse");
 
         btnEntreprises.classList.add(
             "border-blue-500",
