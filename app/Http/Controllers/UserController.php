@@ -75,8 +75,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $coach = User::whereJsonContains('roles', "coach")->get();
-        $entreprises = Entreprise::where('domain_id',  $user->domain_id)->get();
+        $coach = User::whereJsonContains('roles', 'coach')->get();
+        $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
 
         return view('userProfile', ['user' => $user, 'coach' => $coach,  'entreprises' => $entreprises]);
     }
@@ -104,7 +104,6 @@ class UserController extends Controller
 
         return back()->with('success', 'Entreprise modifié !');
     }
-
 
     public function sort($sort)
     {

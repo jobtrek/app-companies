@@ -15,8 +15,9 @@ class EntrepriseController extends Controller
     public function index($id)
     {
         $entreprise = Entreprise::all()->where('id', $id)->firstOrFail();
+        $domains = Domain::all();
 
-        return view('profileEntreprise', ['entreprise' => $entreprise]);
+        return view('profileEntreprise', ['entreprise' => $entreprise, 'domains' => $domains]);
     }
 
     public function create(EntrepriseCreationRequest $request)
@@ -34,6 +35,25 @@ class EntrepriseController extends Controller
         $domains = Domain::all();
 
         return view('createCompany', ['domains' => $domains]);
+    }
+
+    public function update(EntrepriseCreationRequest $request, Entreprise $entreprise)
+    {
+        $this->authorize('admin');
+
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            if ($entreprise->photo) {
+                Storage::disk('local')->delete($entreprise->photo);
+            }
+            $path = Storage::disk('local')->putFile('entreprise-logo', $request->file('photo'));
+            $data['photo'] = $path;
+        }
+
+        $entreprise->update($data);
+
+        return redirect()->route('profileEntreprise', $entreprise)->with('success', 'Entreprise mise à jour avec succès');
     }
 
     public function destroy(Entreprise $entreprise)

@@ -29,6 +29,7 @@ Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name
 
 Route::put('/updatecoach/{user}', [UserController::class, 'updateCoach'])->name('users.updateCoach');
 Route::put('/updateentreprise/{user}', [UserController::class, 'updateEntreprise'])->name('users.updateEntreprise');
+Route::put('/update-company/{entreprise}', [EntrepriseController::class, 'update', 'showCreateForm'])->name('company.update');
 
 Route::get('/create-account', [UserController::class, 'showDomain'])->name('create-account');
 Route::post('/create-account', [UserController::class, 'create'])->name('user.create');
