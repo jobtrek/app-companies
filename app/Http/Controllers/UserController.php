@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
 use App\Models\Commentaire;
+use App\Models\Domain;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,9 @@ class UserController extends Controller
     public function create(UserCreationRequest $request)
     {
         User::create($request->all());
-
-        return redirect()->intended('/');
+        return redirect()->route('home')->with('success', 'Utilisateur créé !');
     }
+
 
     public function login(Request $request)
     {
@@ -67,9 +68,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $coach =   User::whereJsonContains('roles',"coach")->get();
+        $coach = User::whereJsonContains('roles', "coach")->get();
         return view('userProfile', ['user' => $user, 'coach' => $coach]);
     }
+
     public function updateCoach(Request $request, User $user)
     {
         $request->validate([
@@ -81,8 +83,6 @@ class UserController extends Controller
 
         return redirect()->route('home')->with('success', 'Coach lié avec succès !');
     }
-
-
 
     public function sort($sort)
     {
@@ -114,14 +114,11 @@ class UserController extends Controller
         return view('homepage', ['apprentis' => $apprenties->get(), 'filtres' => $filtres]);
     }
 
-    public function commentsdetails($id)
+
+    public function showDomain()
     {
-        $commentaire = Commentaire::all()->find($id);
-
-        $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
-
-        return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
+        $domains = Domain::all();
+        return view('createaccount', ['domains' => $domains]);
     }
-
 
 }

@@ -27,4 +27,12 @@ class CommentController extends Controller
 
         return view('createcomments', ['user' => $user]);
     }
+    public function commentsdetails($id)
+    {
+        $commentaire = Commentaire::all()->find($id);
+
+        $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
+
+        return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
+    }
 }
