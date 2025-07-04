@@ -20,9 +20,10 @@ class ConventionFactory extends Factory
     public function definition(): array
     {
         $today = Carbon::today();
+
         return [
             'date_de_départ' => $today->format('Y-m-d'),
-            'date_de_retour' => $today->addDays(fake()->numberBetween(1, 30), )->format('Y-m-d'),
+            'date_de_retour' => $today->addDays(fake()->numberBetween(1, 30))->format('Y-m-d'),
             'users_id' => User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->inRandomOrder()->first()->id,
             'entreprise_id' => Entreprise::all()->random()->id,
         ];

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
-use App\Models\Commentaire;
 use App\Models\Convention;
 use App\Models\Domain;
 use App\Models\Entreprise;
@@ -23,9 +22,10 @@ class UserController extends Controller
                 'users_id' => $user->id,
                 'entreprise_id' => 1,
                 'date_de_départ' => Carbon::now('Europe/Zurich')->format('Y-m-d'),
-                'date_de_retour' => null
+                'date_de_retour' => null,
             ]);
         }
+
         return redirect()->route('home')->with('success', 'Utilisateur créé !');
     }
 
@@ -118,7 +118,7 @@ class UserController extends Controller
             'users_id' => $user->id,
             'entreprise_id' => $request->input('entreprise_id'),
             'date_de_départ' => Carbon::now('Europe/Zurich')->format('Y-m-d'),
-            'date_de_retour' => null
+            'date_de_retour' => null,
         ]);
 
         $user->entreprise_id = $request->input('entreprise_id');
