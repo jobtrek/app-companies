@@ -140,4 +140,13 @@ class UserController extends Controller
         return view('createaccount', ['domains' => $domains]);
     }
 
+    public function destroy(User $user)
+    {
+
+        $user->commentaires()->delete();
+        $user->delete();
+        return redirect()->route('home')->with('success', 'Utilisateur supprimé');
+    }
+
+
 }
