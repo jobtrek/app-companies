@@ -29,28 +29,37 @@
     <div class="hidden md:flex mt-auto pt-6">
 
         <div class="flex items-center space-x-4 p-4 rounded-lg">
-            @if (auth()->user()->photo)
-                <img src="{{ auth()->user()->photo }}"
-                     class="w-14 h-14 rounded-full border-2"
-                     style="border-color: var(--color-green-50)">
-            @else
+            @auth()
+                @if (auth()->user()->photo)
+                    <img src="{{ auth()->user()->photo }}"
+                         class="w-14 h-14 rounded-full border-2"
+                         style="border-color: var(--color-green-50)">
+                @else
+                    <div
+                        class="w-21 h-14 bg-gray-200 rounded-full flex justify-center items-center text-gray-500 border-2"
+                        style="border-color: var(--color-green-50)">?
+                    </div>
+                @endif
+            @endauth
+            @guest()
                 <div
                     class="w-21 h-14 bg-gray-200 rounded-full flex justify-center items-center text-gray-500 border-2"
                     style="border-color: var(--color-green-50)">?
                 </div>
-            @endif
-            @if(auth()->user())
+            @endguest
+            @auth()
                 <div class="space-y-2">
                     <h3 class="text-l font-semibold">{{ auth()->user()->name }}</h3>
                     <p class="text-sm">{{ auth()->user()->domain->name }}</p>
                 </div>
-            @else
+            @endauth
+            @guest()
                 <a href="{{ route('login') }}">
                     <div>
                         <h3 class="text-xl font-semibold">Login</h3>
                     </div>
                 </a>
-            @endif
+            @endguest
 
         </div>
 
