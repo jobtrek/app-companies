@@ -14,10 +14,10 @@ class Convention extends Model
         'users_id',
         'entreprise_id',
         'date_de_départ',
-        'date_de_retour'
+        'date_de_retour',
     ];
 
-    public function user():  BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id');
     }

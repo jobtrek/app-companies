@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('conventions', function (Blueprint $table) {
-            $table->string('date_de_retour')->nullable()->change();;
+            $table->string('date_de_retour')->nullable()->change();
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void{}
+    public function down(): void {}
 };
