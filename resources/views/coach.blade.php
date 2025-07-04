@@ -5,13 +5,13 @@
     <hr class="border-t border-gray-300 w-full mt-5">
 
     <div class="mt-10 mb-6">
-        <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full mb-5">
+        <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full mb-5" id="search">
     </div>
-    <div class="space-y-6">
+    <div class="space-y-6 min-h-screen">
         @foreach ($apprentis as $apprenti)
             <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4">
-                <div class="flex items-center gap-4 flex-1">
+                <div class="flex items-center gap-4 flex-1 search-card">
                     <img class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm"
                         src="#" alt="Photo de l'apprenti" />
                     <div>

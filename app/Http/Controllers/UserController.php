@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserCreationRequest;
 use App\Models\Commentaire;
 use App\Models\Domain;
+use App\Models\Entreprise;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,10 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate(
-            [
-                'email' => 'required|email',
-                'password' => 'required',
-            ]
-        );
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -40,7 +39,11 @@ class UserController extends Controller
 
     public function index()
     {
-        $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->get();
+        $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')
+            ->orWhereJsonContains('roles', 'apprenti_commerce')
+            ->get();
+
+        $entreprises = Entreprise::all();
 
         $filtres = [
             'entreprise' => 'En entreprise',
@@ -50,7 +53,11 @@ class UserController extends Controller
             'employe-com' => 'Employé de commerce',
         ];
 
-        return view('homepage', ['apprentis' => $apprenties, 'filtres' => $filtres]);
+        return view('homepage', [
+            'apprentis' => $apprenties,
+            'entreprises' => $entreprises,
+            'filtres' => $filtres,
+        ]);
     }
 
     public function coach()
@@ -69,6 +76,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $coach = User::whereJsonContains('roles', "coach")->get();
+
         return view('userProfile', ['user' => $user, 'coach' => $coach]);
     }
 
@@ -86,7 +94,6 @@ class UserController extends Controller
 
     public function sort($sort)
     {
-
         $filtres = [
             'entreprise' => 'En entreprise',
             'formation' => 'En centre de formation',
@@ -95,14 +102,22 @@ class UserController extends Controller
             'employe-com' => 'Employé de commerce',
         ];
 
-        $apprenties = [];
+        $entreprises = Entreprise::all();
 
         if ($sort == 'entreprise') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->whereNotIn('entreprise_id', [1])->orWhereJsonContains('roles', 'apprenti_commerce')->whereNotIn('entreprise_id', [1]);
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')
+                ->whereNotIn('entreprise_id', [1])
+                ->orWhereJsonContains('roles', 'apprenti_commerce')
+                ->whereNotIn('entreprise_id', [1]);
         } elseif ($sort == 'formation') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->where('entreprise_id', 1)->orWhereJsonContains('roles', 'apprenti_commerce')->where('entreprise_id', 1);
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')
+                ->where('entreprise_id', 1)
+                ->orWhereJsonContains('roles', 'apprenti_commerce')
+                ->where('entreprise_id', 1);
         } elseif ($sort == 'alphabetique') {
-            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')->orWhereJsonContains('roles', 'apprenti_commerce')->orderBy('name', 'ASC');
+            $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')
+                ->orWhereJsonContains('roles', 'apprenti_commerce')
+                ->orderBy('name', 'ASC');
         } elseif ($sort == 'informaticien-dev') {
             $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien');
         } elseif ($sort == 'employe-com') {
@@ -111,7 +126,11 @@ class UserController extends Controller
             return back()->withErrors(['Choisissez un filtre valable.']);
         }
 
-        return view('homepage', ['apprentis' => $apprenties->get(), 'filtres' => $filtres]);
+        return view('homepage', [
+            'apprentis' => $apprenties->get(),
+            'entreprises' => $entreprises,
+            'filtres' => $filtres,
+        ]);
     }
 
 

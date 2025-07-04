@@ -6,22 +6,15 @@ use App\Models\Commentaire;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
-
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
 
-
         $domains = Domain::factory()->count(2)->create();
-
-
 
         $entreprises = Entreprise::factory()->count(5)->create();
 

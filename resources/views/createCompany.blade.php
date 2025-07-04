@@ -55,7 +55,7 @@
                     </div>
                     <select name="domain_id">
                         @foreach ($domains as $domain)
-                            <option value="{{ $domain->id }}">{{ $domain->Domain }}</option>
+                            <option value="{{ $domain->id }}">{{ $domain->name }}</option>
                         @endforeach
                     </select>
                     <div class="relative">
