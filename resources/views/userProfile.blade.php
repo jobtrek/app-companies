@@ -49,10 +49,56 @@
                 <div class="flex flex-col md:flex-row items-center justify-between">
 
                     <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des entreprises</h3>
-                    <button
-                        class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition">
-                        Lier une entreprise
-                    </button>
+
+                    <div class="relative inline-block text-left">
+                        <button
+                                id="toggleButtonEntreprise"
+                                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                type="button"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                aria-controls="dropdownWrapperEntreprise"
+                        >
+                            Lier une entreprise
+                        </button>
+
+                        <div
+                                class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden"
+                                id="dropdownWrapperEntreprise"
+                                role="menu"
+                                aria-labelledby="toggleButtonEntreprise"
+                        >
+                            <form action="{{ route('users.updateEntreprise', ['user' => $user->id]) }}" method="POST"
+                                  class="p-4">
+                                @csrf
+                                @method('PUT')
+
+                                <label for="entreprise_id" class="block text-sm font-semibold text-gray-700">Choisir une entreprise
+                                    :</label>
+                                <select
+                                        name="entreprise_id"
+                                        id="entreprise_id"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                >
+                                    <option value="" disabled selected>-- Sélectionner une entreprise --</option>
+                                    @foreach($entreprises as $e)
+                                        <option value="{{ $e->id }}" {{ $user->entreprise_id == $e->id ? 'selected' : '' }}>
+                                            {{ $e->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <button
+                                        type="submit"
+                                        id="submitBtnEntreprise"
+                                        class="mt-4 w-full py-2 px-4 bg-[#1C2366] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    Confirmer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
                 <ul class="list-disc pl-6 text-gray-700 space-y-1">

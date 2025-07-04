@@ -28,6 +28,7 @@ Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->n
 Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment');
 
 Route::put('/updatecoach/{user}', [UserController::class, 'updateCoach'])->name('users.updateCoach');
+Route::put('/updateentreprise/{user}', [UserController::class, 'updateEntreprise'])->name('users.updateEntreprise');
 
 Route::get('/create-account', [UserController::class, 'showDomain'])->name('create-account');
 Route::post('/create-account', [UserController::class, 'create'])->name('user.create');
