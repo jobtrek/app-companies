@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Commentaire;
+use App\Models\Convention;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
@@ -16,7 +17,7 @@ class DatabaseSeeder extends Seeder
 
         $domains = Domain::factory()->count(2)->create();
 
-        $entreprises = Entreprise::factory()->count(5)->create();
+        $entreprises = Entreprise::factory()->count(20)->create();
 
         Entreprise::where('id', 1)->delete();
         Entreprise::factory([
@@ -47,6 +48,10 @@ class DatabaseSeeder extends Seeder
 
         Commentaire::factory()
             ->count(50)
+            ->create();
+
+        Convention::factory()
+            ->count(80)
             ->create();
     }
 }
