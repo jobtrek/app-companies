@@ -77,8 +77,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $coach = User::whereJsonContains('roles', "coach")->get();
+        $entreprises = Entreprise::where('domain_id',  $user->domain_id)->get();
 
-        return view('userProfile', ['user' => $user, 'coach' => $coach]);
+        return view('userProfile', ['user' => $user, 'coach' => $coach,  'entreprises' => $entreprises]);
     }
 
     public function updateCoach(Request $request, User $user)
@@ -90,8 +91,21 @@ class UserController extends Controller
         $user->coach_id = $request->input('coach_id');
         $user->save();
 
-        return redirect()->route('home')->with('success', 'Coach lié avec succès !');
+        return back()->with('success', 'Coach lié avec succès !');
     }
+
+    public function updateEntreprise(Request $request, User $user)
+    {
+        $request->validate([
+            'entreprise_id' => 'required|exists:entreprises,id',
+        ]);
+
+        $user->entreprise_id = $request->input('entreprise_id');
+        $user->save();
+
+        return back()->with('success', 'Entreprise modifié !');
+    }
+
 
     public function sort($sort)
     {
@@ -145,11 +159,9 @@ class UserController extends Controller
     {
 
         Gate::authorize('admin', $user);
-        
+
         $user->commentaires()->delete();
         $user->delete();
         return redirect()->route('home')->with('success', 'Utilisateur supprimé');
     }
-
-
 }
