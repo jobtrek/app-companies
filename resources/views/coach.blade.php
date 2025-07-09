@@ -5,7 +5,7 @@
     <hr class="border-t border-gray-300 w-full mt-5">
 
     <div class="mt-10 mb-6">
-        <input type="text" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full mb-5" id="search">
+        <input type="search" placeholder="Rechercher un apprenti..." class="border rounded px-3 py-2 w-full max-w-full mb-5" id="search">
     </div>
     <div class="space-y-6 min-h-screen">
         @foreach ($apprentis as $apprenti)
