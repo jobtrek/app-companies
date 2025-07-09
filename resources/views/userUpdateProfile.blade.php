@@ -9,7 +9,7 @@
                 <div class="flex justify-center mb-4">
                     @if ($user->photo)
                         <img src="{{ $user->photo }}"
-                             class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm"/>
+                            class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
                     @else
                         <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                             ?
@@ -30,7 +30,7 @@
 
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <form id="profilForm" action="{{ route('users.update', ['user' => $user->id]) }}" method="POST"
-                      class="flex flex-col gap-5 col-span-full">
+                    class="flex flex-col gap-5 col-span-full">
                     @csrf
                     @method('PUT')
 
@@ -39,13 +39,10 @@
                             <span class="text-4xl">📧</span>
                             <div class="w-full">
                                 <p class="font-semibold text-gray-700 text-lg">Email</p>
-                                <input
-                                        name="email"
-                                        type="text"
-                                        class="text-gray-900 text-base w-full overflow-x-auto whitespace-nowrap rounded-md px-2 py-1"
-                                        value="{{ old('email', $user->email) }}"
-                                >
-                                
+                                <input name="email" type="text"
+                                    class="text-gray-900 text-base w-full overflow-x-auto whitespace-nowrap rounded-md px-2 py-1"
+                                    value="{{ old('email', $user->email) }}">
+
                             </div>
                         </div>
 
@@ -53,19 +50,15 @@
                             <span class="text-4xl">📞</span>
                             <div class="w-full">
                                 <p class="font-semibold text-gray-700 text-lg">Téléphone</p>
-                                <input
-                                        name="phone_number"
-                                        type="tel"
-                                        class="text-gray-900 text-base w-full"
-                                        value="{{ old('phone_number', $user->phone_number ?: '') }}"
-                                        placeholder="Non renseigné"
-                                >
+                                <input name="phone_number" type="tel" class="text-gray-900 text-base w-full"
+                                    value="{{ old('phone_number', $user->phone_number ?: '') }}"
+                                    placeholder="Non renseigné">
                             </div>
                         </div>
                     </div>
 
                     <button type="submit" id="submitButton"
-                            class="self-start bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition hidden">
+                        class="self-start bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition hidden">
                         Confirmer
                     </button>
                 </form>
@@ -76,17 +69,16 @@
 
                         <div class="relative inline-block text-left">
                             <button id="toggleButtonEntreprise"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                    type="button" aria-haspopup="true" aria-expanded="false"
-                                    aria-controls="dropdownWrapperEntreprise">
+                                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                type="button" aria-haspopup="true" aria-expanded="false"
+                                aria-controls="dropdownWrapperEntreprise">
                                 Lier une entreprise
                             </button>
 
                             <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden"
-                                 id="dropdownWrapperEntreprise" role="menu" aria-labelledby="toggleButtonEntreprise">
-                                <form action="{{ route('users.updateEntreprise', ['user' => $user->id]) }}"
-                                      method="POST"
-                                      class="p-4">
+                                id="dropdownWrapperEntreprise" role="menu" aria-labelledby="toggleButtonEntreprise">
+                                <form action="{{ route('users.updateEntreprise', ['user' => $user->id]) }}" method="POST"
+                                    class="p-4">
                                     @csrf
                                     @method('PUT')
 
@@ -95,18 +87,18 @@
                                         entreprise
                                         :</label>
                                     <select name="entreprise_id" id="entreprise_id" required
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                         <option value="" disabled selected>-- Sélectionner une entreprise --</option>
                                         @foreach ($entreprises as $e)
                                             <option value="{{ $e->id }}"
-                                                    {{ $user->entreprise_id == $e->id ? 'selected' : '' }}>
+                                                {{ $user->entreprise_id == $e->id ? 'selected' : '' }}>
                                                 {{ $e->name }}
                                             </option>
                                         @endforeach
                                     </select>
 
                                     <button type="submit" id="submitBtnEntreprise"
-                                            class="mt-4 w-full py-2 px-4 bg-[#1C2366] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        class="mt-4 w-full py-2 px-4 bg-[#1C2366] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         Confirmer
                                     </button>
                                 </form>
@@ -120,7 +112,7 @@
 
                         </li>
                         @foreach ($previousCompanies ?? [] as $previousCompany)
-                            @if($previousCompany->date_de_retour)
+                            @if ($previousCompany->date_de_retour)
                                 <li>{{ $previousCompany->entreprise->name }} ({{ $previousCompany->date_de_départ }}
                                     - {{ $previousCompany->date_de_retour }})
                                 </li>
@@ -135,16 +127,15 @@
 
                         <div class="relative inline-block text-left">
                             <button id="toggleButton"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                    type="button" aria-haspopup="true" aria-expanded="false"
-                                    aria-controls="dropdownWrapper">
+                                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                type="button" aria-haspopup="true" aria-expanded="false" aria-controls="dropdownWrapper">
                                 Lier à un coach
                             </button>
 
                             <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden"
-                                 id="dropdownWrapper" role="menu" aria-labelledby="toggleButton">
+                                id="dropdownWrapper" role="menu" aria-labelledby="toggleButton">
                                 <form action="{{ route('users.updateCoach', ['user' => $user->id]) }}" method="POST"
-                                      class="p-4">
+                                    class="p-4">
                                     @csrf
                                     @method('PUT')
 
@@ -152,18 +143,18 @@
                                         coach
                                         :</label>
                                     <select name="coach_id" id="coach_id" required
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                         <option value="" disabled selected>-- Sélectionner un coach --</option>
                                         @foreach ($coach as $c)
                                             <option value="{{ $c->id }}"
-                                                    {{ $user->coach_id == $c->id ? 'selected' : '' }}>
+                                                {{ $user->coach_id == $c->id ? 'selected' : '' }}>
                                                 {{ $c->name }}
                                             </option>
                                         @endforeach
                                     </select>
 
                                     <button type="submit" id="submitBtn"
-                                            class="mt-4 w-full py-2 px-4 bg-[#1C2366] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        class="mt-4 w-full py-2 px-4 bg-[#1C2366] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         Confirmer
                                     </button>
                                 </form>
@@ -189,9 +180,15 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit"
-                        class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
-                    🗑️ Supprimer
+                    class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
+                    Supprimer
                 </button>
+
+                <a href="{{ route('userProfile', ['id' => $user->id]) }}"
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200 ml-10">
+                    Retour
+                </a>
+
             </form>
         @endcan
     </div>

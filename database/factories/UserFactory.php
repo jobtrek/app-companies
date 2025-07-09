@@ -23,25 +23,26 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
-    {
-        return [
-            'name' => fake()->name(),
-            'lastname' => fake()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
-            'roles' => fake()->randomElements([
-                'admin',
-                'formateur_informaticien',
-                'formateur_commerce',
-                'apprenti_informaticien',
-                'apprenti_commerce',
-                'coach',
-            ], $count = 2),
-            'password' => static::$password ??= Hash::make('password'),
-            'domain_id' => Domain::inRandomOrder()->first()?->id ?? Domain::factory(),
-            'entreprise_id' => Entreprise::inRandomOrder()->first()?->id ?? Entreprise::factory(),
-        ];
-    }
+public function definition(): array
+{
+    return [
+        'name' => fake()->name(),
+        'lastname' => fake()->lastName(),
+        'email' => fake()->unique()->safeEmail(),
+        'roles' => fake()->randomElements([
+            'admin',
+            'formateur_informaticien',
+            'formateur_commerce',
+            'apprenti_informaticien',
+            'apprenti_commerce',
+            'coach',
+        ], $count = 2),
+        'password' => static::$password ??= Hash::make('password'),
+        'domain_id' => Domain::inRandomOrder()->first()?->id ?? Domain::factory(),
+        'entreprise_id' => Entreprise::inRandomOrder()->first()?->id ?? Entreprise::factory(),
+        'photo' => 'https://picsum.photos/200?random=' . fake()->unique()->numberBetween(1, 1000),
+    ];
+}
 
     public function coach(): static
     {

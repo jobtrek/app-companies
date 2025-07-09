@@ -54,7 +54,7 @@
                                     <div class="flex justify-center mb-4">
                                         @if ($apprenti->photo)
                                             <img src="{{ $apprenti->photo }}"
-                                                class="w-20 h-20 object-cover rounded-full border-4 border-green-200 shadow-sm" />
+                                                class="w-30 h-30 object-cover rounded-full border-3 border-green-50 shadow-sm" />
                                         @else
                                             <div
                                                 class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
@@ -71,7 +71,9 @@
                                                 Informaticien développement d'applications
                                             @endif
                                         </p>
-                                        <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise->name }}</p>
+                                        <p class="text-sm text-gray-500">Chez {{ $apprenti->entreprise->name }}</p> <span
+                                            class="mt-3 inline-block text-blue-500 hover:text-blue-700 font-semibold underline cursor-pointer">Voir
+                                            le profil</span>
                                     </div>
                                 </div>
                             </a>
@@ -88,8 +90,9 @@
                             class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition flex flex-col items-center text-center entreprises-item">
                             <div class="mb-4">
                                 @if ($entreprise->photo)
-                                    <img src="{{ asset('storage/' . $entreprise->photo) }}"
-                                        class="w-28 h-28 object-cover rounded-full border-4 border-blue-300 shadow-sm" />
+                                    <!-- ATTENTION : Pour afficher correctement l’image stockée, remplacer $entreprise->photo par asset('storage/' . $entreprise->photo) j'ai utilisé faker pour les entreprises avec lorem picsum donc c'est pour ca que j'ai enlevé -->
+                                    <img src="{{ $entreprise->photo }}"
+                                        class="w-40 h-40 object-cover rounded-full border-4 border-blue-300 shadow-sm" />
                                 @else
                                     <div
                                         class="w-28 h-28 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-4xl font-bold">
@@ -100,7 +103,7 @@
                             <p class="text-sm text-gray-600 mt-1">{{ Str::limit($entreprise->description, 100) }}</p>
                             <span
                                 class="mt-3 inline-block text-blue-500 hover:text-blue-700 font-semibold underline cursor-pointer">Voir
-                                le profil</span>
+                                l'entreprise</span>
                         </a>
                     @endforeach
                 </div>
