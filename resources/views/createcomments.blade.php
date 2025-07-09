@@ -15,36 +15,36 @@
 @endsection
 @section('content')
 
-    <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{ $user->name }} </h1>
+    <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{ $user->name }} {{$user->lastname}} </h1>
 
     <form method="POST" action="{{ route('create.comment', ['id' => $user->id]) }}"
-        class="grid grid-cols-1 md:grid-cols-2 md:gap-10 min-h-[80vh]">
+          class="grid grid-cols-1 md:grid-cols-2 md:gap-10 min-h-[80vh]">
         @csrf
         <div class="flex flex-col gap-4 h-full">
             <input type="text" class="bg-gray-600 h-10 w-full rounded px-3 text-white" name="title"
-                placeholder="Veuillez écrire le titre de votre commentaire">
+                   placeholder="Veuillez écrire le titre de votre commentaire">
             <textarea name="description" class="bg-blue-100 h-50 md:flex-grow p-3 rounded resize-none"
-                placeholder="Votre commentaire"></textarea>
+                      placeholder="Votre commentaire"></textarea>
         </div>
         <input type="hidden" name="apprentis_id" value="{{ $user->id }}">
         <div class="flex flex-col gap-4 md:items-center">
-            <img id="preview" class="bg-blue-100 w-full h-48 md:w-full md:h-full p-4 rounded object-contain" />
+            <img id="preview" class="bg-blue-100 w-full h-48 md:w-full md:h-full p-4 rounded object-contain"/>
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full">
                 <input type="file" id="fileInput" style="display: none;" onchange="showFileName()">
 
                 <button type="button"
-                    class="bg-[#1E1D1C] hover:bg-[#1C2366] active:scale-95 active:bg-[#101426] text-white px-4 py-2 rounded transition-all duration-200 ease-in-out"
-                    onclick="document.querySelector('#fileInput').click();">Choisir un fichier
+                        class="bg-[#1E1D1C] hover:bg-[#1C2366] active:scale-95 active:bg-[#101426] text-white px-4 py-2 rounded transition-all duration-200 ease-in-out"
+                        onclick="document.querySelector('#fileInput').click();">Choisir un fichier
                 </button>
 
                 <p id="fileName"
-                    class="bg-blue-100 px-4 py-2 mt-2 sm:mt-0 text-sm text-blue-700 truncate flex-grow max-w-full sm:max-w-xs">
+                   class="bg-blue-100 px-4 py-2 mt-2 sm:mt-0 text-sm text-blue-700 truncate flex-grow max-w-full sm:max-w-xs">
                     Aucun fichier choisi
                 </p>
 
                 <button type="submit"
-                    class="bg-[#1E1D1C] hover:bg-green-700 active:scale-95 active:bg-[#101426] text-white px-4 py-2 rounded transition-all duration-200 ease-in-out">
+                        class="bg-[#1E1D1C] hover:bg-green-700 active:scale-95 active:bg-[#101426] text-white px-4 py-2 rounded transition-all duration-200 ease-in-out">
                     Submit
                 </button>
             </div>

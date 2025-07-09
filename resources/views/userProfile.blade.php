@@ -9,7 +9,7 @@
                 <div class="flex justify-center mb-4">
                     @if ($user->photo)
                         <img src="{{ $user->photo }}"
-                            class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
+                             class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm"/>
                     @else
                         <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                             ?
@@ -53,9 +53,9 @@
 
                         <div class="relative inline-block text-left">
                             <button id="toggleButtonEntreprise"
-                                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                type="button" aria-haspopup="true" aria-expanded="false"
-                                aria-controls="dropdownWrapperEntreprise">
+                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                    type="button" aria-haspopup="true" aria-expanded="false"
+                                    aria-controls="dropdownWrapperEntreprise">
                                 <a href="/user-profile-update/{{ $user->id }}">Lier une entreprise</a>
                             </button>
                         </div>
@@ -82,8 +82,8 @@
 
                             <div class="relative inline-block text-left">
                                 <button id="toggleButton"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                    type="button" aria-haspopup="true" aria-expanded="false">
+                                        class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                        type="button" aria-haspopup="true" aria-expanded="false">
                                     Lier à un coach
 
                                 </button>
@@ -100,15 +100,56 @@
                         @endforeach
                     </ul>
                 </section>
+                <section class="bg-green-100 p-6 rounded-xl shadow-md col-span-full">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des commentaire</h3>
+                        <a href="/create-comment/{{ $user->id }}">
 
+                            <div class="relative inline-block text-left">
+                                <button id="toggleButton"
+                                        class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                        type="button" aria-haspopup="true" aria-expanded="false">
+                                    Ajouter un commentaire
+
+                                </button>
+                            </div>
+                        </a>
+
+                    </div>
+                    @if ($comment->isEmpty())
+                        <p class="text-white">Aucun commentaire pour cet apprenti.</p>
+                    @else
+                        <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                            <li class="font-semibold text-white">
+                                <a href="/comments-detail/{{$lastcommentaire->id}}">Dernier commentaire
+                                    : {{ $lastcommentaire ? $lastcommentaire->title : 'Aucun' }}</a>
+                            </li>
+
+                            @foreach($comment as $com)
+                                <li>
+                                    <p class="flex items-center w-full">
+                                    <span class="w-[40%] text-left">
+                                        <a href="/comments-detail/{{ $com->id }}">
+                                            {{ $com->title }}</a>
+                                    </span>
+                                        <span class="w-[60%] text-left pl-4">
+
+                                         {{ \Carbon\Carbon::parse($com->created_at)->locale('fr')->translatedFormat('d F Y') }}
+                                         </span>
+                                        <span class="w-[20%]"></span>
+                                    </p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </section>
             </div>
-
         </div>
         @can('admin')
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 m-10">
 
                 <a href="/user-profile-update/{{ $user->id }}"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
+                   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
                     Modifier
                 </a>
 
@@ -120,12 +161,11 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
                         Se déconnecter
                     </button>
                 </form>
             @endif
         </div>
 
-
-    @endsection
+@endsection
