@@ -55,7 +55,7 @@ class UserController extends Controller
     {
         $apprenties = User::whereJsonContains('roles', 'apprenti_informaticien')
             ->orWhereJsonContains('roles', 'apprenti_commerce')
-            ->get();
+            ->paginate(16);
 
         $entreprises = Entreprise::all();
 
@@ -79,7 +79,7 @@ class UserController extends Controller
         $coachId = auth()->id();
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
-            ->get();
+            ->paginate(5);
         return view('coach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
     }
 
@@ -180,7 +180,7 @@ class UserController extends Controller
         }
 
         return view('homepage', [
-            'apprentis' => $apprenties->get(),
+            'apprentis' => $apprenties->paginate(16),
             'entreprises' => $entreprises,
             'filtres' => $filtres,
         ]);

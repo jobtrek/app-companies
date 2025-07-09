@@ -25,7 +25,7 @@
         </div>
         <div id="full-container" class="flex flex-col lg:flex-row-reverse gap-8">
             <div id="filters"
-                class="w-full lg:w-1/3 h-fit bg-gray-50 p-5 rounded-lg border border-gray-200 shadow md:sticky top-5">
+                class="w-full lg:w-1/3 h-fit bg-gray-50 p-5 rounded-lg border border-gray-200 shadow lg:sticky top-5">
                 <h2 class="text-xl font-semibold mb-4">Filtres</h2>
                 <a href="/" class="text-blue-500 hover:text-blue-700 font-semibold">Réinitialiser les filtres</a>
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1 mt-4">
@@ -80,9 +80,13 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="w-full overflow-hidden">
+                    <div class="max-w-full overflow-x-auto">
+                        {{ $apprentis->links() }}
+                    </div>
+                </div>
 
             </div>
-
             <div id="section-entreprises" class="hidden entreprises-section">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="entreprises-list">
                     @foreach ($entreprises as $entreprise)

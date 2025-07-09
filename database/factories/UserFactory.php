@@ -40,7 +40,7 @@ public function definition(): array
         'password' => static::$password ??= Hash::make('password'),
         'domain_id' => Domain::inRandomOrder()->first()?->id ?? Domain::factory(),
         'entreprise_id' => Entreprise::inRandomOrder()->first()?->id ?? Entreprise::factory(),
-        'photo' => 'https://picsum.photos/200?random=' . fake()->unique()->numberBetween(1, 1000),
+        'photo' => 'https://picsum.photos/200?random=' . fake()->numberBetween(1, 1000),
     ];
 }
 

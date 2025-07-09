@@ -14,35 +14,31 @@
                id="search">
     </div>
 
-    <div class="space-y-6 min-h-screen">
+    <div class="space-y-15 ">
         @foreach ($apprentis as $apprenti)
             <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4">
                 <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}" class="flex-1 min-w-0">
-                    <div
-                        class="flex items-center gap-4 flex-1 search-card cursor-pointer border-2 border-gray-200 rounded-2xl p-4 shadow-sm transition duration-300 ease-in-out hover:shadow-md hover:border-gray-300 bg-white">
-                        <img
-                            class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm"
-                            src="#" alt="Photo de l'apprenti"/>
-                        <div class="min-w-0">
-                            <h3 class="text-base sm:text-lg font-semibold text-gray-800 truncate">
-                                {{ $apprenti->name }} {{ $apprenti->lastname }}
-                            </h3>
-                            <p class="text-sm text-gray-600 truncate">
-                                Formation :
-                                @if ($apprenti->roles->contains('apprenti_commerce'))
-                                    Employé de commerce
-                                @else
-                                    Informaticien développement d'applications
-                                @endif
-                            </p>
-                            @if ($apprenti->commentaires->isNotEmpty())
-                                <p class="text-xs text-gray-600 truncate">
-                                    Dernier commentaire le
-                                    {{ \Carbon\Carbon::parse($apprenti->commentaires->last()->created_at)->locale('fr')->translatedFormat('d F Y') }}
-                                </p>
+                    <img class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm"
+                        src="{{ $apprenti->photo }}" alt="Photo de l'apprenti" />
+                    <div class="min-w-0">
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-800 truncate">
+                            {{ $apprenti->name }} {{ $apprenti->lastname }}
+                        </h3>
+                        <p class="text-sm text-gray-600 truncate">
+                            Formation :
+                            @if ($apprenti->roles->contains('apprenti_commerce'))
+                                Employé de commerce
+                            @else
+                                Informaticien développement d'applications
                             @endif
-                        </div>
+                        </p>
+                        @if ($apprenti->commentaires->isNotEmpty())
+                            <p class="text-xs text-gray-600 truncate">
+                                Dernier commentaire le
+                                {{ \Carbon\Carbon::parse($apprenti->commentaires->last()->created_at)->locale('fr')->translatedFormat('d F Y') }}
+                            </p>
+                        @endif
                     </div>
                 </a>
 
@@ -165,5 +161,10 @@
                 </div>
             </div>
         @endforeach
+        <div class="w-full overflow-hidden">
+            <div class="max-w-full overflow-x-auto">
+                {{ $apprentis->links() }}
+            </div>
+        </div>
     </div>
 @endsection
