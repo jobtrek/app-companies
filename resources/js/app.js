@@ -108,16 +108,29 @@ document.addEventListener("DOMContentLoaded", function () {
     if (searchInput) {
         searchInput.addEventListener("input", function () {
             const searchText = this.value.toLowerCase();
-            const cards = document.querySelectorAll(".search-card");
+            const isEntreprisesVisible = !document.getElementById("section-entreprises").classList.contains("hidden");
 
-            cards.forEach((card) => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(searchText)) {
-                    card.parentElement.style.display = "";
-                } else {
-                    card.parentElement.style.display = "none";
-                }
-            });
+            if (isEntreprisesVisible) {
+                const entrepriseCards = document.querySelectorAll(".entreprises-item");
+                entrepriseCards.forEach((card) => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchText)) {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            } else {
+                const apprentisCards = document.querySelectorAll(".search-card");
+                apprentisCards.forEach((card) => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchText)) {
+                        card.parentElement.style.display = "";
+                    } else {
+                        card.parentElement.style.display = "none";
+                    }
+                });
+            }
         });
     }
 });

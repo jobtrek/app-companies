@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             'address' => 'example street',
             'domain_id' => $domains->random()->id,
         ])->create();
+
         User::factory()
             ->count(10)
             ->coach()
@@ -45,6 +46,36 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->formateur()
             ->create();
+
+        User::factory([
+            'name' => 'admin',
+            'lastname' => 'adminovich',
+            'email' => 'admin@test.com',
+            'roles' => ["admin"],
+            'password' => '$2y$12$xV6j8avLVM3C6BN8Em4Z.Ozz0Zxt750EbYVQ8JGxkFcgUAgLe6yva',
+            'domain_id' => 1,
+            'entreprise_id' => 1,
+        ])->create();
+
+        User::factory([
+            'name' => 'coach',
+            'lastname' => 'coaches',
+            'email' => 'coach@test.com',
+            'roles' => ["coach"],
+            'password' => '$2y$12$xV6j8avLVM3C6BN8Em4Z.Ozz0Zxt750EbYVQ8JGxkFcgUAgLe6yva',
+            'domain_id' => 1,
+            'entreprise_id' => 1,
+        ])->create();
+
+        User::factory([
+            'name' => 'formateur',
+            'lastname' => 'formateurovich',
+            'email' => 'form@test.com',
+            'roles' => ["formateur_informaticien"],
+            'password' => '$2y$12$xV6j8avLVM3C6BN8Em4Z.Ozz0Zxt750EbYVQ8JGxkFcgUAgLe6yva',
+            'domain_id' => 1,
+            'entreprise_id' => 1,
+        ])->create();
 
         Commentaire::factory()
             ->count(50)

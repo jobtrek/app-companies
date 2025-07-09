@@ -20,7 +20,7 @@
 
     <div class="w-full max-w-full">
         <div class="w-full mb-5">
-            <input type="text" placeholder="Rechercher un apprenti..." id="search"
+            <input type="text" placeholder="Recherche d'apprenti ou d'entreprise..." id="search"
                 class="border rounded px-3 py-2 w-full max-w-full mb-5">
         </div>
         <div id="full-container" class="flex flex-col lg:flex-row-reverse gap-8">
