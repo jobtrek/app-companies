@@ -115,9 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 entrepriseCards.forEach((card) => {
                     const text = card.textContent.toLowerCase();
                     if (text.includes(searchText)) {
-                        card.style.display = "";
+                        card.parentElement.style.display = "";
                     } else {
-                        card.style.display = "none";
+                        card.parentElement.style.display = "none";
                     }
                 });
             } else {
