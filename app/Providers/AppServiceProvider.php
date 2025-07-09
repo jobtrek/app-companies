@@ -23,5 +23,28 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('admin', function ($user) {
             return $user->roles->contains('admin');
         });
+
+        Gate::define('formateur_commerce', function ($user) {
+            return $user->roles->contains('formateur_commerce');
+        });
+
+        Gate::define('formateur_informaticien', function ($user) {
+            return $user->roles->contains('formateur_informaticien');
+        });
+
+        Gate::define('coach', function ($user) {
+            return $user->roles->contains('coach');
+        });
+
+        Gate::define('check_domains_apprenti_formateur', function ($user_to_check, $user_checker ) {
+            if(!$user_to_check->roles->contains('formateur_commerce') && !$user_to_check->roles->contains('formateur_informaticien')) {
+                return false;
+            }
+            return $user_checker->domain_id === $user_to_check->domain_id;
+        });
+
+        Gate::define('formateurs_or_admin', function ($user) {
+            return $user->roles->contains('formateur_commerce') ||  $user->roles->contains('formateur_informaticien') || $user->roles->contains('admin');
+        });
     }
 }

@@ -76,7 +76,9 @@ class UserController extends Controller
 
     public function coach(Commentaire $commentaire)
     {
+        $this->authorize('coach');
         $coachId = auth()->id();
+
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->paginate(5);
@@ -104,6 +106,7 @@ class UserController extends Controller
 
     public function updateCoach(Request $request, User $user)
     {
+
         $request->validate([
             'coach_id' => 'required|exists:users,id',
         ]);
@@ -218,13 +221,10 @@ class UserController extends Controller
 
     public function userUpdateShow($id)
     {
+        $formateur = auth()->user();
+        $apprenti = User::findOrFail($id);
+        $this->authorize('check_domains_apprenti_formateur', $apprenti);
         $user = User::findOrFail($id);
-
-        if (!auth()->user()->roles->contains('admin')) {
-            return redirect()->route('userProfile', ['id' => $id])
-                ->with('error', "Accès réservé aux administrateurs.");
-        }
-
         $coach = User::whereJsonContains('roles', "coach")->get();
         $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
         $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
