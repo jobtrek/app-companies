@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreationRequest;
+use App\Models\Commentaire;
 use App\Models\Convention;
 use App\Models\Domain;
 use App\Models\Entreprise;
@@ -73,15 +74,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function coach()
+    public function coach(Commentaire $commentaire)
     {
         $coachId = auth()->id();
-
-
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->get();
-        return view('coach', ['apprentis' => $apprentis]);
+        return view('coach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
     }
 
     public function show($id)
@@ -92,7 +91,7 @@ class UserController extends Controller
         $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
         $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
 
-        return view('userProfile', ['user' => $user, 'coach' => $coach,  'entreprises' => $entreprises,  'previousCompanies' => $previousCompanies]);
+        return view('userProfile', ['user' => $user, 'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies]);
     }
 
     public function updateCoach(Request $request, User $user)
@@ -219,6 +218,6 @@ class UserController extends Controller
         $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
         $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
 
-        return view('userUpdateProfile', ['user' => $user, 'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies]);
+        return view('userProfileUpdate', ['user' => $user, 'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies]);
     }
 }
