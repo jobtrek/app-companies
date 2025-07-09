@@ -105,29 +105,31 @@ class UserController extends Controller
 
         return back()->with('success', 'Coach lié avec succès !');
     }
+public function updateEntreprise(Request $request, User $user)
+{
+    $request->validate([
+        'entreprise_id' => 'required|exists:entreprises,id',
+    ]);
 
-    public function updateEntreprise(Request $request, User $user)
-    {
-        $request->validate([
-            'entreprise_id' => 'required|exists:entreprises,id',
-        ]);
+    $lastConvention = Convention::where('users_id', $user->id)->orderBy('created_at', 'desc')->first();
 
-        $lastConvention = Convention::where('users_id', $user->id)->orderBy('created_at', 'desc')->first();
+    if ($lastConvention) {
         $lastConvention->date_de_retour = Carbon::now('Europe/Zurich')->format('Y-m-d');
         $lastConvention->save();
-
-        Convention::create([
-            'users_id' => $user->id,
-            'entreprise_id' => $request->input('entreprise_id'),
-            'date_de_départ' => Carbon::now('Europe/Zurich')->format('Y-m-d'),
-            'date_de_retour' => null,
-        ]);
-
-        $user->entreprise_id = $request->input('entreprise_id');
-        $user->save();
-
-        return back()->with('success', 'Entreprise modifié !');
     }
+
+    Convention::create([
+        'users_id' => $user->id,
+        'entreprise_id' => $request->input('entreprise_id'),
+        'date_de_départ' => Carbon::now('Europe/Zurich')->format('Y-m-d'),
+        'date_de_retour' => null,
+    ]);
+
+    $user->entreprise_id = $request->input('entreprise_id');
+    $user->save();
+
+    return back()->with('success', 'Entreprise modifiée !');
+}
 
     public function updateProfil(Request $request, User $user)
     {
