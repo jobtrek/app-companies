@@ -27,6 +27,10 @@ Route::get('/comments-detail/{id}', [CommentController::class, 'commentsdetails'
 
 Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->name('create.comment.view');
 Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment');
+Route::delete('/delete-comment/{commentaire}', [CommentController::class, 'destroyComment'])->name('delete.comment');
+Route::get('/edit-comment/{commentaire}', [CommentController::class, 'editComment'])->name('comment.edit');
+Route::put('/Update-comment/{commentaire}', [CommentController::class, 'updateComment'])->name('comment.update');
+
 
 Route::put('/updatecoach/{user}', [UserController::class, 'updateCoach'])->name('users.updateCoach');
 Route::put('/updateentreprise/{user}', [UserController::class, 'updateEntreprise'])->name('users.updateEntreprise');
