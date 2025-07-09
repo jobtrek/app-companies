@@ -23,11 +23,15 @@
                 <img class="md:hidden w-14 h-14" src="{{ asset('images/layout_nav_page/dashboard.svg') }}"
                     alt="Dashboard">
             </a>
+            @auth
+            @can('coach')
             <a href="{{ route('coach') }}"
                 class="flex items-center justify-center md:justify-start px-3 py-2 sidebar-link rounded gap-2">
                 <span class="hidden md:inline">Coach</span>
                 <img class="md:hidden w-14 h-14" src="{{ asset('images/layout_nav_page/coach.svg') }}" alt="Coach">
             </a>
+            @endcan
+            @can('formateurs_or_admin')
             <a href="{{ route('create-company') }}"
                 class="flex items-center justify-center md:justify-start px-3 py-2 sidebar-link rounded gap-2">
                 <span class="hidden md:inline">Formateur</span>
@@ -39,6 +43,9 @@
                 <span class="hidden md:inline">Admin</span>
                 <img class="md:hidden w-14 h-14" src="{{ asset('images/layout_nav_page/admin.svg') }}" alt="Admin">
             </a>
+            @endcan
+            @else
+            @endauth
         </nav>
 
 

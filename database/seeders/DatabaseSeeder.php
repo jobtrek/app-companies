@@ -15,7 +15,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $domains = Domain::factory()->count(2)->create();
+        Domain::factory([
+            'name' => 'Informatique'
+        ])->create();
+
+        Domain::factory([
+            'name' => 'Employé de commerce'
+        ])->create();
 
         $entreprises = Entreprise::factory()->count(20)->create();
 
@@ -29,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'website' => 'https://en.wikipedia.org/wiki/Wiki',
             'phone_number' => '0123456789',
             'address' => 'example street',
-            'domain_id' => $domains->random()->id,
+            'domain_id' => Domain::inRandomOrder()->first()->id,
         ])->create();
 
         User::factory()

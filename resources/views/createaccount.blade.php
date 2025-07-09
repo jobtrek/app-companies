@@ -46,12 +46,7 @@
                                 <input type="checkbox" name="role[]" value="admin" class="form-checkbox text-blue-600">
                                 <span class="ml-2">Admin</span>
                             </label>
-
                         </div>
-
-
-
-
                     </div>
                     <div class="relative">
                         <label class="inline-flex items-center w-full">
