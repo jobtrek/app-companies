@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'index'])->name('home');
@@ -40,3 +41,7 @@ Route::delete('/delete-company/{entreprise}', [EntrepriseController::class, 'des
 Route::get('/user-profile-update/{id}', [UserController::class, 'userUpdateShow'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'updateProfil'])->name('users.update');
 
+Route::post('/logout', function () {
+    Auth::logout(); 
+    return redirect('/');
+})->name('logout');

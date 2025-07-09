@@ -6,27 +6,27 @@
 
             <div class="sm:w-1/3 flex flex-col items-center justify-center min-h-[320px] text-center">
 
-            <div class="flex justify-center mb-4">
-                @if ($user->photo)
-                    <img src="{{ $user->photo }}"
-                         class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm"/>
-                @else
-                    <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
-                        ?
-                    </div>
-                @endif
+                <div class="flex justify-center mb-4">
+                    @if ($user->photo)
+                        <img src="{{ $user->photo }}"
+                            class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
+                    @else
+                        <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
+                            ?
+                        </div>
+                    @endif
+                </div>
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">{{ $user->name }} {{ $user->lastname }}</h2>
+                <p class="mt-2 text-green-700 font-semibold text-lg">
+                    @if ($user->roles->contains('apprenti_commerce'))
+                        Employé de commerce
+                    @elseif ($user->roles->contains('apprenti_informaticien'))
+                        Informaticien développement d'applications
+                    @else
+                        Rôle non défini
+                    @endif
+                </p>
             </div>
-            <h2 class="mt-6 text-3xl font-extrabold text-gray-900">{{ $user->name }} {{ $user->lastname }}</h2>
-            <p class="mt-2 text-green-700 font-semibold text-lg">
-                @if ($user->roles->contains('apprenti_commerce'))
-                    Employé de commerce
-                @elseif ($user->roles->contains('apprenti_informaticien'))
-                    Informaticien développement d'applications
-                @else
-                    Rôle non défini
-                @endif
-            </p>
-        </div>
 
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
 
@@ -51,14 +51,14 @@
 
                         <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des entreprises</h3>
 
-                    <div class="relative inline-block text-left">
-                        <button id="toggleButtonEntreprise"
+                        <div class="relative inline-block text-left">
+                            <button id="toggleButtonEntreprise"
                                 class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
                                 type="button" aria-haspopup="true" aria-expanded="false"
                                 aria-controls="dropdownWrapperEntreprise">
-                            <a href="/user-profile-update/{{$user->id}}">Lier une entreprise</a>
-                        </button>
-                    </div>
+                                <a href="/user-profile-update/{{ $user->id }}">Lier une entreprise</a>
+                            </button>
+                        </div>
 
                     </div>
                     <ul class="list-disc pl-6 text-gray-700 space-y-1">
@@ -66,7 +66,7 @@
 
                         </li>
                         @foreach ($previousCompanies ?? [] as $previousCompany)
-                            @if($previousCompany->date_de_retour)
+                            @if ($previousCompany->date_de_retour)
                                 <li>{{ $previousCompany->entreprise->name }} ({{ $previousCompany->date_de_départ }}
                                     - {{ $previousCompany->date_de_retour }})
                                 </li>
@@ -78,50 +78,54 @@
                 <section class="bg-green-100 p-6 rounded-xl shadow-md col-span-full">
                     <div class="flex flex-col md:flex-row items-center justify-between">
                         <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des coachs</h3>
+                        <a href="/user-profile-update/{{ $user->id }}">
 
-                    <div class="relative inline-block text-left">
-                        <button id="toggleButton"
-                                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                type="button" aria-haspopup="true" aria-expanded="false">
-                            <a href="/user-profile-update/{{$user->id}}">
-                                Lier à un coach
-                            </a>
+                            <div class="relative inline-block text-left">
+                                <button id="toggleButton"
+                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                    type="button" aria-haspopup="true" aria-expanded="false">
+                                    Lier à un coach
 
-                        </button>
+                                </button>
+                            </div>
+                        </a>
+
                     </div>
-                </div>
-                <ul class="list-disc pl-6 text-gray-700 space-y-1">
-                    <li class="font-semibold text-white">
-                        Actuel : {{ $user->coach ? $user->coach->name : 'Aucun' }}
-                    </li>
-                    @foreach ($user->previous_coachs ?? [] as $previousCoach)
-                        <li>{{ $previousCoach->name }} (ancien coach)</li>
-                    @endforeach
-                </ul>
-            </section>
+                    <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                        <li class="font-semibold text-white">
+                            Actuel : {{ $user->coach ? $user->coach->name : 'Aucun' }}
+                        </li>
+                        @foreach ($user->previous_coachs ?? [] as $previousCoach)
+                            <li>{{ $previousCoach->name }} (ancien coach)</li>
+                        @endforeach
+                    </ul>
+                </section>
 
             </div>
 
-    </div>
-    @can('admin')
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 m-10">
-
-            <form method="POST" action="{{ route('users.delete', $user->id) }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                        class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
-                    Supprimer
-                </button>
-            </form>
-
-
-            <a href="/user-profile-update/{{ $user->id }}"
-               class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
-                Modifier
-            </a>
-
         </div>
-    @endcan
+        @can('admin')
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 m-10">
 
-@endsection
+                <a href="/user-profile-update/{{ $user->id }}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
+                    Modifier
+                </a>
+
+            </div>
+        @endcan
+
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 m-10">
+            @if (Auth::check() && Auth::user()->id === $user->id)
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200">
+                        Se déconnecter
+                    </button>
+                </form>
+            @endif
+        </div>
+
+
+    @endsection

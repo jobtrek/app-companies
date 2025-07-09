@@ -90,9 +90,9 @@
             </form>
         @else
             <section class="flex flex-col sm:flex-row items-center bg-white p-6 gap-6 rounded-lg shadow-md">
-                <img src="{{ asset('storage/' . $entreprise->photo) }}"
-                    class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-green-100"
-                    alt="Logo entreprise" />
+                <!-- ATTENTION : Pour afficher correctement l’image stockée, remplacer $entreprise->photo par asset('storage/' . $entreprise->photo) j'ai utilisé faker pour les entreprises avec lorem picsum donc c'est pour ca que j'ai enlevé -->
+                <img src="{{ $entreprise->photo }}"
+                    class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-green-100" />
 
                 <div class="flex-1 space-y-3">
                     <h2 class="text-2xl font-bold text-gray-800">{{ $entreprise->name }}</h2>

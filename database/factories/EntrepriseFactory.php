@@ -18,7 +18,7 @@ class EntrepriseFactory extends Factory
             'description' => $this->faker->sentence(),
             'website' => $this->faker->url(),
             'phone_number' => $this->faker->phoneNumber(),
-            'photo' => 'logo',
+            'photo' => 'https://picsum.photos/200?random=' . fake()->unique()->numberBetween(1, 1000),
             'address' => $this->faker->address(),
             'domain_id' => Domain::inRandomOrder()->first()?->id ?? Domain::factory(),
         ];
