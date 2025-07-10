@@ -13,12 +13,6 @@ class CommentController extends Controller
 {
     use AuthorizesRequests;
 
-    /**
-     * Vérifie que l'utilisateur connecté est coach et qu'il a accès à l'apprenti donné.
-     *
-     * @param User $apprenti
-     * @return \Illuminate\Http\RedirectResponse|null
-     */
     private function checkCoachAuthorization(User $apprenti)
     {
         $coach = auth()->user();
@@ -37,7 +31,6 @@ class CommentController extends Controller
     public function comment(CommentCreationRequest $request, $apprentiId)
     {
         $coachId = auth()->id();
-
         $apprenti = User::findOrFail($apprentiId);
 
         if ($authCheck = $this->checkCoachAuthorization($apprenti)) {
@@ -49,6 +42,7 @@ class CommentController extends Controller
         $validated['apprentis_id'] = $apprentiId;
 
         $comment = Commentaire::create($validated);
+
         if ($request->hasFile('files')) {
             if ($validated['files']) {
                 foreach ($validated['files'] as $file) {
@@ -58,6 +52,7 @@ class CommentController extends Controller
                         'filename' => 'comment - ' . $comment->id,
                     ]);
                 }
+
             }
         }
 
@@ -66,8 +61,7 @@ class CommentController extends Controller
 
     public function commentview($apprentiId)
     {
-        $user = auth()->user();
-        $user = User::findOrFail($id);
+        $apprenti = User::findOrFail($apprentiId);
 
         if ($authCheck = $this->checkCoachAuthorization($apprenti)) {
             return $authCheck;
@@ -78,10 +72,15 @@ class CommentController extends Controller
 
     public function commentsdetails($commentaireId)
     {
-        $commentaire = Commentaire::find($id);
-        $user = User::find($commentaire->apprentis_id);
+        $commentaire = Commentaire::findOrFail($commentaireId);
+        $user = User::findOrFail($commentaire->apprentis_id);
         $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
-        return view('commentDetails', ['comments' => $commentaire, 'user' => $user, 'commentFiles' => $commentFiles->all()]);
+
+        return view('commentDetails', [
+            'comments' => $commentaire,
+            'user' => $user,
+            'commentFiles' => $commentFiles,
+        ]);
     }
 
     public function commentFileDisplay($filename)
@@ -95,7 +94,6 @@ class CommentController extends Controller
         return Storage::disk('local')->response($path);
     }
 
-
     public function destroyComment(Commentaire $commentaire)
     {
         $coachId = auth()->id();
@@ -104,11 +102,16 @@ class CommentController extends Controller
             return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez supprimer que vos propres commentaires.");
         }
 
+        $files = $commentaire->files;
+        foreach ($files as $file) {
+            Storage::disk('local')->delete($file->path);
+            $file->delete();
+        }
+
         $commentaire->delete();
 
         return redirect()->route('coach')->with('success', 'Commentaire supprimé avec succès !');
     }
-
 
     public function editComment(Commentaire $commentaire)
     {
@@ -127,7 +130,6 @@ class CommentController extends Controller
         return view('createcommentsUpdate', ['user' => $apprenti, 'comment' => $commentaire]);
     }
 
-
     public function updateComment(CommentCreationRequest $request, Commentaire $commentaire)
     {
         $coach = auth()->user();
@@ -144,22 +146,20 @@ class CommentController extends Controller
         $commentaire->title = $validated['title'];
         $commentaire->description = $validated['description'];
 
-        if ($request->hasFile('file')) {
-            if (!empty($validated['files'])) {
-                $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
+        if ($request->hasFile('files')) {
+            // Supprimer anciens fichiers liés au commentaire
+            $commentFiles = $commentaire->files;
+            foreach ($commentFiles as $file) {
+                Storage::disk('local')->delete($file->path);
+                $file->delete();
+            }
 
-                foreach ($commentFiles as $file) {
-                    Storage::disk('local')->delete($file->path);
-                    File::destroy($file->id);
-                }
-
-                foreach ($validated['files'] as $file) {
-                    $path = Storage::disk('local')->putFile('commentFiles/', $file);
-                    $commentaire->file()->create([
-                        'path' => $path,
-                        'filename' => 'comment - ' . $commentaire->id,
-                    ]);
-                }
+            foreach ($request->file('files') as $file) {
+                $path = Storage::disk('local')->putFile('commentFiles', $file);
+                $commentaire->files()->create([
+                    'path' => $path,
+                    'filename' => 'comment - ' . $commentaire->id,
+                ]);
             }
         }
 
@@ -167,7 +167,6 @@ class CommentController extends Controller
 
         return redirect()->route('coach')->with('success', 'Commentaire modifié avec succès !');
     }
-
 
     public function getCommentsByCoachForApprenti($apprentiId)
     {
