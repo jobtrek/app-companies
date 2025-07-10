@@ -7,21 +7,18 @@ use App\Models\Convention;
 use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        Domain::firstOrCreate(
+            ['id' => 1],
+            ['name' => 'demo']
+        );
 
-        Domain::factory([
-            'name' => 'Informatique'
-        ])->create();
-
-        Domain::factory([
-            'name' => 'Employé de commerce'
-        ])->create();
+        $domains = Domain::all();
 
         $entreprises = Entreprise::factory()->count(20)->create();
 
@@ -30,12 +27,12 @@ class DatabaseSeeder extends Seeder
             'id' => 1,
             'name' => 'Centre de formation Jobtrek',
             'email' => 'jobtrek@jb.ch',
-            'photo' => 'qwe',
-            'description' => 'qweqweqweqwe',
-            'website' => 'https://en.wikipedia.org/wiki/Wiki',
-            'phone_number' => '0123456789',
-            'address' => 'example street',
-            'domain_id' => Domain::inRandomOrder()->first()->id,
+            'photo' => 'https://staging.jobtrek.ch/wp-content/uploads/2021/08/b%C3%A2timent-300x199.jpg',
+            'description' => 'Jobtrek est une fondation suisse qui contribue à offrir un avenir et de l’espérance aux jeunes. Son offre complète se construit autour d’un lien fort avec les entreprises.',
+            'website' => 'https://jobtrek.ch/',
+            'phone_number' => '+41 24 426 14 14',
+            'address' => 'Avenue des Découvertes 3. 1400 Yverdon-les-Bains',
+            'domain_id' => Domain::inRandomOrder()->value('id') ?? 1,
         ])->create();
 
         User::factory()

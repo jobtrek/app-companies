@@ -20,7 +20,7 @@ class EntrepriseFactory extends Factory
             'phone_number' => $this->faker->phoneNumber(),
             'photo' => 'https://picsum.photos/200?random=' . fake()->numberBetween(1, 1000),
             'address' => $this->faker->address(),
-            'domain_id' => Domain::inRandomOrder()->first()?->id ?? Domain::factory(),
+            'domain_id' => Domain::inRandomOrder()->value('id') ?? 1,
         ];
     }
 }
