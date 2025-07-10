@@ -102,38 +102,36 @@ class UserController extends Controller
     }
 
 
+public function show($id)
+{
+    $user = User::findOrFail($id);
+    $coach = User::whereJsonContains('roles', 'coach')->get();
+    $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
+    $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
 
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
+    $coachId = auth()->id();
 
-        $coach = User::whereJsonContains('roles', 'coach')->get();
-        $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
-        $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
-        $commentaire = Commentaire::where('apprentis_id', $id)
-            ->latest()
-            ->take(3)
-            ->get();
+    $commentaire = Commentaire::where('apprentis_id', $id)
+        ->where('coach_id', $coachId)
+        ->latest()
+        ->take(3)
+        ->get();
 
-        $lastcommentaire = Commentaire::where('apprentis_id', $id)->latest()->first();
+    $lastcommentaire = Commentaire::where('apprentis_id', $id)
+        ->where('coach_id', $coachId)
+        ->latest()
+        ->first();
 
-        return view('userProfile', ['user' => $user,
-            'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies,
-            'comment' => $commentaire, 'lastcommentaire' => $lastcommentaire]);
-    }
+    return view('userProfile', [
+        'user' => $user,
+        'coach' => $coach,
+        'entreprises' => $entreprises,
+        'previousCompanies' => $previousCompanies,
+        'comment' => $commentaire,
+        'lastcommentaire' => $lastcommentaire
+    ]);
+}
 
-    public function updateCoach(Request $request, User $user)
-    {
-
-        $request->validate([
-            'coach_id' => 'required|exists:users,id',
-        ]);
-
-        $user->coach_id = $request->input('coach_id');
-        $user->save();
-
-        return back()->with('success', 'Coach lié avec succès !');
-    }
 
     public function updateEntreprise(Request $request, User $user)
     {

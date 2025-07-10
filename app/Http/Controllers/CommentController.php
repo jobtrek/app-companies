@@ -8,22 +8,48 @@ use App\Models\File;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
     use AuthorizesRequests;
 
-    //
-    public function comment(CommentCreationRequest $request, $id)
+    /**
+     * Vérifie que l'utilisateur connecté est coach et qu'il a accès à l'apprenti donné.
+     *
+     * @param User $apprenti
+     * @return \Illuminate\Http\RedirectResponse|null
+     */
+    private function checkCoachAuthorization(User $apprenti)
     {
+        $coach = auth()->user();
+
+        if (!$coach->roles->contains('coach')) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous devez être coach pour accéder à cette page.");
+        }
+
+        if ($apprenti->coach_id !== $coach->id) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez accéder qu'à vos propres apprentis.");
+        }
+
+        return null;
+    }
+
+    public function comment(CommentCreationRequest $request, $apprentiId)
+    {
+        $coachId = auth()->id();
+
+        $apprenti = User::findOrFail($apprentiId);
+
+        if ($authCheck = $this->checkCoachAuthorization($apprenti)) {
+            return $authCheck;
+        }
 
         $validated = $request->validated();
-        $coachId = auth()->id();
         $validated['coach_id'] = $coachId;
-        $validated['apprentis_id'] = $id;
+        $validated['apprentis_id'] = $apprentiId;
+
         $comment = Commentaire::create($validated);
-        if ($request->hasFile('file')) {
+        if ($request->hasFile('files')) {
             if ($validated['files']) {
                 foreach ($validated['files'] as $file) {
                     $path = Storage::disk('local')->putFile('commentFiles/', $file);
@@ -36,18 +62,21 @@ class CommentController extends Controller
         }
 
         return redirect()->route('coach')->with('success', 'Commentaire créé avec succès !');
-
     }
 
-    public function commentview($id)
+    public function commentview($apprentiId)
     {
         $user = auth()->user();
         $user = User::findOrFail($id);
 
-        return view('createcomments', ['user' => $user]);
+        if ($authCheck = $this->checkCoachAuthorization($apprenti)) {
+            return $authCheck;
+        }
+
+        return view('createcomments', ['user' => $apprenti]);
     }
 
-    public function commentsdetails($id)
+    public function commentsdetails($commentaireId)
     {
         $commentaire = Commentaire::find($id);
         $user = User::find($commentaire->apprentis_id);
@@ -66,33 +95,64 @@ class CommentController extends Controller
         return Storage::disk('local')->response($path);
     }
 
+
     public function destroyComment(Commentaire $commentaire)
     {
-        $user = auth()->user();
-        $commentaire->delete();
-        return redirect()->route('coach')->with('success', 'Commentaire supprimée avec succès !');
+        $coachId = auth()->id();
 
+        if ($commentaire->coach_id !== $coachId) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez supprimer que vos propres commentaires.");
+        }
+
+        $commentaire->delete();
+
+        return redirect()->route('coach')->with('success', 'Commentaire supprimé avec succès !');
     }
+
 
     public function editComment(Commentaire $commentaire)
     {
-        $user = auth()->user();
-        return view('createcommentsUpdate', ['user' => $user, 'comment' => $commentaire]);
+        $coach = auth()->user();
 
+        if (!$coach->roles->contains('coach')) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous devez être coach pour modifier un commentaire.");
+        }
+
+        if ($commentaire->coach_id !== $coach->id) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez modifier que vos propres commentaires.");
+        }
+
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
+
+        return view('createcommentsUpdate', ['user' => $apprenti, 'comment' => $commentaire]);
     }
+
 
     public function updateComment(CommentCreationRequest $request, Commentaire $commentaire)
     {
+        $coach = auth()->user();
+
+        if (!$coach->roles->contains('coach')) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous devez être coach pour modifier un commentaire.");
+        }
+
+        if ($commentaire->coach_id !== $coach->id) {
+            return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez modifier que vos propres commentaires.");
+        }
+
         $validated = $request->validated();
         $commentaire->title = $validated['title'];
         $commentaire->description = $validated['description'];
+
         if ($request->hasFile('file')) {
-            if ($validated['files']) {
+            if (!empty($validated['files'])) {
                 $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
+
                 foreach ($commentFiles as $file) {
                     Storage::disk('local')->delete($file->path);
                     File::destroy($file->id);
                 }
+
                 foreach ($validated['files'] as $file) {
                     $path = Storage::disk('local')->putFile('commentFiles/', $file);
                     $commentaire->file()->create([
@@ -101,13 +161,37 @@ class CommentController extends Controller
                     ]);
                 }
             }
-
-        } else {
-
         }
 
         $commentaire->save();
 
-        return redirect()->route('coach')->with('success', 'Commentaire édité avec succès !');
+        return redirect()->route('coach')->with('success', 'Commentaire modifié avec succès !');
+    }
+
+
+    public function getCommentsByCoachForApprenti($apprentiId)
+    {
+        $coachId = auth()->id();
+
+        return Commentaire::where('apprentis_id', $apprentiId)
+                    ->where('coach_id', $coachId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+    }
+
+    public function showCommentsByApprenti($apprentiId)
+    {
+        $apprenti = User::findOrFail($apprentiId);
+
+        if ($authCheck = $this->checkCoachAuthorization($apprenti)) {
+            return $authCheck;
+        }
+
+        $comments = $this->getCommentsByCoachForApprenti($apprentiId);
+
+        return view('commentsList', [
+            'user' => $apprenti,
+            'comments' => $comments,
+        ]);
     }
 }

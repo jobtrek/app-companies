@@ -22,9 +22,8 @@ Route::middleware(EnsureUserHasRole::class . ':coach')->group(function() {
     Route::delete('/delete-comment/{commentaire}', [CommentController::class, 'destroyComment'])->name('delete.comment');
     Route::get('/edit-comment/{commentaire}', [CommentController::class, 'editComment'])->name('comment.edit');
     Route::put('/update-comment/{commentaire}', [CommentController::class, 'updateComment'])->name('comment.update');
-    Route::get('/comment-file/{filename}', [CommentController::class, 'commentFileDisplay'])
-        ->name('comment-file.show')
-        ->where('filename', '.*');
+    Route::get('/comment-file/{filename}', [CommentController::class, 'commentFileDisplay'])->name('comment-file.show')->where('filename', '.*');
+    Route::get('/coach/apprenti/{id}/comments', [CommentController::class, 'showCommentsByApprenti'])->name('coach.apprenti.comments')->middleware('auth');
 });
 
 Route::middleware(EnsureUserHasRole::class . ':formateur_commerce,formateur_informaticien')->group(function() {
