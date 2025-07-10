@@ -3,7 +3,7 @@
 @section('title', 'Détails du commentaire')
 
 @section('content')
-    <div class="w-screen lg:w-300 ml-0 p-6 bg-white rounded-lg shadow-md lg:ml-10">
+    <div class="w-screen lg:w-20/20 ml-0 p-6 bg-white rounded-lg shadow-md">
         <h1 class="text-3xl font-bold text-gray-800">Nom de l'apprenti : {{$user->name}} {{$user->lastname}} <span
                 class="text-gray-500">(commentaire coach)</span></h1>
         <hr class="border-t border-gray-300 mt-4">
@@ -17,18 +17,26 @@
             </div>
         </section>
 
-        <section class="flex flex-row items-center md:items-start gap-6">
-            <img
-                id="preview"
-                class="bg-blue-100 w-full md:w-5/6 h-48 md:h-64 p-4 rounded object-contain"
-                alt="Aperçu du fichier sélectionné"
-            />
-            <img
-                id="preview"
-                class="bg-blue-100 w-full md:w-5/6 h-48 md:h-64 p-4 rounded object-contain"
-                alt="Aperçu du fichier sélectionné"
-            />
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 py-6">
+            @foreach($commentFiles as $commentFile)
+                <div class="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+                    <div class="bg-gradient-to-r from-gray-100 to-gray-200 px-5 py-3 flex items-center justify-between">
+                        <span class="text-sm font-semibold text-gray-700">Aperçu du fichier</span>
+                        <a href="{{ route('comment-file.show', ['filename' => basename($commentFile->path)]) }}"
+                           target="_blank"
+                           class="text-blue-600 hover:text-blue-800 text-xs font-medium">
+                            Ouvrir dans un onglet
+                        </a>
+                    </div>
+
+                    <iframe
+                        src="{{ route('comment-file.show', ['filename' => basename($commentFile->path)]) }}"
+                        class="w-19/20 h-96 md:h-[600px] bg-white"
+                    ></iframe>
+                </div>
+            @endforeach
         </section>
+
         <div class="flex items-center justify-center">
             <form action="{{route('delete.comment', $comments->id)}}" method="POST" class="m-10">
                 @csrf

@@ -40,9 +40,6 @@ class CommentController extends Controller
     public function commentview($id)
     {
         $user = auth()->user();
-        if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accés nécesssaire pour l'ajout de commentaire.");
-        }
         $user = User::findOrFail($id);
 
         return view('createcomments', ['user' => $user]);
@@ -50,24 +47,26 @@ class CommentController extends Controller
 
     public function commentsdetails($id)
     {
-        $user = auth()->user();
-        if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accès pour voir les commentaires.");
+        $commentaire = Commentaire::find($id);
+        $user = User::find($commentaire->apprentis_id);
+        $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
+        return view('commentDetails', ['comments' => $commentaire, 'user' => $user, 'commentFiles' => $commentFiles->all()]);
+    }
+
+    public function commentFileDisplay($filename)
+    {
+        $path = "commentFiles/" . $filename;
+
+        if (!Storage::disk('local')->exists($path)) {
+            abort(404);
         }
-        $commentaire = Commentaire::all()->find($id);
 
-        $user = User::all()->where('id', $commentaire->apprentis_id)->firstOrFail();
-
-        return view('commentDetails', ['comments' => $commentaire, 'user' => $user]);
+        return Storage::disk('local')->response($path);
     }
 
     public function destroyComment(Commentaire $commentaire)
     {
         $user = auth()->user();
-        if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accès pour supprimée les commentaires.");
-        }
-
         $commentaire->delete();
         return redirect()->route('coach')->with('success', 'Commentaire supprimée avec succès !');
 
@@ -76,9 +75,6 @@ class CommentController extends Controller
     public function editComment(Commentaire $commentaire)
     {
         $user = auth()->user();
-        if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accès à la modification.");
-        }
         return view('createcommentsUpdate', ['user' => $user, 'comment' => $commentaire]);
 
     }
