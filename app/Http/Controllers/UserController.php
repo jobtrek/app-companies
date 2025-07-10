@@ -9,7 +9,6 @@ use App\Models\Domain;
 use App\Models\Entreprise;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

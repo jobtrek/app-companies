@@ -7,7 +7,7 @@
 
             <div class="bg-gray-200 p-6 sm:p-8 pt-20 rounded-3xl flex flex-col gap-6 ">
 
-                <form class="flex flex-col gap-6 mt-4 pt-6" method="post" action="{{ route('company.create') }}"
+                <form class="flex flex-col gap-6 mt-4 pt-6" method="post" action="{{ route('create-company') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <img src="{{ asset('images/createaccount_page/edit.svg') }}" alt="Icône éditer"

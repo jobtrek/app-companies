@@ -52,7 +52,7 @@ class CommentController extends Controller
     {
         $user = auth()->user();
         if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accés pour voir les commentaires.");
+            return redirect()->route('coach')->with('error', "Vous n'avez pas les accès pour voir les commentaires.");
         }
         $commentaire = Commentaire::all()->find($id);
 
@@ -65,7 +65,7 @@ class CommentController extends Controller
     {
         $user = auth()->user();
         if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accés pour supprimée les commentaires.");
+            return redirect()->route('coach')->with('error', "Vous n'avez pas les accès pour supprimée les commentaires.");
         }
 
         $commentaire->delete();
@@ -77,7 +77,7 @@ class CommentController extends Controller
     {
         $user = auth()->user();
         if (!$user->roles->contains('coach')) {
-            return redirect()->route('coach')->with('error', "Vous n'avez pas les accés à la modification.");
+            return redirect()->route('coach')->with('error', "Vous n'avez pas les accès à la modification.");
         }
         return view('createcommentsUpdate', ['user' => $user, 'comment' => $commentaire]);
 

@@ -3,148 +3,156 @@
 @section('title', 'Profil entreprise')
 
 @section('content')
-    <div class="p-6 bg-white rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold text-gray-900">Profil de l'entreprise</h1>
-        <hr class="border-t border-gray-300 mt-5">
+    @php
+        $editMode = request()->has('edit');
+    @endphp
 
-        @php
-            $editMode = request()->has('edit');
-        @endphp
+    <div class="shadow-lg rounded-xl md:mt-40">
+        <div class="sm:flex sm:flex-row p-8 gap-8">
 
-        @if ($editMode)
-            <form action="{{ route('company.update', $entreprise) }}" method="POST" enctype="multipart/form-data"
-                class="space-y-6">
-                @csrf
-                @method('PUT')
-
-                <section class="flex flex-col sm:flex-row items-center bg-white p-6 gap-6 rounded-lg shadow-md">
-                    <div class="w-full sm:w-1/3">
-                        <label for="photo" class="block mb-2 text-sm font-medium text-gray-700">Logo entreprise</label>
-                        <input type="file" name="photo" id="photo" accept="image/*"
-                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500" />
-                    </div>
-
-                    <div class="flex-1 space-y-4">
-                        <label class="block">
-                            <span class="font-medium text-gray-700">Nom de l'entreprise</span>
-                            <input type="text" name="name" value="{{ old('name', $entreprise->name) }}" required
-                                class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-green-500" />
-                        </label>
-
-                        <label class="block">
-                            <span class="font-medium text-gray-700">Email</span>
-                            <input type="email" name="email" value="{{ old('email', $entreprise->email) }}" required
-                                class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-green-500" />
-                        </label>
-
-                        <label class="block">
-                            <span class="font-medium text-gray-700">Adresse</span>
-                            <input type="text" name="address" value="{{ old('address', $entreprise->address) }}" required
-                                class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-green-500" />
-                        </label>
-
-                        <label class="block">
-                            <span class="font-medium text-gray-700">Téléphone</span>
-                            <input type="text" name="phone_number"
-                                value="{{ old('phone_number', $entreprise->phone_number) }}"
-                                class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-green-500" />
-                        </label>
-
-                        <label class="block">
-                            <span class="font-medium text-gray-700">Site Web</span>
-                            <input type="url" name="website" value="{{ old('website', $entreprise->website) }}"
-                                class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-green-500" />
-                        </label>
-
-                        <label class="block">
-                            <span class="font-medium text-gray-700">Domaine</span>
-                            <select name="domain_id"
-                                class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-green-500">
-                                @foreach ($domains as $domain)
-                                    <option value="{{ $domain->id }}"
-                                        {{ old('domain_id', $entreprise->domain_id) == $domain->id ? 'selected' : '' }}>
-                                        {{ $domain->name }}</option>
-                                @endforeach
-                            </select>
-                        </label>
-                    </div>
-                </section>
-
-                <section class="bg-white p-6 rounded-lg shadow-md">
-                    <label class="block">
-                        <span class="font-medium text-gray-700">Description</span>
-                        <textarea name="description" rows="5" class="w-full border-gray-300 p-2 rounded-md focus:ring-green-500">{{ old('description', $entreprise->description) }}</textarea>
-                    </label>
-                </section>
-
-                <div class="flex gap-4 justify-between">
-                    <a href="{{ route('profileEntreprise', $entreprise) }}"
-                        class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500">
-                        Annuler
-                    </a>
-                    <button type="submit"
-                        class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-green-500">
-                        Sauvegarder
-                    </button>
+            <div class="sm:w-1/3 flex flex-col items-center justify-center min-h-[320px] text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="{{ $entreprise->photo }}"
+                        class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
                 </div>
-            </form>
-        @else
-            <section class="flex flex-col sm:flex-row items-center bg-white p-6 gap-6 rounded-lg shadow-md">
-                <!-- ATTENTION : Pour afficher correctement l’image stockée, remplacer $entreprise->photo par asset('storage/' . $entreprise->photo) j'ai utilisé faker pour les entreprises avec lorem picsum donc c'est pour ca que j'ai enlevé -->
-                <img src="{{ $entreprise->photo }}"
-                    class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-green-100" />
-
-                <div class="flex-1 space-y-3">
-                    <h2 class="text-2xl font-bold text-gray-800">{{ $entreprise->name }}</h2>
-                    <p class="text-gray-600"><span class="font-medium">📧 Email :</span> {{ $entreprise->email }}</p>
-                    <p class="text-gray-600"><span class="font-medium">🏢 Adresse :</span> {{ $entreprise->address }}</p>
-                    <p class="text-gray-600"><span class="font-medium">👤 Domaine :</span>
-                        {{ $entreprise->domain ? $entreprise->domain->name : 'Non défini' }}</p>
-                    <p class="text-gray-600"><span class="font-medium">📞 Téléphone :</span>
-                        {{ $entreprise->phone_number }}</p>
-                    <p class="text-gray-600">
-                        <span class="font-medium">🌐 Site Web :</span>
-                        <a href="{{ $entreprise->website }}" target="_blank" rel="noopener"
-                            class="text-blue-600 hover:underline">
-                            Lien vers le site
-                        </a>
-                    </p>
-                </div>
-            </section>
-
-            <section class="bg-white p-6 rounded-lg shadow-md">
-                <h1 class="text-xl font-semibold text-gray-800 mb-4">À propos de cette entreprise</h1>
-                <p class="text-gray-700 text-base leading-relaxed">{{ $entreprise->description }}</p>
-            </section>
-
-            @auth
-                @if (auth()->user()->hasRole('admin'))
-                    <div class="relative h-30 sm:h-35">
-                        <button
-                            class="absolute bottom-10 left-1/2 transform -translate-x-1/2 sm:left-0 sm:w-full sm:translate-x-0 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-md">
-                            Lier un apprenti
-                        </button>
-                    </div>
-                    <div class="relative h-20 sm:h-20">
-                        <a href="{{ route('profileEntreprise', $entreprise) }}?edit=1"
-                            class="absolute bottom-10 left-1/2 transform -translate-x-1/2 sm:left-0 sm:w-full sm:translate-x-0 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md shadow-md text-center">
-                            Modifier l'entreprise
-                        </a>
-                    </div>
-                    <div class="relative h-20 sm:h-20">
-                        <form action="{{ route('company.delete', $entreprise) }}" method="POST"
-                            onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette entreprise ?');"
-                            class="relative h-20 sm:h-20">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="absolute bottom-10 left-1/2 transform -translate-x-1/2 sm:left-0 sm:w-full sm:translate-x-0 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md shadow-md">
-                                Supprimer l'entreprise
-                            </button>
-                        </form>
-                    </div>
+                @if ($editMode)
+                    <input type="text" name="name" form="editEntrepriseForm"
+                        class="mt-4 w-full text-center border border-gray-300 rounded-lg p-2 text-xl font-bold"
+                        value="{{ $entreprise->name }}">
+                @else
+                    <h2 class="mt-6 text-3xl font-extrabold text-gray-900">{{ $entreprise->name }}</h2>
                 @endif
-            @endauth
-        @endif
+                <p class="mt-2 text-green-700 font-semibold text-lg">
+                    {{ $entreprise->domain ? $entreprise->domain->name : 'Domaine non défini' }}
+                </p>
+            </div>
+
+            <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                @if ($editMode)
+                    <form id="editEntrepriseForm" action="{{ route('company.update', $entreprise) }}" method="POST"
+                        class="contents">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5">
+                            <span class="text-4xl">📧</span>
+                            <div class="w-full">
+                                <p class="font-semibold text-gray-700 text-lg">Email</p>
+                                <input type="email" name="email" value="{{ $entreprise->email }}"
+                                    class="w-full border border-gray-300 rounded-lg p-2">
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5">
+                            <span class="text-4xl">📞</span>
+                            <div class="w-full">
+                                <p class="font-semibold text-gray-700 text-lg">Téléphone</p>
+                                <input type="text" name="phone_number" value="{{ $entreprise->phone_number }}"
+                                    class="w-full border border-gray-300 rounded-lg p-2">
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5 col-span-full">
+                            <span class="text-4xl">🏢</span>
+                            <div class="w-full">
+                                <p class="font-semibold text-gray-700 text-lg">Adresse</p>
+                                <input type="text" name="address" value="{{ $entreprise->address }}"
+                                    class="w-full border border-gray-300 rounded-lg p-2">
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5 col-span-full">
+                            <span class="text-4xl">🌐</span>
+                            <div class="w-full">
+                                <p class="font-semibold text-gray-700 text-lg">Site web</p>
+                                <input type="text" name="website" value="{{ $entreprise->website }}"
+                                    class="w-full border border-gray-300 rounded-lg p-2">
+                            </div>
+                        </div>
+
+                        <div class="bg-green-100 p-6 rounded-xl shadow-md col-span-full">
+                            <h3 class="font-semibold text-gray-800 mb-4 text-xl">À propos de cette entreprise</h3>
+                            <textarea name="description" rows="5" class="w-full border border-gray-300 rounded-lg p-3">{{ $entreprise->description }}</textarea>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 col-span-full">
+                            <button type="submit"
+                                class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md shadow transition">
+                                Enregistrer les modifications
+                            </button>
+                            <a href="{{ route('profileEntreprise', $entreprise) }}"
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-2 rounded-md shadow transition">
+                                Annuler
+                            </a>
+                        </div>
+                    </form>
+                @else
+                    <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5">
+                        <span class="text-4xl">📧</span>
+                        <div>
+                            <p class="font-semibold text-gray-700 text-lg">Email</p>
+                            <p class="text-gray-900 break-words">{{ $entreprise->email }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5">
+                        <span class="text-4xl">📞</span>
+                        <div>
+                            <p class="font-semibold text-gray-700 text-lg">Téléphone</p>
+                            <p class="text-gray-900">{{ $entreprise->phone_number }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5 col-span-full">
+                        <span class="text-4xl">🏢</span>
+                        <div>
+                            <p class="font-semibold text-gray-700 text-lg">Adresse</p>
+                            <p class="text-gray-900">{{ $entreprise->address }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-5 rounded-xl shadow-md flex items-center gap-5 col-span-full">
+                        <span class="text-4xl">🌐</span>
+                        <div>
+                            <p class="font-semibold text-gray-700 text-lg">Site web</p>
+                            <a href="{{ $entreprise->website }}" class="text-blue-600 hover:underline break-words">
+                                {{ $entreprise->website }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-100 p-6 rounded-xl shadow-md col-span-full">
+                        <h3 class="font-semibold text-gray-800 mb-4 text-xl">À propos de cette entreprise</h3>
+                        <p class="text-gray-700 leading-relaxed">{{ $entreprise->description }}</p>
+                    </div>
+
+                    @auth
+                        @if (auth()->user()->hasRole('formateur_informaticien', 'formateur_commerce'))
+                            <div class="flex justify-center items-center gap-4 mt-8 col-span-full">
+                                <a href="{{ route('profileEntreprise', $entreprise) }}?edit"
+                                    class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md shadow transition">
+                                    Modifier l'entreprise
+                                </a>
+                            </div>
+                        @endif
+                    @endauth
+                @endif
+
+                @if ($editMode && auth()->user()->hasRole('formateur_informaticien', 'formateur_commerce'))
+                    <form action="{{ route('company.delete', $entreprise) }}" method="POST"
+                        onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette entreprise ?');"
+                        class="col-span-full flex justify-center mt-4">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow transition">
+                            Supprimer
+                        </button>
+                    </form>
+                @endif
+
+            </div>
+        </div>
     </div>
 @endsection

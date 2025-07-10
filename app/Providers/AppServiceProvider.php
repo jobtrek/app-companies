@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use GMP;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -43,8 +44,7 @@ class AppServiceProvider extends ServiceProvider
             return $user_checker->domain_id === $user_to_check->domain_id;
         });
 
-        Gate::define('formateurs_or_admin', function ($user) {
-            return $user->roles->contains('formateur_commerce') ||  $user->roles->contains('formateur_informaticien') || $user->roles->contains('admin');
+        Gate::define('formateurs', function ($user) {
+            return $user->roles->contains('formateur_commerce') ||  $user->roles->contains('formateur_informaticien');
         });
-    }
-}
+}}
