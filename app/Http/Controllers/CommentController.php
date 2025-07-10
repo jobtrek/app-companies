@@ -101,6 +101,8 @@ class CommentController extends Controller
                     'filename' => 'comment - ' . $commentaire->id,
                 ]);
             }
+        } else {
+
         }
 
         $commentaire->save();

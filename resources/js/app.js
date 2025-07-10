@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const filters = document.getElementById("filters");
     const sectionContainer = document.getElementById("section-container");
     const fullContainer = document.getElementById("full-container");
-    if(btnEntreprises && btnApprentis) {
+    if (btnEntreprises && btnApprentis) {
         btnApprentis.addEventListener("click", () => {
             sectionApprentis.classList.remove("hidden");
             sectionEntreprises.classList.add("hidden");
@@ -110,8 +110,8 @@ document.addEventListener("DOMContentLoaded", function () {
         searchInput.addEventListener("input", function () {
             const searchText = this.value.toLowerCase();
             const EntreprisesSection = document.getElementById("section-entreprises")
-            if(EntreprisesSection) {
-                if(EntreprisesSection.classList.contains("hidden")) {
+            if (EntreprisesSection) {
+                if (EntreprisesSection.classList.contains("hidden")) {
                     const entrepriseCards = document.querySelectorAll(".entreprises-item");
                     entrepriseCards.forEach((card) => {
                         const text = card.textContent.toLowerCase();
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('profilForm');
-    if(form) {
+    if (form) {
         const inputs = form.querySelectorAll('input');
         const submitButton = document.getElementById('submitButton');
         let changed = false;
@@ -170,3 +170,59 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+        const input = document.getElementById('global-search');
+        const results = document.getElementById('search-results');
+        const apprentisContainer = document.querySelector('.space-y-15');
+        if (input && results) {
+            input.addEventListener('input', function () {
+                const query = this.value.trim();
+
+                if (query.length < 2) {
+                    results.style.display = 'none';
+                    results.innerHTML = '';
+                    apprentisContainer.style.display = 'block';
+                    return;
+                }
+
+                fetch(`/coach?q=${encodeURIComponent(query)}`, {
+                    headers: {'X-Requested-With': 'XMLHttpRequest'}
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length === 0) {
+                            results.innerHTML = '<div class="p-2 text-gray-500">Aucun résultat</div>';
+                        } else {
+                            results.innerHTML = data.map(apprenti => `
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4">
+                        <a href="/user-profile/${apprenti.id}" class="flex-1 min-w-0 flex items-center gap-4">
+                            <img src="${apprenti.photo}" alt="Photo" class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm" />
+                            <div>
+                                <h3 class="text-base sm:text-lg font-semibold text-gray-800 truncate">${apprenti.name} ${apprenti.lastname}</h3>
+                                <p class="text-sm text-gray-600 truncate">Formation : ...</p>
+                            </div>
+                        </a>
+                    </div>
+                `).join('');
+                        }
+                        results.style.display = 'block';
+                        apprentisContainer.style.display = 'none';
+                    })
+                    .catch(() => {
+                        results.innerHTML = '<div class="p-2 text-red-500">Erreur de recherche</div>';
+                        results.style.display = 'block';
+                        apprentisContainer.style.display = 'none';
+                    });
+            });
+
+
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !results.contains(e.target)) {
+                    results.style.display = 'none';
+                    apprentisContainer.style.display = 'block';
+                }
+            });
+        }
+    }
+)
+    ;

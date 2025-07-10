@@ -43,6 +43,7 @@ Route::middleware(EnsureUserHasRole::class . ':admin')->group(function() {
     Route::delete('/delete-domain/{domain}', [DomainController::class, 'destroy'])->name('domain.delete');
 });
 
+
 Route::view('/login', 'login')->name('login.view');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::get('/', [UserController::class, 'index'])->name('home');

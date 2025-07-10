@@ -8,10 +8,13 @@
     </h1>
     <hr class="border-t border-gray-300 w-full mt-5">
 
+
     <div class="mt-10 mb-6">
         <input type="search" placeholder="Rechercher un apprenti..."
-               class="border rounded px-3 py-2 w-full max-w-full mb-5"
-               id="search">
+               class="border rounded px-3 py-2 w-full max-w-full mb-5" id="global-search"
+        >
+        <div id="search-results" class="absolute bg-white shadow mt-1 rounded max-h-60 overflow-auto w-full" style="display:none;"></div>
+
     </div>
 
     <div class="space-y-15 ">
