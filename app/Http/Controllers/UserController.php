@@ -221,10 +221,8 @@ class UserController extends Controller
 
     public function userUpdateShow($id)
     {
-        $formateur = auth()->user();
-        $apprenti = User::findOrFail($id);
-        $this->authorize('check_domains_apprenti_formateur', $apprenti);
         $user = User::findOrFail($id);
+        $this->authorize('check_domains_apprenti_formateur', $user);
         $coach = User::whereJsonContains('roles', "coach")->get();
         $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
         $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
