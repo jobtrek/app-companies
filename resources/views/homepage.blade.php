@@ -20,8 +20,9 @@
 
     <div class="w-full max-w-full">
         <div class="w-full mb-5">
-            <input type="text" placeholder="Rechercher un apprenti ou une entreprise..." id="search"
+            <input type="text" placeholder="Rechercher un apprenti ou une entreprise..." id="global-search"
                 class="border rounded px-3 py-2 w-full max-w-full mb-5">
+            <div id="search-results" class="absolute bg-white shadow mt-1 rounded max-h-60 overflow-auto w-full" style="display:none;"></div>
         </div>
         <div id="full-container" class="flex flex-col lg:flex-row-reverse gap-8">
             <div id="filters"
@@ -94,7 +95,6 @@
                             class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition flex flex-col items-center text-center entreprises-item">
                             <div class="mb-4">
                                 @if ($entreprise->photo)
-                                    <!-- ATTENTION : Pour afficher correctement l’image stockée, remplacer $entreprise->photo par asset('storage/' . $entreprise->photo) j'ai utilisé faker pour les entreprises avec lorem picsum donc c'est pour ca que j'ai enlevé -->
                                     <img src="{{ $entreprise->photo }}"
                                         class="w-40 h-40 object-cover rounded-full border-4 border-blue-300 shadow-sm" />
                                 @else

@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <img src="${apprenti.photo}" alt="Photo" class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm" />
                             <div>
                                 <h3 class="text-base sm:text-lg font-semibold text-gray-800 truncate">${apprenti.name} ${apprenti.lastname}</h3>
-                                <p class="text-sm text-gray-600 truncate">Formation : ...</p>
+                                <p class="text-sm text-gray-600 truncate">Formation : ... </p>
                             </div>
                         </a>
                     </div>
