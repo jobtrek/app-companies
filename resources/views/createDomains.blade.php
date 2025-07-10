@@ -39,7 +39,6 @@
                         @endforeach
                     </ul>
                 @endif
-                <p class="mt-5 text-red-600">*Attention vous ne pouvez pas supprimer un domaine déjà utilisé</p>
             </div>
         </div>
     </div>
