@@ -95,7 +95,6 @@
                             class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition flex flex-col items-center text-center entreprises-item">
                             <div class="mb-4">
                                 @if ($entreprise->photo)
-                                    <!-- ATTENTION : Pour afficher correctement l’image stockée, remplacer $entreprise->photo par asset('storage/' . $entreprise->photo) j'ai utilisé faker pour les entreprises avec lorem picsum donc c'est pour ca que j'ai enlevé -->
                                     <img src="{{ $entreprise->photo }}"
                                         class="w-40 h-40 object-cover rounded-full border-4 border-blue-300 shadow-sm" />
                                 @else
