@@ -88,19 +88,22 @@ class CommentController extends Controller
         $validated = $request->validated();
         $commentaire->title = $validated['title'];
         $commentaire->description = $validated['description'];
-        if ($validated['files']) {
-            $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
-            foreach ($commentFiles as $file) {
-                Storage::disk('local')->delete($file->path);
-                File::destroy($file->id);
+        if ($request->hasFile('file')) {
+            if ($validated['files']) {
+                $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
+                foreach ($commentFiles as $file) {
+                    Storage::disk('local')->delete($file->path);
+                    File::destroy($file->id);
+                }
+                foreach ($validated['files'] as $file) {
+                    $path = Storage::disk('local')->putFile('commentFiles/', $file);
+                    $commentaire->file()->create([
+                        'path' => $path,
+                        'filename' => 'comment - ' . $commentaire->id,
+                    ]);
+                }
             }
-            foreach ($validated['files'] as $file) {
-                $path = Storage::disk('local')->putFile('commentFiles/', $file);
-                $commentaire->file()->create([
-                    'path' => $path,
-                    'filename' => 'comment - ' . $commentaire->id,
-                ]);
-            }
+
         } else {
 
         }
