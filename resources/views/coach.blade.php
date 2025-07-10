@@ -17,7 +17,7 @@
     <div class="space-y-15 ">
         @foreach ($apprentis as $apprenti)
             <div
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4">
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4 search-card">
                 <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}" class="flex-1 min-w-0">
                     <img class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm"
                          src="{{ $apprenti->photo }}" alt="Photo de l'apprenti"/>

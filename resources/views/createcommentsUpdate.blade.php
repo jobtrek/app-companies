@@ -17,7 +17,7 @@
 
     <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{$comment->apprentis_id }} </h1>
     <form method="POST" action="{{ route('comment.update', ['commentaire' => $comment->id]) }}"
-          class="grid grid-cols-1 md:grid-cols-2 md:gap-10 min-h-[80vh]">
+          class="grid grid-cols-1 md:grid-cols-2 md:gap-10 min-h-[80vh]" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="flex flex-col gap-4 h-full">
@@ -32,7 +32,7 @@
                  alt="fichier choisi"/>
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full">
-                <input type="file" id="fileInput" style="display: none;" onchange="showFileName()">
+                <input type="file" name="files[]" id="fileInput" style="display: none;" onchange="showFileName()" multiple>
 
                 <button type="button"
                         class="bg-[#1E1D1C] hover:bg-[#1C2366] active:scale-95 active:bg-[#101426] text-white px-4 py-2 rounded transition-all duration-200 ease-in-out"
