@@ -18,9 +18,9 @@ Route::middleware(EnsureUserHasRole::class . ':coach')->group(function() {
     Route::get('/comments-detail/{id}', [CommentController::class, 'commentsdetails'])->name('comment.detail')->middleware(EnsureUserHasRole::class . ':coach');
     Route::get('/create-comment/{id}', [CommentController::class, 'commentview'])->name('create.comment.view')->middleware(EnsureUserHasRole::class . ':coach');
     Route::post('/create-comment/{id}', [CommentController::class, 'comment'])->name('create.comment')->middleware(EnsureUserHasRole::class . ':coach');
-    Route::delete('/delete-comment/{commentaire}', [CommentController::class, 'destroyComment'])->name('delete.comment')->middleware(EnsureUserHasRole::class . ':coach');;
-    Route::get('/edit-comment/{commentaire}', [CommentController::class, 'editComment'])->name('comment.edit')->middleware(EnsureUserHasRole::class . ':coach');;
-    Route::put('/Update-comment/{commentaire}', [CommentController::class, 'updateComment'])->name('comment.update')->middleware(EnsureUserHasRole::class . ':coach');;
+    Route::delete('/delete-comment/{commentaire}', [CommentController::class, 'destroyComment'])->name('delete.comment')->middleware(EnsureUserHasRole::class . ':coach');
+    Route::get('/edit-comment/{commentaire}', [CommentController::class, 'editComment'])->name('comment.edit')->middleware(EnsureUserHasRole::class . ':coach');
+    Route::put('/Update-comment/{commentaire}', [CommentController::class, 'updateComment'])->name('comment.update')->middleware(EnsureUserHasRole::class . ':coach');
 });
 
 Route::middleware(EnsureUserHasRole::class . ':formateur_commerce,formateur_informaticien')->group(function() {
@@ -33,7 +33,7 @@ Route::middleware(EnsureUserHasRole::class . ':formateur_commerce,formateur_info
 Route::middleware(EnsureUserHasRole::class . ':admin')->group(function() {
     Route::post('/creation', [UserController::class, 'create'])->name('creation')->middleware(EnsureUserHasRole::class . ':admin');
     Route::post('/create-new-company', [EntrepriseController::class, 'create'])->name('company.create')->middleware(EnsureUserHasRole::class . ':admin');
-    Route::post('/create-account', [UserController::class, 'create'])->name('user.create')->middleware(EnsureUserHasRole::class . ':admin');;
+    Route::post('/create-account', [UserController::class, 'create'])->name('user.create')->middleware(EnsureUserHasRole::class . ':admin');
     Route::delete('/delete-account/{user}', [UserController::class, 'destroy'])->name('users.delete')->middleware(EnsureUserHasRole::class . ':admin');
     Route::delete('/delete-company/{entreprise}', [EntrepriseController::class, 'destroy'])->name('company.delete')->middleware(EnsureUserHasRole::class . ':admin');
 });
@@ -43,7 +43,7 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::get('/', [UserController::class, 'index'])->name('home');
 Route::get('/sort/{sort}', [UserController::class, 'sort'])->name('home.sort');
 
-Route::put('/users/{user}', [UserController::class, 'updateProfil'])->name('users.update')->middleware(EnsureUserHasRole::class . ':admin, formateur_commerce,formateur_informaticien');
+Route::put('/users/{user}', [UserController::class, 'updateProfil'])->name('users.update')->middleware(EnsureUserHasRole::class . ':admin,formateur_commerce,formateur_informaticien');
 
 Route::post('/logout', function () {
     Auth::logout();
