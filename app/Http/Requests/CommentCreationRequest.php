@@ -26,7 +26,8 @@ class CommentCreationRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'required|string',
             'apprentis_id' => 'required|integer',
-
+            'files' => 'array|nullable|max:5',
+            'files.*' => 'nullable|file|mimes:txt,doc,docx,pdf,jpg,jpeg,png|max:4096',
         ];
     }
 }

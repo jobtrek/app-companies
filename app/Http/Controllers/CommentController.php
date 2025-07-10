@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentCreationRequest;
 use App\Models\Commentaire;
+use App\Models\File;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
@@ -14,11 +17,21 @@ class CommentController extends Controller
     //
     public function comment(CommentCreationRequest $request, $id)
     {
+
         $validated = $request->validated();
         $coachId = auth()->id();
         $validated['coach_id'] = $coachId;
         $validated['apprentis_id'] = $id;
-        Commentaire::create($validated);
+        $comment = Commentaire::create($validated);
+        if ($validated['files']) {
+            foreach ($validated['files'] as $file) {
+                $path = Storage::disk('local')->putFile('commentFiles/', $file);
+                $comment->file()->create([
+                    'path' => $path,
+                    'filename' => 'comment - ' . $comment->id,
+                ]);
+            }
+        }
 
         return redirect()->route('coach')->with('success', 'Commentaire créé avec succès !');
 
@@ -72,13 +85,26 @@ class CommentController extends Controller
 
     public function updateComment(CommentCreationRequest $request, Commentaire $commentaire)
     {
+        $validated = $request->validated();
+        $commentaire->title = $validated['title'];
+        $commentaire->description = $validated['description'];
+        if ($validated['files']) {
+            $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
+            foreach ($commentFiles as $file) {
+                Storage::disk('local')->delete($file->path);
+                File::destroy($file->id);
+            }
+            foreach ($validated['files'] as $file) {
+                $path = Storage::disk('local')->putFile('commentFiles/', $file);
+                $commentaire->file()->create([
+                    'path' => $path,
+                    'filename' => 'comment - ' . $commentaire->id,
+                ]);
+            }
+        }
 
-        $commentaire->title = $request->input('title');
-        $commentaire->description = $request->input('description');
         $commentaire->save();
 
         return redirect()->route('coach')->with('success', 'Commentaire édité avec succès !');
     }
-
-
 }

@@ -9,6 +9,7 @@ class File extends Model
 {
     protected $fillable = [
         'path',
+        'filename',
     ];
 
     public function fileable(): MorphTo

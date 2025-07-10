@@ -145,7 +145,7 @@
                 </section>
             </div>
         </div>
-        @can('admin')
+        @can('check_domains_apprenti_formateur', $user)
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 m-10">
 
                 <a href="/user-profile-update/{{ $user->id }}"
