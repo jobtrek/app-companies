@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const filters = document.getElementById("filters");
     const sectionContainer = document.getElementById("section-container");
     const fullContainer = document.getElementById("full-container");
-    if(btnEntreprises && btnEntreprises) {
+    if(btnEntreprises && btnApprentis) {
         btnApprentis.addEventListener("click", () => {
             sectionApprentis.classList.remove("hidden");
             sectionEntreprises.classList.add("hidden");
@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             } else {
                 const apprentisCards = document.querySelectorAll(".search-card");
-                console.log(apprentisCards);
                 apprentisCards.forEach((card) => {
                     const text = card.textContent.toLowerCase();
                     if (text.includes(searchText)) {

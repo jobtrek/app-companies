@@ -89,7 +89,7 @@ class CommentController extends Controller
         $commentaire->title = $validated['title'];
         $commentaire->description = $validated['description'];
         if ($validated['files']) {
-            $commentFiles = File::all()->where('filename', 'comment - ' . $commentaire->id);
+            $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
             foreach ($commentFiles as $file) {
                 Storage::disk('local')->delete($file->path);
                 File::destroy($file->id);
