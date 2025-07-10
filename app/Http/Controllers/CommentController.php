@@ -23,13 +23,15 @@ class CommentController extends Controller
         $validated['coach_id'] = $coachId;
         $validated['apprentis_id'] = $id;
         $comment = Commentaire::create($validated);
-        if ($validated['files']) {
-            foreach ($validated['files'] as $file) {
-                $path = Storage::disk('local')->putFile('commentFiles/', $file);
-                $comment->file()->create([
-                    'path' => $path,
-                    'filename' => 'comment - ' . $comment->id,
-                ]);
+        if ($request->hasFile('file')) {
+            if ($validated['files']) {
+                foreach ($validated['files'] as $file) {
+                    $path = Storage::disk('local')->putFile('commentFiles/', $file);
+                    $comment->file()->create([
+                        'path' => $path,
+                        'filename' => 'comment - ' . $comment->id,
+                    ]);
+                }
             }
         }
 
