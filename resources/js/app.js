@@ -149,3 +149,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    window.toggleDropdown = function (id) {
+        const dropdown = document.getElementById('dropdown-' + id);
+        if (dropdown) dropdown.classList.toggle('hidden');
+    };
+
+    document.addEventListener('click', function (e) {
+        document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
+            const button = document.querySelector(`button[onclick*="${dropdown.id.replace('dropdown-', '')}"]`);
+            if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+});
+
