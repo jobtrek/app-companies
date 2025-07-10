@@ -27,11 +27,6 @@ class DomainController extends Controller
     public function destroy(Domain $domain)
     {
         $domain->delete();
-        if ($domain->id) {
-
-        } else {
-            return redirect()->route('domain.create')->with('success', 'Domaine supprimé avec succès');
- 
-        }
+        return redirect()->route('domain.create')->with('success', 'Domaine supprimé avec succès.');
     }
 }

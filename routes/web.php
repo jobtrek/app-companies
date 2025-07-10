@@ -40,6 +40,7 @@ Route::middleware(EnsureUserHasRole::class . ':admin')->group(function() {
     Route::delete('/delete-account/{user}', [UserController::class, 'destroy'])->name('users.delete');
     Route::get('/create-domain', [DomainController::class, 'create'])->name('domain.create');
     Route::post('/domains', [DomainController::class, 'store'])->name('domains.store');
+    Route::delete('/delete-domain/{domain}', [DomainController::class, 'destroy'])->name('domain.delete');
 });
 
 Route::view('/login', 'login')->name('login.view');
@@ -52,5 +53,4 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-    Route::delete('/delete-domain/{domain}', [DomainController::class, 'destroy'])->name('domain.delete');
 

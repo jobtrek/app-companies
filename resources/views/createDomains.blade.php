@@ -30,8 +30,7 @@
                             <li class="flex justify-between items-center p-3 bg-gray-50 border rounded">
                                 <span class="text-gray-800">{{ $domain->name }}</span>
 
-                                <form action="{{ route('domain.delete', $domain->id) }}" method="POST"
-                                    onsubmit="return confirm('Supprimer ce domaine ?')">
+                                <form action="{{ route('domain.delete', $domain->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800">Supprimer</button>
