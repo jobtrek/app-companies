@@ -15,7 +15,7 @@
 @endsection
 @section('content')
 
-    <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{ $user->name }} </h1>
+    <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{$comment->apprentis_id }} </h1>
     <form method="POST" action="{{ route('comment.update', ['commentaire' => $comment->id]) }}"
           class="grid grid-cols-1 md:grid-cols-2 md:gap-10 min-h-[80vh]">
         @csrf
