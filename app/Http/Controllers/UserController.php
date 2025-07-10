@@ -73,16 +73,35 @@ class UserController extends Controller
         ]);
     }
 
-    public function coach(Commentaire $commentaire)
+    public function coach(Request $request, Commentaire $commentaire)
     {
         $this->authorize('coach');
         $coachId = auth()->id();
 
+        $query = $request->get('q');
+
+        if ($request->ajax() && $query !== null) {
+            $apprentis = User::where('coach_id', $coachId)
+                ->where(function($q) use ($query) {
+                    $queryLower = strtolower($query);
+                    $q->whereRaw('LOWER(name) LIKE ?', ["%{$queryLower}%"])
+                        ->orWhereRaw('LOWER(lastname) LIKE ?', ["%{$queryLower}%"]);
+                })
+                ->limit(10)
+                ->get();
+
+
+            return response()->json($apprentis);
+        }
+
         $apprentis = User::where('coach_id', $coachId)
             ->with('commentaires')
             ->paginate(5);
+
         return view('coach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
     }
+
+
 
     public function show($id)
     {
