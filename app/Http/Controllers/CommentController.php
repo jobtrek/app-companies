@@ -47,7 +47,7 @@ class CommentController extends Controller
         $this->authorize('manage-comment', $apprenti);
 
 
-        return view('createcomments', ['user' => $apprenti]);
+        return view('createComments', ['user' => $apprenti]);
     }
 
     public function commentsdetails($commentaireId)
@@ -99,7 +99,7 @@ class CommentController extends Controller
         $this->authorize('manage-comment', $apprenti);
 
 
-        return view('createcommentsUpdate', ['user' => $apprenti, 'comment' => $commentaire]);
+        return view('updateComments', ['user' => $apprenti, 'comment' => $commentaire]);
     }
 
     public function updateComment(CommentCreationRequest $request, Commentaire $commentaire)

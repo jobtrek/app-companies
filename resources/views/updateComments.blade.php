@@ -14,8 +14,7 @@
     </script>
 @endsection
 @section('content')
-
-    <h1 class="text-2xl font-bold mb-6">Commentaire sur l' apprenti : {{$comment->apprentis_id }} </h1>
+    <h1 class="text-2xl font-bold mb-6">Éditer le commentaire sur l'apprenti : {{ $user->name }} {{$user->lastname}} </h1>
     <form method="POST" action="{{ route('comment.update', ['commentaire' => $comment->id]) }}"
           class="grid grid-cols-1 md:grid-cols-2 md:gap-10 min-h-[80vh]" enctype="multipart/form-data">
         @csrf
@@ -50,6 +49,12 @@
                 </button>
             </div>
         </div>
-
     </form>
+
+    <p class="mt-5 text-sm text-gray-500 mb-2">
+        Créé le : {{ $comment->created_at->format('d/m/Y H:i') }}
+    </p>
+    <p class="text-sm text-gray-500 mb-6">
+        Dernière édition : {{ $comment->updated_at->format('d/m/Y H:i') }}
+    </p>
 @endsection
