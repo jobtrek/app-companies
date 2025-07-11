@@ -57,14 +57,17 @@
 
                         <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des entreprises</h3>
 
-                        <div class="relative inline-block text-left">
-                            <button id="toggleButtonEntreprise"
-                                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                type="button" aria-haspopup="true" aria-expanded="false"
-                                aria-controls="dropdownWrapperEntreprise">
-                                <a href="/user-profile-update/{{ $user->id }}">Lier une entreprise</a>
-                            </button>
-                        </div>
+                        @can ('formateurs')
+                            <div class="relative inline-block text-left">
+                                <button id="toggleButtonEntreprise"
+                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                    type="button" aria-haspopup="true" aria-expanded="false"
+                                    aria-controls="dropdownWrapperEntreprise">
+                                    <a href="/user-profile-update/{{ $user->id }}">Lier une entreprise</a>
+                                </button>
+                            </div>
+                        @endcan
+
 
                     </div>
                     <ul class="list-disc pl-6 text-gray-700 space-y-1">
@@ -86,14 +89,17 @@
                         <h3 class="font-semibold text-gray-800 mb-4 text-xl">Historique des coachs</h3>
                         <a href="/user-profile-update/{{ $user->id }}">
 
-                            <div class="relative inline-block text-left">
-                                <button id="toggleButton"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
-                                    type="button" aria-haspopup="true" aria-expanded="false">
-                                    Lier à un coach
-
-                                </button>
-                            </div>
+                            @can ('formateurs')
+                                <a href="/user-profile-update/{{ $user->id }}">
+                                    <div class="relative inline-block text-left">
+                                        <button id="toggleButton"
+                                            class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-md mb-6 font-medium transition"
+                                            type="button" aria-haspopup="true" aria-expanded="false">
+                                            Lier à un coach
+                                        </button>
+                                    </div>
+                                </a>
+                            @endcan
                         </a>
 
                     </div>

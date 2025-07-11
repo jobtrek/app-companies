@@ -123,13 +123,11 @@ public function show($id)
     $coachId = auth()->id();
 
     $commentaire = Commentaire::where('apprentis_id', $id)
-        ->where('coach_id', $coachId)
         ->latest()
         ->take(3)
         ->get();
 
     $lastcommentaire = Commentaire::where('apprentis_id', $id)
-        ->where('coach_id', $coachId)
         ->latest()
         ->first();
 
