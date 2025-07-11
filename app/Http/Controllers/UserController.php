@@ -98,9 +98,20 @@ class UserController extends Controller
             ->with('commentaires')
             ->paginate(5);
 
-        return view('coach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
+        return view('mainCoach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
     }
 
+    public function updateCoach(Request $request, User $user)
+    {
+        $request->validate([
+
+            'coach_id' => 'required|exists:users,id',
+
+        ]);
+        $user->coach_id = $request->input('coach_id');
+        $user->save();
+        return view('userProfile', ['user' => $user]);
+    }
 
 public function show($id)
 {
@@ -220,7 +231,7 @@ public function show($id)
     {
         $domains = Domain::all();
 
-        return view('createaccount', ['domains' => $domains]);
+        return view('createAccounts', ['domains' => $domains]);
     }
 
     public function destroy(User $user)

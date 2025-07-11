@@ -97,8 +97,9 @@ class CommentController extends Controller
     public function destroyComment(Commentaire $commentaire)
     {
         $coachId = auth()->id();
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
 
-        if ($commentaire->coach_id !== $coachId) {
+        if ($apprenti->coach_id !== $coachId) {
             return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez supprimer que vos propres commentaires.");
         }
 
@@ -115,30 +116,36 @@ class CommentController extends Controller
 
     public function editComment(Commentaire $commentaire)
     {
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
+
         $coach = auth()->user();
+        $coachId = auth()->id();
+
 
         if (!$coach->roles->contains('coach')) {
             return redirect()->route('coach')->with('error', "Accès refusé : vous devez être coach pour modifier un commentaire.");
         }
 
-        if ($commentaire->coach_id !== $coach->id) {
+        if ($apprenti->coach_id !== $coachId) {
+
             return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez modifier que vos propres commentaires.");
         }
-
-        $apprenti = User::findOrFail($commentaire->apprentis_id);
 
         return view('createcommentsUpdate', ['user' => $apprenti, 'comment' => $commentaire]);
     }
 
     public function updateComment(CommentCreationRequest $request, Commentaire $commentaire)
     {
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
+
         $coach = auth()->user();
+        $coachId = auth()->id();
 
         if (!$coach->roles->contains('coach')) {
             return redirect()->route('coach')->with('error', "Accès refusé : vous devez être coach pour modifier un commentaire.");
         }
 
-        if ($commentaire->coach_id !== $coach->id) {
+        if ($apprenti->coach_id !== $coachId) {
             return redirect()->route('coach')->with('error', "Accès refusé : vous ne pouvez modifier que vos propres commentaires.");
         }
 
@@ -147,7 +154,6 @@ class CommentController extends Controller
         $commentaire->description = $validated['description'];
 
         if ($request->hasFile('files')) {
-            // Supprimer anciens fichiers liés au commentaire
             $commentFiles = $commentaire->files;
             foreach ($commentFiles as $file) {
                 Storage::disk('local')->delete($file->path);
