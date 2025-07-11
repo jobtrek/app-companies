@@ -98,42 +98,49 @@ class UserController extends Controller
             ->with('commentaires')
             ->paginate(5);
 
-        return view('coach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
-    }
-
-
-
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-
-        $coach = User::whereJsonContains('roles', 'coach')->get();
-        $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
-        $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
-        $commentaire = Commentaire::where('apprentis_id', $id)
-            ->latest()
-            ->take(3)
-            ->get();
-
-        $lastcommentaire = Commentaire::where('apprentis_id', $id)->latest()->first();
-
-        return view('userProfile', ['user' => $user,
-            'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies,
-            'comment' => $commentaire, 'lastcommentaire' => $lastcommentaire]);
+        return view('mainCoach', ['apprentis' => $apprentis, 'comment' => $commentaire]);
     }
 
     public function updateCoach(Request $request, User $user)
     {
-
         $request->validate([
-            'coach_id' => 'required|exists:users,id',
-        ]);
 
+            'coach_id' => 'required|exists:users,id',
+
+        ]);
         $user->coach_id = $request->input('coach_id');
         $user->save();
-
-        return back()->with('success', 'Coach lié avec succès !');
+        return view('userProfile', ['user' => $user]);
     }
+
+public function show($id)
+{
+    $user = User::findOrFail($id);
+    $coach = User::whereJsonContains('roles', 'coach')->get();
+    $entreprises = Entreprise::where('domain_id', $user->domain_id)->get();
+    $previousCompanies = Convention::where('users_id', $user->id)->orderBy('created_at', 'DESC')->get();
+
+    $coachId = auth()->id();
+
+    $commentaire = Commentaire::where('apprentis_id', $id)
+        ->latest()
+        ->take(3)
+        ->get();
+
+    $lastcommentaire = Commentaire::where('apprentis_id', $id)
+        ->latest()
+        ->first();
+
+    return view('userProfile', [
+        'user' => $user,
+        'coach' => $coach,
+        'entreprises' => $entreprises,
+        'previousCompanies' => $previousCompanies,
+        'comment' => $commentaire,
+        'lastcommentaire' => $lastcommentaire
+    ]);
+}
+
 
     public function updateEntreprise(Request $request, User $user)
     {
@@ -222,7 +229,7 @@ class UserController extends Controller
     {
         $domains = Domain::all();
 
-        return view('createaccount', ['domains' => $domains]);
+        return view('createAccounts', ['domains' => $domains]);
     }
 
     public function destroy(User $user)

@@ -12,6 +12,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/profileEntreprise/{entreprise}', [EntrepriseController::class, 'index'])->name('profileEntreprise');
     Route::get('/create-company', [EntrepriseController::class, 'showCreateForm'])->name('create-company');
     Route::get('/user-profile/{id}', [UserController::class, 'show'])->name('userProfile');
+    Route::get('/comment-file/{filename}', [CommentController::class, 'commentFileDisplay'])->name('comment-file.show')->where('filename', '.*');
 });
 
 Route::middleware(EnsureUserHasRole::class . ':coach')->group(function() {
@@ -22,9 +23,7 @@ Route::middleware(EnsureUserHasRole::class . ':coach')->group(function() {
     Route::delete('/delete-comment/{commentaire}', [CommentController::class, 'destroyComment'])->name('delete.comment');
     Route::get('/edit-comment/{commentaire}', [CommentController::class, 'editComment'])->name('comment.edit');
     Route::put('/update-comment/{commentaire}', [CommentController::class, 'updateComment'])->name('comment.update');
-    Route::get('/comment-file/{filename}', [CommentController::class, 'commentFileDisplay'])
-        ->name('comment-file.show')
-        ->where('filename', '.*');
+    Route::get('/coach/apprenti/{id}/comments', [CommentController::class, 'showCommentsByApprenti'])->name('coach.apprenti.comments');
 });
 
 Route::middleware(EnsureUserHasRole::class . ':formateur_commerce,formateur_informaticien')->group(function() {

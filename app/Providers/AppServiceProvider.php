@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use GMP;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -47,4 +48,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('formateurs', function ($user) {
             return $user->roles->contains('formateur_commerce') ||  $user->roles->contains('formateur_informaticien');
         });
+        Gate::define('manage-comment', function ($user, User $apprenti) {
+            return $user->roles->contains('coach') && $apprenti->coach_id === $user->id;
+        });
+
 }}

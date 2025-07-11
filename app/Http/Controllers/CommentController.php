@@ -8,51 +8,59 @@ use App\Models\File;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
     use AuthorizesRequests;
 
-    //
-    public function comment(CommentCreationRequest $request, $id)
+    public function comment(CommentCreationRequest $request, $apprentiId)
     {
+        $coachId = auth()->id();
+        $apprenti = User::findOrFail($apprentiId);
+
+        $this->authorize('manage-comment', $apprenti);
+
 
         $validated = $request->validated();
-        $coachId = auth()->id();
         $validated['coach_id'] = $coachId;
-        $validated['apprentis_id'] = $id;
+        $validated['apprentis_id'] = $apprentiId;
+
         $comment = Commentaire::create($validated);
-        if ($request->hasFile('file')) {
-            if ($validated['files']) {
-                foreach ($validated['files'] as $file) {
-                    $path = Storage::disk('local')->putFile('commentFiles/', $file);
-                    $comment->file()->create([
-                        'path' => $path,
-                        'filename' => 'comment - ' . $comment->id,
-                    ]);
-                }
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = Storage::disk('local')->putFile('commentFiles/', $file);
+                $comment->file()->create([
+                    'path' => $path,
+                    'filename' => 'comment - ' . $comment->id,
+                ]);
             }
         }
 
         return redirect()->route('coach')->with('success', 'Commentaire créé avec succès !');
-
     }
 
-    public function commentview($id)
+    public function commentview($apprentiId)
     {
-        $user = auth()->user();
-        $user = User::findOrFail($id);
+        $apprenti = User::findOrFail($apprentiId);
 
-        return view('createcomments', ['user' => $user]);
+        $this->authorize('manage-comment', $apprenti);
+
+
+        return view('createcomments', ['user' => $apprenti]);
     }
 
-    public function commentsdetails($id)
+    public function commentsdetails($commentaireId)
     {
-        $commentaire = Commentaire::find($id);
-        $user = User::find($commentaire->apprentis_id);
+        $commentaire = Commentaire::findOrFail($commentaireId);
+        $user = User::findOrFail($commentaire->apprentis_id);
         $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
-        return view('commentDetails', ['comments' => $commentaire, 'user' => $user, 'commentFiles' => $commentFiles->all()]);
+
+        return view('commentDetails', [
+            'comments' => $commentaire,
+            'user' => $user,
+            'commentFiles' => $commentFiles,
+        ]);
     }
 
     public function commentFileDisplay($filename)
@@ -68,46 +76,83 @@ class CommentController extends Controller
 
     public function destroyComment(Commentaire $commentaire)
     {
-        $user = auth()->user();
-        $commentaire->delete();
-        return redirect()->route('coach')->with('success', 'Commentaire supprimée avec succès !');
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
 
+        $this->authorize('manage-comment', $apprenti);
+
+
+        $files = $commentaire->file;
+        foreach ($files as $file) {
+            Storage::disk('local')->delete($file->path);
+            $file->delete();
+        }
+
+        $commentaire->delete();
+
+        return redirect()->route('coach')->with('success', 'Commentaire supprimé avec succès !');
     }
 
     public function editComment(Commentaire $commentaire)
     {
-        $user = auth()->user();
-        return view('createcommentsUpdate', ['user' => $user, 'comment' => $commentaire]);
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
 
+        $this->authorize('manage-comment', $apprenti);
+
+
+        return view('createcommentsUpdate', ['user' => $apprenti, 'comment' => $commentaire]);
     }
 
     public function updateComment(CommentCreationRequest $request, Commentaire $commentaire)
     {
+        $apprenti = User::findOrFail($commentaire->apprentis_id);
+
+        $this->authorize('manage-comment', $apprenti);
+
+
         $validated = $request->validated();
         $commentaire->title = $validated['title'];
         $commentaire->description = $validated['description'];
-        if ($request->hasFile('file')) {
-            if ($validated['files']) {
-                $commentFiles = File::where('filename', 'comment - ' . $commentaire->id)->get();
-                foreach ($commentFiles as $file) {
-                    Storage::disk('local')->delete($file->path);
-                    File::destroy($file->id);
-                }
-                foreach ($validated['files'] as $file) {
-                    $path = Storage::disk('local')->putFile('commentFiles/', $file);
-                    $commentaire->file()->create([
-                        'path' => $path,
-                        'filename' => 'comment - ' . $commentaire->id,
-                    ]);
-                }
+
+        if ($request->hasFile('files')) {
+            $commentFiles = $commentaire->file;
+            foreach ($commentFiles as $file) {
+                Storage::disk('local')->delete($file->path);
+                $file->delete();
             }
 
-        } else {
-
+            foreach ($request->file('files') as $file) {
+                $path = Storage::disk('local')->putFile('commentFiles', $file);
+                $commentaire->file()->create([
+                    'path' => $path,
+                    'filename' => 'comment - ' . $commentaire->id,
+                ]);
+            }
         }
 
         $commentaire->save();
 
-        return redirect()->route('coach')->with('success', 'Commentaire édité avec succès !');
+        return redirect()->route('coach')->with('success', 'Commentaire modifié avec succès !');
+    }
+
+    public function getCommentsByCoachForApprenti($apprentiId)
+    {
+        return Commentaire::where('apprentis_id', $apprentiId)
+                ->orderBy('created_at', 'desc')
+                ->get();
+    }
+
+    public function showCommentsByApprenti($apprentiId)
+    {
+        $apprenti = User::findOrFail($apprentiId);
+
+        $this->authorize('manage-comment', $apprenti);
+
+
+        $comments = $this->getCommentsByCoachForApprenti($apprentiId);
+
+        return view('commentsList', [
+            'user' => $apprenti,
+            'comments' => $comments,
+        ]);
     }
 }

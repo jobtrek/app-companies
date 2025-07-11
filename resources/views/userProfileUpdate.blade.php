@@ -9,7 +9,7 @@
                 <div class="flex justify-center mb-4">
                     @if ($user->photo)
                         <img src="{{ $user->photo }}"
-                            class="w-40 h-40 object-cover rounded-full border-4 border-green-200 shadow-sm" />
+                            class="w-40 h-40 object-cover rounded-full border-4 border-green-50 shadow-sm" />
                     @else
                         <div class="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                             ?
