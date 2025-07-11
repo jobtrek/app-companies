@@ -4,8 +4,7 @@
 
 @section('content')
     <div class="w-screen lg:w-20/20 ml-0 p-6 bg-white rounded-lg shadow-md">
-        <h1 class="text-3xl font-bold text-gray-800">Nom de l'apprenti : {{$user->name}} {{$user->lastname}} <span
-                class="text-gray-500">(commentaire coach)</span></h1>
+        <h1 class="text-3xl font-bold text-gray-800">Commentaire sur l'apprenti : {{$user->name}} {{$user->lastname}}</h1>
         <hr class="border-t border-gray-300 mt-4">
         <section class="bg-white p-6 rounded-lg shadow flex flex-col gap-6">
             <div class="flex-1 space-y-4">
@@ -55,4 +54,10 @@
         </div>
     </div>
 
+    <p class="mt-5 text-sm text-gray-500 mb-2">
+        Créé le : {{ $comments->created_at->format('d/m/Y H:i') }}
+    </p>
+    <p class="text-sm text-gray-500 mb-6">
+        Dernière édition : {{ $comments->updated_at->format('d/m/Y H:i') }}
+    </p>
 @endsection
