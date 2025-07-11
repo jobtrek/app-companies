@@ -254,4 +254,26 @@ public function show($id)
 
         return view('userProfileUpdate', ['user' => $user, 'coach' => $coach, 'entreprises' => $entreprises, 'previousCompanies' => $previousCompanies]);
     }
+
+    public function searchUser(Request $request)
+    {
+        if ($request->ajax()) {
+            $q = $request->query('q');
+        dd($q);
+            $results = $users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'lastname' => $user->lastname,
+                    'photo' => $user->photo,
+                    'roles' => $user->roles->contains('apprenti_commerce')
+                        ? 'Employé de commerce'
+                        : 'Informaticien développement d\'applications',
+                ];
+            });
+            return response()->json($results);
+        }
+
+        abort(404);
+    }
 }

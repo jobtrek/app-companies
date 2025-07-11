@@ -9,18 +9,24 @@
     <hr class="border-t border-gray-300 w-full mt-5">
 
 
-    <div class="mt-10 mb-6">
-        <input type="search" placeholder="Rechercher un apprenti..."
-               class="border rounded px-3 py-2 w-full max-w-full mb-5" id="global-search"
+    <div class="mt-10 mb-6 relative">
+        <input
+            type="search"
+            placeholder="🔍 Rechercher un apprenti..."
+            class="border border-gray-300 focus:border-green-500 focus:ring-1 focus:ring-green-300 rounded-lg px-4 py-2 w-full transition placeholder:text-sm"
+            id="global-search"
         >
-        <div id="search-results" class="absolute bg-white shadow mt-1 rounded max-h-60 overflow-auto w-full" style="display:none;"></div>
-
+        <div
+            id="search-results"
+            class="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 shadow-lg mt-1 rounded-lg max-h-72 overflow-y-auto hidden"
+        ></div>
     </div>
 
-    <div class="space-y-15 ">
+
+    <div class="space-y-15 section-container">
         @foreach ($apprentis as $apprenti)
             <div
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4 search-card">
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4 coach-apprenti">
                 <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}" class="flex-1 min-w-0">
                     <img class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm"
                          src="{{ $apprenti->photo }}" alt="Photo de l'apprenti"/>

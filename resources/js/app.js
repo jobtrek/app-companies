@@ -170,59 +170,57 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-        const input = document.getElementById('global-search');
-        const results = document.getElementById('search-results');
-        const apprentisContainer = document.querySelector('.space-y-15');
-        if (input && results) {
-            input.addEventListener('input', function () {
-                const query = this.value.trim();
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('global-search');
+    const results = document.getElementById('search-results');
+    const apprentisContainer = document.querySelector('.section-container');
 
-                if (query.length < 2) {
-                    results.style.display = 'none';
-                    results.innerHTML = '';
-                    apprentisContainer.style.display = 'block';
-                    return;
-                }
+    let timeout = null;
 
-                fetch(`/coach?q=${encodeURIComponent(query)}`, {
-                    headers: {'X-Requested-With': 'XMLHttpRequest'}
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length === 0) {
-                            results.innerHTML = '<div class="p-2 text-gray-500">Aucun résultat</div>';
-                        } else {
-                            results.innerHTML = data.map(apprenti => `
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-4 rounded-lg shadow-sm gap-4">
-                        <a href="/user-profile/${apprenti.id}" class="flex-1 min-w-0 flex items-center gap-4">
-                            <img src="${apprenti.photo}" alt="Photo" class="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full border-4 border-green-100 shadow-sm" />
+    input.addEventListener('input', () => {
+        const entreprisesSection = document.getElementById("section-entreprises");
+        const query = input.value.trim();
+
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            if (query.length < 2) return;
+
+            // Определяем тип запроса
+            const type = entreprisesSection && entreprisesSection.style.display !== 'none'
+                ? 'Entreprises'
+                : 'Users';
+
+            console.log(type);
+            fetch(`/searchUser?q=${encodeURIComponent(query)}&type=${$type}`, {
+                headers: {'X-Requested-With': 'XMLHttpRequest'}
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (!Array.isArray(data) || data.length === 0) {
+                        results.innerHTML = '<div class="p-3 text-sm text-gray-500">Aucun résultat</div>';
+                    } else {
+                        results.innerHTML = data.map(apprenti => `
+                        <a href="/user-profile/${apprenti.id}" class="flex items-center gap-4 p-3 border-b hover:bg-gray-50 transition rounded">
+                            <img src="${apprenti.photo}" alt="Photo de ${apprenti.name}" class="w-12 h-12 object-cover rounded-full border-2 border-green-100" />
                             <div>
-                                <h3 class="text-base sm:text-lg font-semibold text-gray-800 truncate">${apprenti.name} ${apprenti.lastname}</h3>
-                                <p class="text-sm text-gray-600 truncate">Formation : ... </p>
+                                <h3 class="text-sm font-semibold text-gray-800">${apprenti.name} ${apprenti.lastname}</h3>
+                                <p class="text-xs text-gray-500">Formation : ${apprenti.roles}</p>
                             </div>
                         </a>
-                    </div>
-                `).join('');
-                        }
-                        results.style.display = 'block';
-                        apprentisContainer.style.display = 'none';
-                    })
-                    .catch(() => {
-                        results.innerHTML = '<div class="p-2 text-red-500">Erreur de recherche</div>';
-                        results.style.display = 'block';
-                        apprentisContainer.style.display = 'none';
-                    });
-            });
+                    `).join('');
+                    }
+                })
+                .catch(() => {
+                    results.innerHTML = '<div class="p-3 text-sm text-red-500">Erreur de recherche</div>';
+                    results.style.display = 'block';
+                });
+        }, 300);
+    });
 
-
-            document.addEventListener('click', (e) => {
-                if (!input.contains(e.target) && !results.contains(e.target)) {
-                    results.style.display = 'none';
-                    apprentisContainer.style.display = 'block';
-                }
-            });
+    document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            input.value = '';
+            results.style.display = 'none';
         }
-    }
-)
-    ;
+    });
+});

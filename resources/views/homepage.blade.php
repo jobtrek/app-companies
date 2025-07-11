@@ -19,12 +19,19 @@
     </div>
 
     <div class="w-full max-w-full">
-        <div class="w-full mb-5">
-            <input type="text" placeholder="Rechercher un apprenti ou une entreprise..." id="global-search"
-                class="border rounded px-3 py-2 w-full max-w-full mb-5">
-            <div id="search-results" class="absolute bg-white shadow mt-1 rounded max-h-60 overflow-auto w-full" style="display:none;"></div>
+        <div class="mt-10 mb-6 relative">
+            <input
+                type="search"
+                placeholder="🔍 Rechercher un apprenti..."
+                class="border border-gray-300 focus:border-green-500 focus:ring-1 focus:ring-green-300 rounded-lg px-4 py-2 w-full transition placeholder:text-sm"
+                id="global-search"
+            >
+            <div
+                id="search-results"
+                class="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 shadow-lg mt-1 rounded-lg max-h-72 overflow-y-auto hidden"
+            ></div>
         </div>
-        <div id="full-container" class="flex flex-col lg:flex-row-reverse gap-8">
+        <div class="flex flex-col lg:flex-row-reverse gap-8 section-container">
             <div id="filters"
                 class="w-full lg:w-1/3 h-fit bg-gray-50 p-5 rounded-lg border border-gray-200 shadow lg:sticky top-5">
                 <h2 class="text-xl font-semibold mb-4">Filtres</h2>
@@ -45,13 +52,13 @@
                     @endforeach
                 </div>
             </div>
-            <div id="section-container" class="flex flex-col w-full lg:w-2/3">
+            <div class="flex flex-col w-full lg:w-2/3">
                 <div id="section-apprentis">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
                         @foreach ($apprentis as $apprenti)
                             <a href="{{ route('userProfile', ['id' => $apprenti->id]) }}">
                                 <div
-                                    class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition search-card">
+                                    class="relative bg-white border rounded-lg p-4 shadow hover:shadow-md transition">
                                     <div class="flex justify-center mb-4">
                                         @if ($apprenti->photo)
                                             <img src="{{ $apprenti->photo }}"

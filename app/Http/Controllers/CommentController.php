@@ -120,7 +120,7 @@ class CommentController extends Controller
                 $file->delete();
             }
 
-            foreach ($request->file('files') as $file) {
+            foreach ($commentFiles as $file) {
                 $path = Storage::disk('local')->putFile('commentFiles', $file);
                 $commentaire->file()->create([
                     'path' => $path,
